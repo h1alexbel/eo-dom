@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 #
-# Copyright (c) 2016-2024 Objectionary.com
+# Copyright (c) 2016-2025 Objectionary.com
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -21,14 +21,13 @@
 # SOFTWARE.
 ---
 architect:
-  - yegor256
-docker:
-  image: yegor256/rultor-java
+  - h1alexbel
 assets:
   settings.xml: yegor256/objectionary-secrets#settings.xml
   pubring.gpg: yegor256/objectionary-secrets#pubring.gpg
   secring.gpg: yegor256/objectionary-secrets#secring.gpg
 install: |
+  javac -version
   pdd --file=/dev/null
 merge:
   script: |
@@ -39,6 +38,21 @@ release:
     [[ "${tag}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || exit -1
     mvn versions:set "-DnewVersion=${tag}" -Dstyle.color=never
     git commit -am "${tag}"
-    mvn clean install -Dinvoker.skip
-    export MAVEN_OPTS="--add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED"
+    export MAVEN_OPTS="--add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED"
     mvn clean deploy -Pobjectionary -Psonatype --errors --settings ../settings.xml -Dstyle.color=never
+    mkdir /tmp/objectionary
+    cp -R src/main/eo /tmp/objectionary/objects
+    cp -R src/test/eo /tmp/objectionary/tests
+    branch=$(git rev-parse --abbrev-ref HEAD)
+    git checkout gh-pages
+    git reset --hard
+    sudo git config --global --add safe.directory "$(pwd)"
+    sudo /bin/bash -c "cd '$(pwd)'; git clean -fd"
+    rm -rf objectionary
+    cp -R /tmp/objectionary .
+    find objectionary -name '*.eo' | xargs sed -i "s/0\.0\.0/${tag}/g"
+    git add objectionary
+    find objectionary -name '*.eo' > objectionary.lst
+    git add objectionary.lst
+    git commit -am "objectionary ${tag}"
+    git checkout "${branch}"

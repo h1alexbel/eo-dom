@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016-2022 Objectionary.com
+ * Copyright (c) 2016-2025 Objectionary.com
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,11 +27,21 @@
  */
 package EOorg.EOeolang.EOdom; // NOPMD
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 /**
  * Tests for {@link EOdoc}.
  *
  * @since 0.0.0
  */
 final class EOdocTest {
-    
+
+    @Test
+    void createsDocument() {
+        Assertions.assertDoesNotThrow(
+            () -> new EOdoc().lambda(),
+            "EOdoc should not throw exception"
+        );
+    }
 }
