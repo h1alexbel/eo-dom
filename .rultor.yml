@@ -22,10 +22,6 @@
 ---
 architect:
   - h1alexbel
-assets:
-  settings.xml: yegor256/objectionary-secrets#settings.xml
-  pubring.gpg: yegor256/objectionary-secrets#pubring.gpg
-  secring.gpg: yegor256/objectionary-secrets#secring.gpg
 install: |
   javac -version
   pdd --file=/dev/null
