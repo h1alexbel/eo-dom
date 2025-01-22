@@ -27,5 +27,6 @@
 +rt node eo2js-runtime:0.0.0
 +version 0.0.0
 
-# The doc object allows you to create XML tree-based documents.
-[] > doc /org.eolang.dom
+# The doc object allows you to create XML tree-based documents. Serves as
+# an entry-point into the XML-based document's content.
+[data] > doc /org.eolang.dom
