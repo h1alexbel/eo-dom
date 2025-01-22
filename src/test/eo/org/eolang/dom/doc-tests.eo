@@ -20,6 +20,16 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
++alias org.eolang.dom.doc
++architect yegor256@gmail.com
++home https://github.com/h1alexbel/eo-dom
 +tests
++package org.eolang.dom
++version 0.0.0
++unlint broken-ref
 
-[] > creates-document
+# This unit test is supposed to check the functionality of the corresponding object.
+[] > compares-two-bools
+  eq. > @
+    doc "<program/>"
+    "<program/>"

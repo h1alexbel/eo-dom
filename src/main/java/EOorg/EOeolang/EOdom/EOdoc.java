@@ -27,21 +27,34 @@
  */
 package EOorg.EOeolang.EOdom; // NOPMD
 
+import org.eolang.AtVoid;
 import org.eolang.Atom;
+import org.eolang.Data;
+import org.eolang.Dataized;
 import org.eolang.PhDefault;
 import org.eolang.Phi;
 import org.eolang.XmirObject;
 
 /**
- * Document.
+ * Document atom.
  * @since 0.0.0
  * @checkstyle TypeNameCheck (5 lines)
  */
 @XmirObject(oname = "doc")
 public final class EOdoc extends PhDefault implements Atom {
 
+    /**
+     * Ctor.
+     */
+    @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
+    public EOdoc() {
+        this.add("data", new AtVoid("data"));
+    }
+
     @Override
     public Phi lambda() {
-        return new PhDefault();
+        return new Data.ToPhi(
+            new Dataized(this.take("data")).asString()
+        );
     }
 }
