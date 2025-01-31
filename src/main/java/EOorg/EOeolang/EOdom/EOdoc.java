@@ -27,9 +27,9 @@
  */
 package EOorg.EOeolang.EOdom; // NOPMD
 
+import com.jcabi.xml.XMLDocument;
 import org.eolang.AtVoid;
 import org.eolang.Atom;
-import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.PhDefault;
 import org.eolang.Phi;
@@ -53,8 +53,12 @@ public final class EOdoc extends PhDefault implements Atom {
 
     @Override
     public Phi lambda() {
-        return new Data.ToPhi(
-            new Dataized(this.take("data")).asString()
+        return new ToPhi(
+            new XMLDocument(
+                new Dataized(
+                    this.take("data")
+                ).asString()
+            ).toString()
         );
     }
 }

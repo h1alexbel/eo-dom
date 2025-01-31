@@ -29,7 +29,7 @@
 +unlint broken-ref
 
 # This unit test is supposed to check the functionality of the corresponding object.
-[] > compares-two-bools
+[] > creates-simple-document
   eq. > @
     doc "<program/>"
-    "<program/>"
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<program/>\n"

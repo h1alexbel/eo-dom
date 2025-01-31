@@ -32,6 +32,7 @@ import org.eolang.Dataized;
 import org.eolang.Phi;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -48,7 +49,18 @@ final class EOdocTest {
         MatcherAssert.assertThat(
             "Document was not created, but it should",
             new Dataized(doc).asString(),
-            Matchers.equalTo("<program/>")
+            Matchers.equalTo("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<program/>\n")
+        );
+    }
+
+    @Test
+    void throwsErrorIfInvalidXmlPassed() {
+        final Phi doc = Phi.Φ.take("org.eolang.dom.doc").copy();
+        doc.put("data", new Data.ToPhi("program"));
+        Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> new Dataized(doc).asString(),
+            () -> "Error should be thrown, if XML is invalid"
         );
     }
 }
