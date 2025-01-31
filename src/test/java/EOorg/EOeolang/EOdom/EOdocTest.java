@@ -56,7 +56,7 @@ final class EOdocTest {
     @Test
     void throwsErrorIfInvalidXmlPassed() {
         final Phi doc = Phi.Φ.take("org.eolang.dom.doc").copy();
-        doc.put("data", new Data.ToPhi("program"));
+        doc.put("data", new Data.ToPhi("broken"));
         Assertions.assertThrows(
             IllegalArgumentException.class,
             () -> new Dataized(doc).asString(),
