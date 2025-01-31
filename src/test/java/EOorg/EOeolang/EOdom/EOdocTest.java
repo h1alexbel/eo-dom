@@ -60,7 +60,7 @@ final class EOdocTest {
         Assertions.assertThrows(
             IllegalArgumentException.class,
             () -> new Dataized(doc).asString(),
-            () -> "Error should be thrown, if XML is invalid"
+            () -> "Error should be thrown, since XML is invalid"
         );
     }
 }
