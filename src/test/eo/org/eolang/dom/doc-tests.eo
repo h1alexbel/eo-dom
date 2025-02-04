@@ -31,5 +31,5 @@
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > creates-simple-document
   eq. > @
-    doc "<program/>"
+    (doc "<program/>").xml
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<program/>\n"

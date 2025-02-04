@@ -46,7 +46,9 @@ public final class EOdoc$EOxml extends PhDefault implements Atom {
     @Override
     public Phi lambda() {
         return new PhDefault(
-            new XMLDocument(new Dataized(this.take(Attr.RHO)).asString()).toString().getBytes()
+            new XMLDocument(
+                new Dataized(this.take(Attr.RHO).take("data")).asString()
+            ).toString().getBytes()
         );
     }
 }

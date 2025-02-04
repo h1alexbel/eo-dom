@@ -27,6 +27,7 @@
  */
 package EOorg.EOeolang.EOdom; // NOPMD
 
+import EOorg.EOeolang.EOerror;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.Phi;
@@ -48,7 +49,7 @@ final class EOdocTest {
         doc.put("data", new Data.ToPhi("<program/>"));
         MatcherAssert.assertThat(
             "Document was not created, but it should",
-            new Dataized(doc).asString(),
+            new Dataized(doc.take("xml")).asString(),
             Matchers.equalTo("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<program/>\n")
         );
     }
@@ -58,8 +59,8 @@ final class EOdocTest {
         final Phi doc = Phi.Φ.take("org.eolang.dom.doc").copy();
         doc.put("data", new Data.ToPhi("broken"));
         Assertions.assertThrows(
-            IllegalArgumentException.class,
-            () -> new Dataized(doc).asString(),
+            EOerror.ExError.class,
+            () -> new Dataized(doc.take("xml")).asString(),
             () -> "Error should be thrown, since XML is invalid"
         );
     }
