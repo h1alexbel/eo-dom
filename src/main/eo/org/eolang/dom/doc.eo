@@ -29,4 +29,8 @@
 
 # The doc object allows you to create XML tree-based documents. Serves as
 # an entry-point into the XML-based document's content.
-[data] > doc /org.eolang.dom
+[data] > doc
+  xml > @
+
+  # XML.
+  [] > xml /org.eolang.dom.doc.xml
