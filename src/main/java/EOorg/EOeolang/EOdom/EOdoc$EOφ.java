@@ -27,7 +27,6 @@
  */
 package EOorg.EOeolang.EOdom; // NOPMD
 
-import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
 import org.eolang.Atom;
 import org.eolang.Attr;
@@ -42,17 +41,21 @@ import org.eolang.XmirObject;
  * @since 0.0.0
  * @checkstyle TypeNameCheck (5 lines)
  */
+@SuppressWarnings("PMD.AvoidDollarSigns")
 @XmirObject(oname = "doc.xml")
 public final class EOdoc$EOφ extends PhDefault implements Atom {
 
     @Override
     public Phi lambda() {
-        final XML document = new XMLDocument(
-            new Dataized(this.take(Attr.RHO).take("data")).asString()
-        );
-        final byte[] serialized = document.toString().getBytes();
         final Phi xml = this.take(Attr.RHO).take("xml");
-        xml.put("serialized", new Data.ToPhi(serialized));
+        xml.put(
+            "serialized",
+            new Data.ToPhi(
+                new XMLDocument(
+                    new Dataized(this.take(Attr.RHO).take("data")).asString()
+                ).toString().getBytes()
+            )
+        );
         return xml;
     }
 }
