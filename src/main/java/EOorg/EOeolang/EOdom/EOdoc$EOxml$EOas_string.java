@@ -17,8 +17,8 @@ public final class EOdoc$EOxml$EOas_string extends PhDefault implements Atom {
 
     @Override
     public Phi lambda() {
-        return new PhDefault(
-            new Dataized(this.take(Attr.RHO).take("serialized")).asString().getBytes()
+        return new Data.ToPhi(
+            new Dataized(this.take(Attr.RHO).take("serialized")).asString()
         );
     }
 }
