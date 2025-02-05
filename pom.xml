@@ -108,6 +108,7 @@ SOFTWARE.
         <configuration combine.self="override">
           <source>11</source>
           <target>11</target>
+          <encoding>UTF-8</encoding>
           <compilerArgs>
             <arg>-Xpkginfo:always</arg>
           </compilerArgs>
