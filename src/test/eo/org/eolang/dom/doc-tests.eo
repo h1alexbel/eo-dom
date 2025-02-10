@@ -36,7 +36,8 @@
 
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > finds-element-in-document
-  ((doc "<program/>").elem "program") > elem
   eq. > @
-    elem
-    "<program/>"
+    doc
+      "<program/>"
+    .elem "program"
+    "<program/>\n"

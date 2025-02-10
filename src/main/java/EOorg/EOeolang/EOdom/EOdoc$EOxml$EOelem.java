@@ -25,7 +25,7 @@
  * @checkstyle PackageNameCheck (4 lines)
  * @checkstyle TrailingCommentCheck (3 lines)
  */
-package EOorg.EOeolang.EOdom;
+package EOorg.EOeolang.EOdom; // NOPMD
 
 import com.github.lombrozo.xnav.Xnav;
 import com.jcabi.xml.XMLDocument;
@@ -39,22 +39,24 @@ import org.eolang.Phi;
 import org.eolang.XmirObject;
 
 /**
- * Element from XML document
+ * Element from XML document.
  * @since 0.0.0
- * @checkstyle TypeNameCheck (5 lines)
  * @todo #8:45min Implement element navigation without xnav.
  *  Currently, element extraction is implemented via xnav. We should implement
  *  the element navigation without any external dependencies.
  * @todo #8:45min Return proper error, if element not found.
  *  We should return proper error, if element is not found. Currently, the
  *  default EO error message will be thrown. Don't forget to add unit test.
+ * @checkstyle TypeNameCheck (5 lines)
  */
+@SuppressWarnings("PMD.AvoidDollarSigns")
 @XmirObject(oname = "doc.xml.elem")
 public final class EOdoc$EOxml$EOelem extends PhDefault implements Atom {
 
     /**
      * Ctor.
      */
+    @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public EOdoc$EOxml$EOelem() {
         this.add("ename", new AtVoid("ename"));
     }

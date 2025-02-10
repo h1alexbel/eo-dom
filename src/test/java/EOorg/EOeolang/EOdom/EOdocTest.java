@@ -77,4 +77,17 @@ final class EOdocTest {
             Matchers.equalTo("<program>\n   <test>here</test>\n</program>\n")
         );
     }
+
+    @Test
+    void findsElementInEmptyRoot() {
+        final Phi doc = Phi.Φ.take("org.eolang.dom.doc").copy();
+        doc.put("data", new Data.ToPhi("<program/>"));
+        final Phi elem = doc.take("elem");
+        elem.put("ename", new Data.ToPhi("program"));
+        MatcherAssert.assertThat(
+            "Element result doesn't match with expected",
+            new Dataized(elem).asString(),
+            Matchers.equalTo("<program/>\n")
+        );
+    }
 }
