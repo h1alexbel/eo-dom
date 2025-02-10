@@ -21,10 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+/*
+ * @checkstyle PackageNameCheck (4 lines)
+ * @checkstyle TrailingCommentCheck (3 lines)
+ */
 package EOorg.EOeolang.EOdom;
 
+import com.github.lombrozo.xnav.Xnav;
+import com.jcabi.xml.XMLDocument;
 import org.eolang.AtVoid;
 import org.eolang.Atom;
+import org.eolang.Attr;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.PhDefault;
@@ -34,6 +41,7 @@ import org.eolang.XmirObject;
 /**
  * Element from XML document
  * @since 0.0.0
+ * @checkstyle TypeNameCheck (5 lines)
  */
 @XmirObject(oname = "doc.xml.elem")
 public final class EOdoc$EOxml$EOelem extends PhDefault implements Atom {
@@ -47,6 +55,12 @@ public final class EOdoc$EOxml$EOelem extends PhDefault implements Atom {
 
     @Override
     public Phi lambda() {
-        return new Data.ToPhi(new Dataized(this.take("ename")).asString());
+        return new Data.ToPhi(
+            new XMLDocument(
+                new Xnav(
+                    new Dataized(this.take(Attr.RHO).take("serialized")).asString()
+                ).element(new Dataized(this.take("ename")).asString()).node()
+            ).toString().getBytes()
+        );
     }
 }
