@@ -33,3 +33,10 @@
   eq. > @
     (doc "<program/>").as-string
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<program/>\n"
+
+# This unit test is supposed to check the functionality of the corresponding object.
+[] > finds-element-in-document
+  ((doc "<program/>").elem "program") > elem
+  eq. > @
+    elem
+    "<program/>"
