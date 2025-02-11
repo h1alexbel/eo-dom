@@ -6,6 +6,12 @@
 [![DevOps By Rultor.com](http://www.rultor.com/b/h1alexbel/eo-dom)](http://www.rultor.com/p/h1alexbel/eo-dom)
 [![We recommend IntelliJ IDEA](https://www.elegantobjects.org/intellij-idea.svg)](https://www.jetbrains.com/idea/)
 
+[![mvn](https://github.com/h1alexbel/eo-dom/actions/workflows/mvn.yml/badge.svg)](https://github.com/h1alexbel/eo-dom/actions/workflows/mvn.yml)
+[![PDD status](http://www.0pdd.com/svg?name=h1alexbel/eo-dom)](http://www.0pdd.com/p?name=h1alexbel/eo-dom)
+[![Hits-of-Code](https://hitsofcode.com/github/h1alexbel/eo-dom)](https://hitsofcode.com/view/github/h1alexbel/eo-dom)
+[![codecov](https://codecov.io/gh/h1alexbel/eo-dom/graph/badge.svg?token=fgmeoDDwlT)](https://codecov.io/gh/h1alexbel/eo-dom)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/h1alexbel/eo-dom/blob/master/LICENSE.txt)
+
 [EO] objects for manipulations with [DOM].
 
 **Motivation**. [EO], an experimental programming language lacks objects for
