@@ -37,6 +37,7 @@ import org.llorllale.cactoos.matchers.Throws;
  *
  * @since 0.0.0
  */
+@SuppressWarnings("PMD.TooManyMethods")
 final class XmlNodeTest {
 
     @Test
@@ -137,7 +138,7 @@ final class XmlNodeTest {
     void throwsOnFindingTextInEmptyNode() {
         MatcherAssert.assertThat(
             "Exception was not thrown",
-            () -> new XmlNode.Default("<program/>").elem("f").text(),
+            () -> new XmlNode.Default("<foo/>").elem("f").text(),
             new Throws<>(
                 "Cannot read text inside, since node itself is empty!",
                 IllegalStateException.class
@@ -149,7 +150,7 @@ final class XmlNodeTest {
     void throwsOnFindingAttributeInEmptyNode() {
         MatcherAssert.assertThat(
             "Exception should be thrown, but it was not",
-            () -> new XmlNode.Default("<program/>").elem("f").attr("x"),
+            () -> new XmlNode.Default("<bar/>").elem("f").attr("x"),
             new Throws<>(
                 "Cannot read 'x' attribute inside, since node itself is empty!",
                 IllegalStateException.class

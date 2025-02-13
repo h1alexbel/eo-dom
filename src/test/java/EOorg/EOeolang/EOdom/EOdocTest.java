@@ -45,31 +45,25 @@ final class EOdocTest {
 
     @Test
     void createsDocument() {
-        final Phi doc = Phi.Φ.take("org.eolang.dom.doc").copy();
-        doc.put("data", new Data.ToPhi("<program/>"));
         MatcherAssert.assertThat(
             "Document was not created, but it should",
-            new Dataized(doc.take("serialized")).asString(),
+            new Dataized(this.document("<program/>").take("serialized")).asString(),
             Matchers.equalTo("<?xml version=\"1.0\" encoding=\"UTF-8\"?><program/>")
         );
     }
 
     @Test
     void throwsErrorIfInvalidXmlPassed() {
-        final Phi doc = Phi.Φ.take("org.eolang.dom.doc").copy();
-        doc.put("data", new Data.ToPhi("broken"));
         Assertions.assertThrows(
             EOerror.ExError.class,
-            () -> new Dataized(doc.take("xml")).asString(),
+            () -> new Dataized(this.document("broken").take("xml")).asString(),
             () -> "Error should be thrown, since XML is invalid"
         );
     }
 
     @Test
     void findsElementInDocument() {
-        final Phi doc = Phi.Φ.take("org.eolang.dom.doc").copy();
-        doc.put("data", new Data.ToPhi("<program><test>here</test></program>"));
-        final Phi elem = doc.take("elem");
+        final Phi elem = this.document("<program><test>here</test></program>").take("elem");
         elem.put("ename", new Data.ToPhi("program"));
         MatcherAssert.assertThat(
             "Element result doesn't match with expected",
@@ -82,9 +76,7 @@ final class EOdocTest {
 
     @Test
     void findsElementInEmptyRoot() {
-        final Phi doc = Phi.Φ.take("org.eolang.dom.doc").copy();
-        doc.put("data", new Data.ToPhi("<program/>"));
-        final Phi elem = doc.take("elem");
+        final Phi elem = this.document("<program/>").take("elem");
         elem.put("ename", new Data.ToPhi("program"));
         MatcherAssert.assertThat(
             "Element result doesn't match with expected",
@@ -97,9 +89,7 @@ final class EOdocTest {
 
     @Test
     void findsChildElement() {
-        final Phi doc = Phi.Φ.take("org.eolang.dom.doc").copy();
-        doc.put("data", new Data.ToPhi("<program><test>here</test></program>"));
-        final Phi elem = doc.take("elem");
+        final Phi elem = this.document("<program><test>here</test></program>").take("elem");
         elem.put("ename", new Data.ToPhi("test"));
         MatcherAssert.assertThat(
             "Element result doesn't match with expected",
@@ -108,5 +98,11 @@ final class EOdocTest {
                 "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test>here</test>"
             )
         );
+    }
+
+    private Phi document(final String xml) {
+        final Phi doc = Phi.Φ.take("org.eolang.dom.doc").copy();
+        doc.put("data", new Data.ToPhi(xml));
+        return doc;
     }
 }
