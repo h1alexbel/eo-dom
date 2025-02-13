@@ -69,7 +69,7 @@ final class XmlNodeTest {
             "Exception should be thrown, but it was not",
             () -> new XmlNode.Default("<program/>").elem("f").elem("bar"),
             new Throws<>(
-                "There is no 'bar' element inside, since node itself is empty!",
+                "Cannot read 'bar' element inside, since node itself is empty!",
                 IllegalStateException.class
             )
         );
@@ -151,7 +151,7 @@ final class XmlNodeTest {
             "Exception should be thrown, but it was not",
             () -> new XmlNode.Default("<program/>").elem("f").attr("x"),
             new Throws<>(
-                "There is no 'x' attribute inside, since node itself is empty!",
+                "Cannot read 'x' attribute inside, since node itself is empty!",
                 IllegalStateException.class
             )
         );

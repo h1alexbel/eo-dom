@@ -27,8 +27,6 @@
  */
 package EOorg.EOeolang.EOdom; // NOPMD
 
-import com.github.lombrozo.xnav.Xnav;
-import com.jcabi.xml.XMLDocument;
 import org.eolang.AtVoid;
 import org.eolang.Atom;
 import org.eolang.Attr;
@@ -64,11 +62,9 @@ public final class EOdoc$EOxml$EOelem extends PhDefault implements Atom {
     @Override
     public Phi lambda() {
         return new Data.ToPhi(
-            new XMLDocument(
-                new Xnav(
-                    new Dataized(this.take(Attr.RHO).take("serialized")).asString()
-                ).element(new Dataized(this.take("ename")).asString()).node()
-            ).toString().getBytes()
+            new XmlNode.Default(new Dataized(this.take(Attr.RHO).take("serialized")).asString())
+                .elem(new Dataized(this.take("ename")).asString())
+                .asString().getBytes()
         );
     }
 }

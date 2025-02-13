@@ -40,4 +40,12 @@
     doc
       "<program/>"
     .elem "program"
-    "<program/>\n"
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?><program/>"
+
+# This unit test is supposed to check the functionality of the corresponding object.
+[] > finds-child-element
+  eq. > @
+    doc
+      "<program><test>here</test></program>"
+    .elem "test"
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test>here</test>"
