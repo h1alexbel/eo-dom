@@ -21,7 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package EOorg.EOeolang.EOdom;
+/*
+ * @checkstyle PackageNameCheck (4 lines)
+ * @checkstyle TrailingCommentCheck (3 lines)
+ */
+package EOorg.EOeolang.EOdom; // NOPMD
 
 import java.io.StringWriter;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -49,7 +53,7 @@ public interface XmlNode {
     XmlNode elem(String name);
 
     /**
-     * Node as string.
+     * Serialize node as string.
      *
      * @return XML Node as string
      */
@@ -93,15 +97,9 @@ public interface XmlNode {
         /**
          * Ctor.
          * @param xml XML as string
-         * @throws Exception if something went wrong
          */
-        Default(final String xml) throws Exception {
-            this(
-                DocumentBuilderFactory.newInstance()
-                    .newDocumentBuilder()
-                    .parse(new InputOf(xml).stream())
-                    .getDocumentElement()
-            );
+        Default(final String xml) {
+            this(XmlNode.Default.fromString(xml));
         }
 
         /**
@@ -112,12 +110,6 @@ public interface XmlNode {
             this.base = element;
         }
 
-        /**
-         * Child element by name.
-         *
-         * @param name Element name
-         * @return Child XML node
-         */
         @Override
         public XmlNode elem(final String name) {
             final XmlNode result;
@@ -145,6 +137,27 @@ public interface XmlNode {
                 throw new IllegalStateException("Cannot transform node to string", exception);
             }
             return writer.toString();
+        }
+
+        /**
+         * Create element from string.
+         * @param xml XML as string
+         * @return Element
+         * @checkstyle IllegalCatchCheck (10 lines)
+         */
+        @SuppressWarnings("PMD.AvoidCatchingGenericException")
+        private static Element fromString(final String xml) {
+            try {
+                return DocumentBuilderFactory.newInstance()
+                    .newDocumentBuilder()
+                    .parse(new InputOf(xml).stream())
+                    .getDocumentElement();
+            } catch (final Exception exception) {
+                throw new IllegalStateException(
+                    String.format("Cannot parse XML string: '%s'", xml),
+                    exception
+                );
+            }
         }
     }
 }

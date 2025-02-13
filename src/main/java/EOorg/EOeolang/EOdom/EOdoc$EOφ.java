@@ -27,7 +27,6 @@
  */
 package EOorg.EOeolang.EOdom; // NOPMD
 
-import com.jcabi.xml.XMLDocument;
 import org.eolang.Atom;
 import org.eolang.Attr;
 import org.eolang.Data;
@@ -51,9 +50,9 @@ public final class EOdoc$EOφ extends PhDefault implements Atom {
         xml.put(
             "serialized",
             new Data.ToPhi(
-                new XMLDocument(
+                new XmlNode.Default(
                     new Dataized(this.take(Attr.RHO).take("data")).asString()
-                ).toString().getBytes()
+                ).asString().getBytes()
             )
         );
         return xml;

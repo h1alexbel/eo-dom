@@ -50,7 +50,7 @@ final class EOdocTest {
         MatcherAssert.assertThat(
             "Document was not created, but it should",
             new Dataized(doc.take("serialized")).asString(),
-            Matchers.equalTo("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<program/>\n")
+            Matchers.equalTo("<?xml version=\"1.0\" encoding=\"UTF-8\"?><program/>")
         );
     }
 

@@ -21,7 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package EOorg.EOeolang.EOdom;
+/*
+ * @checkstyle PackageNameCheck (4 lines)
+ * @checkstyle TrailingCommentCheck (3 lines)
+ */
+package EOorg.EOeolang.EOdom; // NOPMD
 
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
