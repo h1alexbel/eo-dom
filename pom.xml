@@ -104,6 +104,12 @@ SOFTWARE.
       <version>12.5</version>
       <scope>runtime</scope>
     </dependency>
+    <dependency>
+      <groupId>org.llorllale</groupId>
+      <artifactId>cactoos-matchers</artifactId>
+      <version>0.25</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
