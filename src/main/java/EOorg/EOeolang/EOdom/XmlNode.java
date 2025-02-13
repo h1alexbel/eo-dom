@@ -52,6 +52,8 @@ public interface XmlNode {
      */
     XmlNode elem(String name);
 
+    String attr(String aname);
+
     /**
      * Serialize node as string.
      *
@@ -72,6 +74,16 @@ public interface XmlNode {
                 String.format(
                     "There is no '%s' element inside, since node itself is empty!",
                     name
+                )
+            );
+        }
+
+        @Override
+        public String attr(final String aname) {
+            throw new IllegalStateException(
+                String.format(
+                    "There is no '%s' attribute inside, since node itself is empty!",
+                    aname
                 )
             );
         }
@@ -124,6 +136,17 @@ public interface XmlNode {
                 }
             }
             return result;
+        }
+
+        @Override
+        public String attr(final String aname) {
+            final String found = this.base.getAttribute(aname);
+            if (found.isBlank()) {
+                throw new IllegalArgumentException(
+                    String.format("Attribute '%s' was not found in the node", aname)
+                );
+            }
+            return found;
         }
 
         @Override

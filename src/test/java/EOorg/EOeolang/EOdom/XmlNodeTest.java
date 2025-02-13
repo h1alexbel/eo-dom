@@ -40,7 +40,7 @@ import org.llorllale.cactoos.matchers.Throws;
 final class XmlNodeTest {
 
     @Test
-    void parsesDocumentFromString() throws Exception {
+    void parsesDocumentFromString() {
         MatcherAssert.assertThat(
             "Parsed document doesn't match with expected",
             new XmlNode.Default("<program><test foo=\"f\">bar</test></program>")
@@ -52,7 +52,7 @@ final class XmlNodeTest {
     }
 
     @Test
-    void parsesNodeFromNextElement() throws Exception {
+    void parsesNodeFromNextElement() {
         MatcherAssert.assertThat(
             "Parsed document doesn't match with expected",
             new XmlNode.Default("<program><test foo=\"f\">bar</test></program>")
@@ -66,7 +66,7 @@ final class XmlNodeTest {
     @Test
     void throwsOnEmptyNodeInElementChain() {
         MatcherAssert.assertThat(
-            "Exception should be thrown, but its not",
+            "Exception should be thrown, but it was not",
             () -> new XmlNode.Default("<program/>").elem("f").elem("bar"),
             new Throws<>(
                 "There is no 'bar' element inside, since node itself is empty!",
@@ -78,9 +78,47 @@ final class XmlNodeTest {
     @Test
     void throwsOnPrintingEmptyNode() {
         MatcherAssert.assertThat(
-            "Exception should be thrown, but its not",
+            "Exception should be thrown, but it was not",
             () -> new XmlNode.Default("<program/>").elem("f").asString(),
             new Throws<>("Node is empty", IllegalStateException.class)
         );
     }
+
+    @Test
+    void findsAttribute() {
+        MatcherAssert.assertThat(
+            "Attribute value does not match with expected",
+            new XmlNode.Default("<program><test foo=\"f\">bar</test></program>")
+                .elem("test").attr("foo"),
+            Matchers.equalTo("f")
+        );
+    }
+
+    @Test
+    void throwsOnFindingAttributeInEmptyNode() {
+        MatcherAssert.assertThat(
+            "Exception should be thrown, but it was not",
+            () -> new XmlNode.Default("<program/>").elem("f").attr("x"),
+            new Throws<>(
+                "There is no 'x' attribute inside, since node itself is empty!",
+                IllegalStateException.class
+            )
+        );
+    }
+
+    @Test
+    void throwsOnNonExistingAttribute() {
+        MatcherAssert.assertThat(
+            "Exception was not thrown, though attribute does not exists",
+            () -> new XmlNode.Default("<program/>").attr("b"),
+            new Throws<>("Attribute 'b' was not found in the node", IllegalArgumentException.class)
+        );
+    }
+
+    // (doc "<your xml goes here>") > xml
+    // xml.as-string
+    // (((xml.elem "a").elem "b").elem "c") > c
+    // c.as-string
+    // c.attr "xa" > xa
+    // xa
 }
