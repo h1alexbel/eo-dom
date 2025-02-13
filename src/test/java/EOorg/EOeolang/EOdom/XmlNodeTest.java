@@ -26,6 +26,7 @@ package EOorg.EOeolang.EOdom;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import org.llorllale.cactoos.matchers.Throws;
 
 /**
  * Tests for {@link XmlNode}.
@@ -55,6 +56,27 @@ final class XmlNodeTest {
             Matchers.equalTo(
                 "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test foo=\"f\">bar</test>"
             )
+        );
+    }
+
+    @Test
+    void throwsOnEmptyNodeInElementChain() {
+        MatcherAssert.assertThat(
+            "Exception should be thrown, but its not",
+            () -> new XmlNode.Default("<program/>").elem("f").elem("bar"),
+            new Throws<>(
+                "There is no 'bar' element inside, since node itself is empty!",
+                IllegalStateException.class
+            )
+        );
+    }
+
+    @Test
+    void throwsOnPrintingEmptyNode() {
+        MatcherAssert.assertThat(
+            "Exception should be thrown, but its not",
+            () -> new XmlNode.Default("<program/>").elem("f").asString(),
+            new Throws<>("Node is empty", IllegalStateException.class)
         );
     }
 }
