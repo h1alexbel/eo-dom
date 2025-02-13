@@ -54,6 +54,8 @@ public interface XmlNode {
 
     String attr(String aname);
 
+    String text();
+
     /**
      * Serialize node as string.
      *
@@ -72,7 +74,7 @@ public interface XmlNode {
         public XmlNode elem(final String name) {
             throw new IllegalStateException(
                 String.format(
-                    "There is no '%s' element inside, since node itself is empty!",
+                    "Cannot read '%s' element inside, since node itself is empty!",
                     name
                 )
             );
@@ -82,9 +84,16 @@ public interface XmlNode {
         public String attr(final String aname) {
             throw new IllegalStateException(
                 String.format(
-                    "There is no '%s' attribute inside, since node itself is empty!",
+                    "Cannot read '%s' attribute inside, since node itself is empty!",
                     aname
                 )
+            );
+        }
+
+        @Override
+        public String text() {
+            throw new IllegalStateException(
+                "Cannot read text inside, since node itself is empty!"
             );
         }
 
@@ -147,6 +156,11 @@ public interface XmlNode {
                 );
             }
             return found;
+        }
+
+        @Override
+        public String text() {
+            return this.base.getTextContent();
         }
 
         @Override

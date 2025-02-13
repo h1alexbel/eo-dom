@@ -95,6 +95,57 @@ final class XmlNodeTest {
     }
 
     @Test
+    void throwsOnNonExistingAttribute() {
+        MatcherAssert.assertThat(
+            "Exception was not thrown, though attribute does not exists",
+            () -> new XmlNode.Default("<program/>").attr("b"),
+            new Throws<>("Attribute 'b' was not found in the node", IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void returnsTextInside() {
+        MatcherAssert.assertThat(
+            "Text node does not match with expected",
+            new XmlNode.Default("<program>foo</program>").text(),
+            Matchers.equalTo("foo")
+        );
+    }
+
+    @Test
+    void returnsTextAfterChaining() {
+        MatcherAssert.assertThat(
+            "Output does not match with expected",
+            new XmlNode.Default("<program><test foo=\"f\">bar</test></program>")
+                .elem("program")
+                .elem("test")
+                .text(),
+            Matchers.equalTo("bar")
+        );
+    }
+
+    @Test
+    void returnsEmptyText() {
+        MatcherAssert.assertThat(
+            "Text should be empty",
+            new XmlNode.Default("<program/>").text(),
+            Matchers.emptyString()
+        );
+    }
+
+    @Test
+    void throwsOnFindingTextInEmptyNode() {
+        MatcherAssert.assertThat(
+            "Exception was not thrown",
+            () -> new XmlNode.Default("<program/>").elem("f").text(),
+            new Throws<>(
+                "Cannot read text inside, since node itself is empty!",
+                IllegalStateException.class
+            )
+        );
+    }
+
+    @Test
     void throwsOnFindingAttributeInEmptyNode() {
         MatcherAssert.assertThat(
             "Exception should be thrown, but it was not",
@@ -105,20 +156,4 @@ final class XmlNodeTest {
             )
         );
     }
-
-    @Test
-    void throwsOnNonExistingAttribute() {
-        MatcherAssert.assertThat(
-            "Exception was not thrown, though attribute does not exists",
-            () -> new XmlNode.Default("<program/>").attr("b"),
-            new Throws<>("Attribute 'b' was not found in the node", IllegalArgumentException.class)
-        );
-    }
-
-    // (doc "<your xml goes here>") > xml
-    // xml.as-string
-    // (((xml.elem "a").elem "b").elem "c") > c
-    // c.as-string
-    // c.attr "xa" > xa
-    // xa
 }
