@@ -45,4 +45,16 @@ final class XmlNodeTest {
             )
         );
     }
+
+    @Test
+    void parsesNodeFromNextElement() throws Exception {
+        MatcherAssert.assertThat(
+            "Parsed document doesn't match with expected",
+            new XmlNode.Default("<program><test foo=\"f\">bar</test></program>")
+                .elem("test").asString(),
+            Matchers.equalTo(
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test foo=\"f\">bar</test>"
+            )
+        );
+    }
 }

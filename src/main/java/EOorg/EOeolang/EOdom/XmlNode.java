@@ -90,6 +90,11 @@ public interface XmlNode {
          */
         private final Element base;
 
+        /**
+         * Ctor.
+         * @param xml XML as string
+         * @throws Exception if something went wrong
+         */
         Default(final String xml) throws Exception {
             this(
                 DocumentBuilderFactory.newInstance()
@@ -99,6 +104,10 @@ public interface XmlNode {
             );
         }
 
+        /**
+         * Ctor.
+         * @param element Element
+         */
         Default(final Element element) {
             this.base = element;
         }
