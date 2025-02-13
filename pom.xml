@@ -89,14 +89,9 @@ SOFTWARE.
       <version>0.51.5</version>
     </dependency>
     <dependency>
-      <groupId>com.jcabi</groupId>
-      <artifactId>jcabi-xml</artifactId>
-      <version>0.33.5</version>
-    </dependency>
-    <dependency>
-      <groupId>com.github.volodya-lombrozo</groupId>
-      <artifactId>xnav</artifactId>
-      <version>0.1.10</version>
+      <groupId>org.cactoos</groupId>
+      <artifactId>cactoos</artifactId>
+      <version>0.56.1</version>
     </dependency>
     <dependency>
       <groupId>net.sf.saxon</groupId>

@@ -39,9 +39,6 @@ import org.eolang.XmirObject;
 /**
  * Element from XML document.
  * @since 0.0.0
- * @todo #8:45min Implement element navigation without xnav.
- *  Currently, element extraction is implemented via xnav. We should implement
- *  the element navigation without any external dependencies.
  * @todo #8:45min Return proper error, if element not found.
  *  We should return proper error, if element is not found. Currently, the
  *  default EO error message will be thrown. Don't forget to add unit test.
