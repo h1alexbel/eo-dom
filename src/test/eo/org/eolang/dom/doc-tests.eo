@@ -57,3 +57,9 @@
       "<foo bar=\"ax\"></foo>"
     .attr "bar"
     "ax"
+
+# This unit test is supposed to check the functionality of the corresponding object.
+[] > returns-text-inside-node
+  eq. > @
+    (doc "<foo>bar</foo>").text
+    "bar"

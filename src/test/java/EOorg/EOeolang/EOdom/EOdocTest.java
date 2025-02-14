@@ -44,6 +44,21 @@ import org.junit.jupiter.api.Test;
  */
 final class EOdocTest {
 
+    /**
+     * Attribute object name.
+     */
+    private static final String ATTR_NAME = "attr";
+
+    /**
+     * Element object name.
+     */
+    private static final String ELEM_NAME = "elem";
+
+    /**
+     * Text object name.
+     */
+    private static final String TEXT_NAME = "text";
+
     @Test
     void createsDocument() {
         MatcherAssert.assertThat(
@@ -63,8 +78,11 @@ final class EOdocTest {
     }
 
     @Test
+    @SuppressWarnings("PMD.AvoidDuplicateLiterals")
     void findsElementInDocument() {
-        final Phi elem = this.document("<program><test>here</test></program>").take("elem");
+        final Phi elem = this.document("<program><test>here</test></program>").take(
+            EOdocTest.ELEM_NAME
+        );
         elem.put("ename", new Data.ToPhi("program"));
         MatcherAssert.assertThat(
             "Element result doesn't match with expected",
@@ -77,7 +95,9 @@ final class EOdocTest {
 
     @Test
     void findsElementInEmptyRoot() {
-        final Phi elem = this.document("<program/>").take("elem");
+        final Phi elem = this.document("<program/>").take(
+            EOdocTest.ELEM_NAME
+        );
         elem.put("ename", new Data.ToPhi("program"));
         MatcherAssert.assertThat(
             "Element result doesn't match with expected",
@@ -90,7 +110,9 @@ final class EOdocTest {
 
     @Test
     void findsChildElement() {
-        final Phi elem = this.document("<program><test>here</test></program>").take("elem");
+        final Phi elem = this.document("<program><test>here</test></program>").take(
+            EOdocTest.ELEM_NAME
+        );
         elem.put("ename", new Data.ToPhi("test"));
         MatcherAssert.assertThat(
             "Element result doesn't match with expected",
@@ -103,7 +125,9 @@ final class EOdocTest {
 
     @Test
     void returnsAttributeInsideNode() {
-        final Phi attr = this.document("<program test=\"f\"/>").take("attr");
+        final Phi attr = this.document("<program test=\"f\"/>").take(
+            EOdocTest.ATTR_NAME
+        );
         attr.put("aname", new Data.ToPhi("test"));
         MatcherAssert.assertThat(
             "Value does not match with expected",
@@ -126,14 +150,44 @@ final class EOdocTest {
     @Disabled
     @Test
     void returnsAttributeInsideChildNode() {
-        final Phi elem = this.document("<foo><bar x=\"ttt\"></bar></foo>").take("elem");
+        final Phi elem = this.document("<foo><bar x=\"ttt\"></bar></foo>").take(
+            EOdocTest.ELEM_NAME
+        );
         elem.put("ename", new Data.ToPhi("bar"));
-        final Phi attr = elem.take("attr");
+        final Phi attr = elem.take(EOdocTest.ATTR_NAME);
         attr.put("aname", new Data.ToPhi("x"));
         MatcherAssert.assertThat(
             "Value does not match with expected",
             new Dataized(attr).asString(),
             Matchers.equalTo("ttt")
+        );
+    }
+
+    @Test
+    void returnsTextInsideNode() {
+        MatcherAssert.assertThat(
+            "Text does not match with expected",
+            new Dataized(this.document("<foo>here</foo>").take(EOdocTest.TEXT_NAME)).asString(),
+            Matchers.equalTo("here")
+        );
+    }
+
+    /**
+     * Returns text node inside child.
+     * @todo #10:35min Enable this test on text retrieval from child node.
+     *  We should enable this test after cascading in child objects will be implemented.
+     */
+    @Disabled
+    @Test
+    void returnsTextInsideChildNode() {
+        final Phi child = this.document("<abc><c>x</c></abc>").take(
+            EOdocTest.ELEM_NAME
+        );
+        child.put("ename", new Data.ToPhi("c"));
+        MatcherAssert.assertThat(
+            "Text does not match with expected",
+            new Dataized(child.take(EOdocTest.TEXT_NAME)).asString(),
+            Matchers.equalTo("x")
         );
     }
 

@@ -38,3 +38,4 @@
     [] > as-string /org.eolang.string
     [ename] > elem /org.eolang.dom.doc.xml
     [aname] > attr /org.eolang.dom.doc.xml
+    [] > text /org.eolang.string
