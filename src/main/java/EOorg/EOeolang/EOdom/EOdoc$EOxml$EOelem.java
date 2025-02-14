@@ -58,10 +58,18 @@ public final class EOdoc$EOxml$EOelem extends PhDefault implements Atom {
 
     @Override
     public Phi lambda() throws XmlParseException {
-        return new Data.ToPhi(
-            new XmlNode.Default(new Dataized(this.take(Attr.RHO).take("serialized")).asString())
-                .elem(new Dataized(this.take("ename")).asString())
-                .asString().getBytes()
+        final String result = new XmlNode.Default(
+                new Dataized(this.take(Attr.RHO).take("serialized")).asString()
+            )
+            .elem(new Dataized(this.take("ename")).asString())
+            .asString();
+        final Phi doc = new EOdoc();
+        doc.put("data", new Data.ToPhi(result));
+        final Phi xml = doc.take("xml");
+        xml.put(
+            "serialized",
+            new Data.ToPhi(new Dataized(xml.take(Attr.RHO).take("data")).asString().getBytes())
         );
+        return doc;
     }
 }

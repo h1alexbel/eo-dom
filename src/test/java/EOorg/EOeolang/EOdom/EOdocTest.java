@@ -90,7 +90,7 @@ final class EOdocTest {
         elem.put("ename", new Data.ToPhi("program"));
         MatcherAssert.assertThat(
             "Element result doesn't match with expected",
-            new Dataized(elem).asString(),
+            new Dataized(elem.take("as-string")).asString(),
             Matchers.equalTo(
                 "<?xml version=\"1.0\" encoding=\"UTF-8\"?><program><test>here</test></program>"
             )
@@ -105,7 +105,7 @@ final class EOdocTest {
         elem.put("ename", new Data.ToPhi("program"));
         MatcherAssert.assertThat(
             "Element result doesn't match with expected",
-            new Dataized(elem).asString(),
+            new Dataized(elem.take("as-string")).asString(),
             Matchers.equalTo(
                 "<?xml version=\"1.0\" encoding=\"UTF-8\"?><program/>"
             )
@@ -120,7 +120,7 @@ final class EOdocTest {
         elem.put("ename", new Data.ToPhi("test"));
         MatcherAssert.assertThat(
             "Element result doesn't match with expected",
-            new Dataized(elem).asString(),
+            new Dataized(elem.take("as-string")).asString(),
             Matchers.equalTo(
                 "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test>here</test>"
             )
@@ -140,18 +140,6 @@ final class EOdocTest {
         );
     }
 
-    /**
-     * Returns attribute inside child node.
-     * @todo #9:45min Enable this test on attribute fetching after child object
-     *  cascading will be implemented. Currenlty, we can't take `attr` object from
-     *  `elem` object. It should be possible to do this in EO:
-     *  <pre>
-     *  {@code
-     *  ((doc "...").elem "f").attr "x"
-     *  }
-     *  </pre>
-     */
-    @Disabled
     @Test
     void returnsAttributeInsideChildNode() {
         final Phi elem = this.document("<foo><bar x=\"ttt\"></bar></foo>").take(
