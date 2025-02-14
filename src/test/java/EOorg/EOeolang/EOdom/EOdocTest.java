@@ -33,7 +33,6 @@ import org.eolang.Dataized;
 import org.eolang.Phi;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.llorllale.cactoos.matchers.Throws;
 
@@ -128,6 +127,21 @@ final class EOdocTest {
     }
 
     @Test
+    void findsChildElementCascading() {
+        final Phi elem = this.document("<a><b><c>here</c></b></a>").take(
+            EOdocTest.ELEM_NAME
+        );
+        elem.put("ename", new Data.ToPhi("a"));
+        final Phi child = elem.take(EOdocTest.ELEM_NAME);
+        child.put("ename", new Data.ToPhi("b"));
+        MatcherAssert.assertThat(
+            "Output does not match with expected",
+            new Dataized(child.take("as-string")).asString(),
+            Matchers.equalTo("<?xml version=\"1.0\" encoding=\"UTF-8\"?><b><c>here</c></b>")
+        );
+    }
+
+    @Test
     void returnsAttributeInsideNode() {
         final Phi attr = this.document("<program test=\"f\"/>").take(
             EOdocTest.ATTR_NAME
@@ -164,12 +178,6 @@ final class EOdocTest {
         );
     }
 
-    /**
-     * Returns text node inside child.
-     * @todo #10:35min Enable this test on text retrieval from child node.
-     *  We should enable this test after cascading in child objects will be implemented.
-     */
-    @Disabled
     @Test
     void returnsTextInsideChildNode() {
         final Phi child = this.document("<abc><c>x</c></abc>").take(

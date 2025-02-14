@@ -40,6 +40,7 @@
     doc
       "<program/>"
     .elem "program"
+    .as-string
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?><program/>"
 
 # This unit test is supposed to check the functionality of the corresponding object.
@@ -48,7 +49,38 @@
     doc
       "<program><test>here</test></program>"
     .elem "test"
+    .as-string
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test>here</test>"
+
+# This unit test is supposed to check the functionality of the corresponding object.
+[] > finds-child-elements-recursively
+  eq. > @
+    doc
+      "<a><b>x</b></a>"
+    .elem "a"
+    .elem "b"
+    .as-string
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?><b>x</b>"
+
+# This unit test is supposed to check the functionality of the corresponding object.
+[] > finds-attribute-in-child-node-in-depth
+  eq. > @
+    doc
+      "<a><b f=\"ttt\">x</b></a>"
+    .elem "a"
+    .elem "b"
+    .attr "f"
+    "ttt"
+
+# This unit test is supposed to check the functionality of the corresponding object.
+[] > finds-text-in-child-node-in-depth
+  eq. > @
+    doc
+      "<a><b>x</b></a>"
+    .elem "a"
+    .elem "b"
+    .text
+    "x"
 
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > finds-attribute-inside-node
