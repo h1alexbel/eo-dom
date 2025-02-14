@@ -42,6 +42,7 @@ import org.llorllale.cactoos.matchers.Throws;
  *
  * @since 0.0.0
  */
+@SuppressWarnings("PMD.TooManyMethods")
 final class EOdocTest {
 
     /**
@@ -191,6 +192,20 @@ final class EOdocTest {
             "Text does not match with expected",
             new Dataized(child.take(EOdocTest.TEXT_NAME)).asString(),
             Matchers.equalTo("x")
+        );
+    }
+
+    @Test
+    void throwsErrorIfAttributeIsNotFound() {
+        final Phi attr = this.document("<foo/>").take(EOdocTest.ATTR_NAME);
+        attr.put("aname", new Data.ToPhi("x"));
+        MatcherAssert.assertThat(
+            "Text does not match with expected",
+            () -> new Dataized(attr).asString(),
+            new Throws<>(
+                Matchers.containsString("Attribute 'x' was not found in the node"),
+                EOerror.ExError.class
+            )
         );
     }
 
