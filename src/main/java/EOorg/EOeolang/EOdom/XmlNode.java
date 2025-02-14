@@ -27,15 +27,19 @@
  */
 package EOorg.EOeolang.EOdom; // NOPMD
 
+import java.io.IOException;
 import java.io.StringWriter;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.cactoos.io.InputOf;
+import org.cactoos.io.UncheckedInput;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  * XML Document Node.
@@ -128,7 +132,7 @@ public interface XmlNode {
          * Ctor.
          * @param xml XML as string
          */
-        Default(final String xml) {
+        Default(final String xml) throws XmlParseException {
             this(XmlNode.Default.fromString(xml));
         }
 
@@ -192,17 +196,27 @@ public interface XmlNode {
          * @checkstyle IllegalCatchCheck (10 lines)
          */
         @SuppressWarnings("PMD.AvoidCatchingGenericException")
-        private static Element fromString(final String xml) {
+        private static Element fromString(final String xml) throws XmlParseException {
             try {
                 return DocumentBuilderFactory.newInstance()
                     .newDocumentBuilder()
-                    .parse(new InputOf(xml).stream())
+                    .parse(new UncheckedInput(new InputOf(xml)).stream())
                     .getDocumentElement();
-            } catch (final Exception exception) {
+            } catch (final ParserConfigurationException exception) {
                 throw new IllegalStateException(
+                    String.format(
+                        "Cannot instantiate parser for XML: '%s'",
+                        xml
+                    ),
+                    exception
+                );
+            } catch (final SAXException exception) {
+                throw new XmlParseException(
                     String.format("Cannot parse XML string: '%s'", xml),
                     exception
                 );
+            } catch (final IOException exception) {
+                throw new IllegalStateException("I/O failed", exception);
             }
         }
     }

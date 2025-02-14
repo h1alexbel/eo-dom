@@ -33,9 +33,9 @@ import org.eolang.Dataized;
 import org.eolang.Phi;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.llorllale.cactoos.matchers.Throws;
 
 /**
  * Tests for {@link EOdoc}.
@@ -70,10 +70,13 @@ final class EOdocTest {
 
     @Test
     void throwsErrorIfInvalidXmlPassed() {
-        Assertions.assertThrows(
-            EOerror.ExError.class,
-            () -> new Dataized(this.document("broken").take("xml")).asString(),
-            () -> "Error should be thrown, since XML is invalid"
+        MatcherAssert.assertThat(
+            "Error was not thrown, though XML is invalid",
+            () -> new Dataized(this.document("broken").take("serialized")).asString(),
+            new Throws<>(
+                Matchers.containsString("XML document syntax is invalid"),
+                EOerror.ExError.class
+            )
         );
     }
 

@@ -27,37 +27,18 @@
  */
 package EOorg.EOeolang.EOdom; // NOPMD
 
-import org.eolang.AtVoid;
-import org.eolang.Atom;
-import org.eolang.Attr;
-import org.eolang.Data;
-import org.eolang.Dataized;
-import org.eolang.PhDefault;
-import org.eolang.Phi;
-
 /**
- * Attribute in XML node.
- *
+ * XML parse exception.
  * @since 0.0.0
- * @checkstyle TypeNameCheck (5 lines)
  */
-@SuppressWarnings("PMD.AvoidDollarSigns")
-public final class EOdoc$EOxml$EOattr extends PhDefault implements Atom {
+final class XmlParseException extends Exception {
 
     /**
      * Ctor.
+     * @param message Message
+     * @param cause Context
      */
-    @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
-    public EOdoc$EOxml$EOattr() {
-        this.add("aname", new AtVoid("aname"));
-    }
-
-    @Override
-    public Phi lambda() throws XmlParseException {
-        return new Data.ToPhi(
-            new XmlNode.Default(new Dataized(this.take(Attr.RHO).take("serialized")).asString())
-                .attr(new Dataized(this.take("aname")).asString())
-                .getBytes()
-        );
+    XmlParseException(final String message, final Throwable cause) {
+        super(message, cause);
     }
 }

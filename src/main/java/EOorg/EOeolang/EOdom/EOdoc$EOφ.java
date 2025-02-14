@@ -31,6 +31,7 @@ import org.eolang.Atom;
 import org.eolang.Attr;
 import org.eolang.Data;
 import org.eolang.Dataized;
+import org.eolang.ExFailure;
 import org.eolang.PhDefault;
 import org.eolang.Phi;
 import org.eolang.XmirObject;
@@ -47,14 +48,18 @@ public final class EOdoc$EOφ extends PhDefault implements Atom {
     @Override
     public Phi lambda() {
         final Phi xml = this.take(Attr.RHO).take("xml");
-        xml.put(
-            "serialized",
-            new Data.ToPhi(
-                new XmlNode.Default(
-                    new Dataized(this.take(Attr.RHO).take("data")).asString()
-                ).asString().getBytes()
-            )
-        );
+        try {
+            xml.put(
+                "serialized",
+                new Data.ToPhi(
+                    new XmlNode.Default(
+                        new Dataized(this.take(Attr.RHO).take("data")).asString()
+                    ).asString().getBytes()
+                )
+            );
+        } catch (final XmlParseException exception) {
+            throw new ExFailure("XML document syntax is invalid", exception);
+        }
         return xml;
     }
 }

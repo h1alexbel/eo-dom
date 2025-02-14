@@ -43,7 +43,7 @@ import org.eolang.Phi;
 public final class EOdoc$EOxml$EOtext extends PhDefault implements Atom {
 
     @Override
-    public Phi lambda() {
+    public Phi lambda() throws XmlParseException {
         return new Data.ToPhi(
             new XmlNode.Default(new Dataized(this.take(Attr.RHO).take("serialized")).asString())
                 .text().getBytes()

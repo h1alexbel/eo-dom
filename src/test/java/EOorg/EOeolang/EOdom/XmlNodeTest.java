@@ -41,7 +41,7 @@ import org.llorllale.cactoos.matchers.Throws;
 final class XmlNodeTest {
 
     @Test
-    void parsesDocumentFromString() {
+    void parsesDocumentFromString() throws XmlParseException {
         MatcherAssert.assertThat(
             "Parsed document doesn't match with expected",
             new XmlNode.Default("<program><test foo=\"f\">bar</test></program>")
@@ -53,7 +53,16 @@ final class XmlNodeTest {
     }
 
     @Test
-    void parsesNodeFromNextElement() {
+    void throwsIoExceptionOnBrokenXml() {
+        MatcherAssert.assertThat(
+            "Exception was not thrown, but it should",
+            () -> new XmlNode.Default("broken"),
+            new Throws<>("Cannot parse XML string: 'broken'", XmlParseException.class)
+        );
+    }
+
+    @Test
+    void parsesNodeFromNextElement() throws XmlParseException {
         MatcherAssert.assertThat(
             "Parsed document doesn't match with expected",
             new XmlNode.Default("<program><test foo=\"f\">bar</test></program>")
@@ -86,7 +95,7 @@ final class XmlNodeTest {
     }
 
     @Test
-    void findsAttribute() {
+    void findsAttribute() throws XmlParseException {
         MatcherAssert.assertThat(
             "Attribute value does not match with expected",
             new XmlNode.Default("<program><test foo=\"f\">bar</test></program>")
@@ -105,7 +114,7 @@ final class XmlNodeTest {
     }
 
     @Test
-    void returnsTextInside() {
+    void returnsTextInside() throws XmlParseException {
         MatcherAssert.assertThat(
             "Text node does not match with expected",
             new XmlNode.Default("<program>foo</program>").text(),
@@ -114,7 +123,7 @@ final class XmlNodeTest {
     }
 
     @Test
-    void returnsTextAfterChaining() {
+    void returnsTextAfterChaining() throws XmlParseException {
         MatcherAssert.assertThat(
             "Output does not match with expected",
             new XmlNode.Default("<program><test foo=\"f\">bar</test></program>")
@@ -126,7 +135,7 @@ final class XmlNodeTest {
     }
 
     @Test
-    void returnsEmptyText() {
+    void returnsEmptyText() throws XmlParseException {
         MatcherAssert.assertThat(
             "Text should be empty",
             new XmlNode.Default("<program/>").text(),
