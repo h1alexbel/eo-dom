@@ -52,8 +52,17 @@ public interface XmlNode {
      */
     XmlNode elem(String name);
 
+    /**
+     * Attr.
+     * @param aname Attribute name
+     * @return Attribute value of the node
+     */
     String attr(String aname);
 
+    /**
+     * Text inside.
+     * @return Text inside the node
+     */
     String text();
 
     /**

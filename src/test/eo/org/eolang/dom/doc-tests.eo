@@ -49,3 +49,11 @@
       "<program><test>here</test></program>"
     .elem "test"
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test>here</test>"
+
+# This unit test is supposed to check the functionality of the corresponding object.
+[] > finds-attribute-inside-node
+  eq. > @
+    doc
+      "<foo bar=\"ax\"></foo>"
+    .attr "bar"
+    "ax"

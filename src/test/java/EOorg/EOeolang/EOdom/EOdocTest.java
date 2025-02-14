@@ -34,6 +34,7 @@ import org.eolang.Phi;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -97,6 +98,42 @@ final class EOdocTest {
             Matchers.equalTo(
                 "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test>here</test>"
             )
+        );
+    }
+
+    @Test
+    void returnsAttributeInsideNode() {
+        final Phi attr = this.document("<program test=\"f\"/>").take("attr");
+        attr.put("aname", new Data.ToPhi("test"));
+        MatcherAssert.assertThat(
+            "Value does not match with expected",
+            new Dataized(attr).asString(),
+            Matchers.equalTo("f")
+        );
+    }
+
+    /**
+     * Returns attribute inside child node.
+     * @todo #9:45min Enable this test on attribute fetching after child object
+     *  cascading will be implemented. Currenlty, we can't take `attr` object from
+     *  `elem` object. It should be possible to do this in EO:
+     *  <pre>
+     *  {@code
+     *  ((doc "...").elem "f").attr "x"
+     *  }
+     *  </pre>
+     */
+    @Disabled
+    @Test
+    void returnsAttributeInsideChildNode() {
+        final Phi elem = this.document("<foo><bar x=\"ttt\"></bar></foo>").take("elem");
+        elem.put("ename", new Data.ToPhi("bar"));
+        final Phi attr = elem.take("attr");
+        attr.put("aname", new Data.ToPhi("x"));
+        MatcherAssert.assertThat(
+            "Value does not match with expected",
+            new Dataized(attr).asString(),
+            Matchers.equalTo("ttt")
         );
     }
 
