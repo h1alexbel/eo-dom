@@ -25,17 +25,32 @@ Here is how it works:
 ```eo
 +package org.eolang.dom
 
-[] > creates-document-from-string
-  (doc "<document/>").as-string > @ # <document/>
+[] > returns-child-xml-content
+  eq. > @
+    doc
+      "<a><b>x</b></a>"
+    .elem "a"
+    .elem "b"
+    .as-string
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?><b>x</b>"
 
-[] > creates-document-from-file
-  (doc "data.xml").as-string > @ # <root><data>test</data></root>
+[] > finds-attribute-in-child-node-in-depth
+  eq. > @
+    doc
+      "<a><b f=\"ttt\">x</b></a>"
+    .elem "a"
+    .elem "b"
+    .attr "f"
+    "ttt"
 
-[] > locates-element
-  (doc "data.xml").xpath "//data/text()" # test
-
-[] > appends-element
-  ((doc "data.xml").xpath "/root").append "kid" # <root><kid/><data>test</data></root> 
+[] > finds-text-in-child-node-in-depth
+  eq. > @
+    doc
+      "<a><b>x</b></a>"
+    .elem "a"
+    .elem "b"
+    .text
+    "x"
 ```
 
 ## How to contribute?
