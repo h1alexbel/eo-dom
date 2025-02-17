@@ -95,6 +95,15 @@ final class EOelementTest {
         );
     }
 
+    @Test
+    void retrievesEmptyText() {
+        MatcherAssert.assertThat(
+            "Text content was not empty, but it should",
+            new Dataized(this.parsed("<root/>").take("text-content")).asString(),
+            Matchers.emptyString()
+        );
+    }
+
     private Phi parsed(final String xml) {
         final Phi element = Phi.Φ.take("org.eolang.dom.element").copy();
         element.put("xml", new Data.ToPhi(xml));
