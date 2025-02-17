@@ -25,7 +25,7 @@
  * @checkstyle PackageNameCheck (4 lines)
  * @checkstyle TrailingCommentCheck (3 lines)
  */
-package EOorg.EOeolang.EOdom;
+package EOorg.EOeolang.EOdom; // NOPMD
 
 import org.eolang.Atom;
 import org.eolang.Attr;

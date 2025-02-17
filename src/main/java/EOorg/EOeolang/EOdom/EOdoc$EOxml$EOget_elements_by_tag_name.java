@@ -25,7 +25,7 @@
  * @checkstyle PackageNameCheck (4 lines)
  * @checkstyle TrailingCommentCheck (3 lines)
  */
-package EOorg.EOeolang.EOdom;
+package EOorg.EOeolang.EOdom; // NOPMD
 
 import java.io.StringWriter;
 import javax.xml.transform.Transformer;
@@ -45,8 +45,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * Get elements by tag name.
- *
+ * Get DOM elements by tag name.
  * @since 0.0.0
  * @checkstyle TypeNameCheck (5 lines)
  */
@@ -57,6 +56,7 @@ public final class EOdoc$EOxml$EOget_elements_by_tag_name extends PhDefault impl
     /**
      * Ctor.
      */
+    @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public EOdoc$EOxml$EOget_elements_by_tag_name() {
         this.add("name", new AtVoid("name"));
     }
@@ -67,7 +67,7 @@ public final class EOdoc$EOxml$EOget_elements_by_tag_name extends PhDefault impl
             new Dataized(this.take(Attr.RHO).take("serialized")).asString()
         ).getElementsByTagName(new Dataized(this.take("name")).asString());
         final StringBuilder serialized = new StringBuilder();
-        for (int pos = 0; pos < nodes.getLength(); pos++) {
+        for (int pos = 0; pos < nodes.getLength(); pos += 1) {
             final Node node = nodes.item(pos);
             final StringWriter writer = new StringWriter();
             final Transformer transformer = TransformerFactory.newInstance().newTransformer();

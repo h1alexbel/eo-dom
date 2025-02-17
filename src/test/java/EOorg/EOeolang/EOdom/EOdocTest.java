@@ -40,6 +40,9 @@ import org.llorllale.cactoos.matchers.Throws;
  * Tests for {@link EOdoc}.
  *
  * @since 0.0.0
+ * @todo #41:35min Remove all non-compliant doc API from tests.
+ *  We should remove all non-compliant API from `doc` object: as-string, elem,
+ *  attr, text, and so on.
  */
 @SuppressWarnings("PMD.TooManyMethods")
 final class EOdocTest {
@@ -212,11 +215,11 @@ final class EOdocTest {
         );
         final Phi retrieval = doc.take("get-elements-by-tag-name");
         retrieval.put("name", new Data.ToPhi("book"));
-        final Phi at = retrieval.take("at");
-        at.put("pos", new Data.ToPhi(0));
+        final Phi locate = retrieval.take("at");
+        locate.put("pos", new Data.ToPhi(0));
         MatcherAssert.assertThat(
             "Retrieved element does not match with expected",
-            new Dataized(at.take("as-string")).asString(),
+            new Dataized(locate.take("as-string")).asString(),
             Matchers.equalTo(
                 "<?xml version=\"1.0\" encoding=\"UTF-8\"?><book title=\"Object Thinking\"/>"
             )

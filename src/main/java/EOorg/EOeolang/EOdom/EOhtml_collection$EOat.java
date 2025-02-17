@@ -25,7 +25,7 @@
  * @checkstyle PackageNameCheck (4 lines)
  * @checkstyle TrailingCommentCheck (3 lines)
  */
-package EOorg.EOeolang.EOdom;
+package EOorg.EOeolang.EOdom; // NOPMD
 
 import java.util.List;
 import org.cactoos.list.ListOf;
@@ -50,6 +50,7 @@ public final class EOhtml_collection$EOat extends PhDefault implements Atom {
     /**
      * Ctor.
      */
+    @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public EOhtml_collection$EOat() {
         this.add("pos", new AtVoid("pos"));
     }
