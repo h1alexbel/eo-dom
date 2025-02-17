@@ -20,16 +20,18 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
++alias org.eolang.dom.element
 +architect yegor256@gmail.com
 +home https://github.com/h1alexbel/eo-dom
++tests
 +package org.eolang.dom
-+rt jvm org.eolang:eo-runtime:0.0.0
-+rt node eo2js-runtime:0.0.0
 +version 0.0.0
++unlint broken-ref
 
-# Object that represent element in a DOM Document.
-[xml] > element
-  # Attribute.
-  [attr] > get-attribute /org.eolang.dom.element
-  # Node as-string.
-  [] > as-string /org.eolang.dom.element
+# This unit test is supposed to check the functionality of the corresponding object.
+[] > retrieves-attribute-from-element
+  eq. > @
+    element
+      "<foo f=\"ttt\"/>"
+    .get-attribute "f"
+    "ttt"

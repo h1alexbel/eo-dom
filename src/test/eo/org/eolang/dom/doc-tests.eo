@@ -46,6 +46,17 @@
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?><book title=\"Object Thinking\"/>"
 
 # This unit test is supposed to check the functionality of the corresponding object.
+[] > retrieves-attribute-from-first-element
+  dom-parser.parse-from-string > doc
+    "<books><book title=\"Object Thinking\"/><book title=\"Elegant Objects Vol 1.\"/></books>"
+  doc.get-elements-by-tag-name "book" > books
+  books.at 0 > first
+  first.get-attribute "title" > title
+  eq. > @
+    title
+    "Object Thinking"
+
+# This unit test is supposed to check the functionality of the corresponding object.
 [] > finds-element-in-document
   eq. > @
     doc

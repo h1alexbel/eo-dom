@@ -25,32 +25,15 @@ Here is how it works:
 ```eo
 +package org.eolang.dom
 
-[] > returns-child-xml-content
+[] > finds-element-at-index
+  dom-parser.parse-from-string > doc
+    "<books><book title=\"Object Thinking\"/><book title=\"Elegant Objects Vol 1.\"/></books>"
+  doc.get-elements-by-tag-name "book" > books
+  books.at 0 > first
+  first.get-attribute "title" > title
   eq. > @
-    doc
-      "<a><b>x</b></a>"
-    .elem "a"
-    .elem "b"
-    .as-string
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?><b>x</b>"
-
-[] > finds-attribute-in-child-node-in-depth
-  eq. > @
-    doc
-      "<a><b f=\"ttt\">x</b></a>"
-    .elem "a"
-    .elem "b"
-    .attr "f"
-    "ttt"
-
-[] > finds-text-in-child-node-in-depth
-  eq. > @
-    doc
-      "<a><b>x</b></a>"
-    .elem "a"
-    .elem "b"
-    .text
-    "x"
+    title
+    "Object Thinking"
 ```
 
 ## How to contribute?
