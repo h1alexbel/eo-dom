@@ -88,7 +88,9 @@ final class EOelementTest {
     void retrievesTextContentFromChildInCompositeElement() {
         MatcherAssert.assertThat(
             "Text content does not match with expected",
-            new Dataized(this.parsed("<a><child>we are here!</child></a>").take("text-content")).asString(),
+            new Dataized(
+                this.parsed("<a><child>we are here!</child></a>").take("text-content")
+            ).asString(),
             Matchers.equalTo("we are here!")
         );
     }

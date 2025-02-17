@@ -38,7 +38,9 @@ import org.eolang.XmirObject;
 /**
  * Text content retrieval from DOM element.
  * @since 0.0.0
+ * @checkstyle TypeNameCheck (5 lines)
  */
+@SuppressWarnings("PMD.AvoidDollarSigns")
 @XmirObject(oname = "element.text-content")
 public final class EOelement$EOtext_content extends PhDefault implements Atom {
 

@@ -37,5 +37,3 @@
   [serialized] > xml
     [name] > get-elements-by-tag-name /org.eolang.dom.doc.xml
     [] > as-string /org.eolang.string
-    [ename] > elem /org.eolang.dom.doc.xml
-    [] > text /org.eolang.string

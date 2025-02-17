@@ -40,27 +40,9 @@ import org.llorllale.cactoos.matchers.Throws;
  * Tests for {@link EOdoc}.
  *
  * @since 0.0.0
- * @todo #41:35min Remove all non-compliant doc API from tests.
- *  We should remove all non-compliant API from `doc` object: as-string, elem,
- *  attr, text, and so on.
  */
 @SuppressWarnings("PMD.TooManyMethods")
 final class EOdocTest {
-
-    /**
-     * Attribute object name.
-     */
-    private static final String ATTR_NAME = "attr";
-
-    /**
-     * Element object name.
-     */
-    private static final String ELEM_NAME = "elem";
-
-    /**
-     * Text object name.
-     */
-    private static final String TEXT_NAME = "text";
 
     @Test
     void createsDocument() {
@@ -80,89 +62,6 @@ final class EOdocTest {
                 Matchers.containsString("XML document syntax is invalid"),
                 EOerror.ExError.class
             )
-        );
-    }
-
-    @Test
-    @SuppressWarnings("PMD.AvoidDuplicateLiterals")
-    void findsElementInDocument() {
-        final Phi elem = this.document("<program><test>here</test></program>").take(
-            EOdocTest.ELEM_NAME
-        );
-        elem.put("ename", new Data.ToPhi("program"));
-        MatcherAssert.assertThat(
-            "Element result doesn't match with expected",
-            new Dataized(elem.take("as-string")).asString(),
-            Matchers.equalTo(
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><program><test>here</test></program>"
-            )
-        );
-    }
-
-    @Test
-    void findsElementInEmptyRoot() {
-        final Phi elem = this.document("<program/>").take(
-            EOdocTest.ELEM_NAME
-        );
-        elem.put("ename", new Data.ToPhi("program"));
-        MatcherAssert.assertThat(
-            "Element result doesn't match with expected",
-            new Dataized(elem.take("as-string")).asString(),
-            Matchers.equalTo(
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><program/>"
-            )
-        );
-    }
-
-    @Test
-    void findsChildElement() {
-        final Phi elem = this.document("<program><test>here</test></program>").take(
-            EOdocTest.ELEM_NAME
-        );
-        elem.put("ename", new Data.ToPhi("test"));
-        MatcherAssert.assertThat(
-            "Element result doesn't match with expected",
-            new Dataized(elem.take("as-string")).asString(),
-            Matchers.equalTo(
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test>here</test>"
-            )
-        );
-    }
-
-    @Test
-    void findsChildElementCascading() {
-        final Phi elem = this.document("<a><b><c>here</c></b></a>").take(
-            EOdocTest.ELEM_NAME
-        );
-        elem.put("ename", new Data.ToPhi("a"));
-        final Phi child = elem.take(EOdocTest.ELEM_NAME);
-        child.put("ename", new Data.ToPhi("b"));
-        MatcherAssert.assertThat(
-            "Output does not match with expected",
-            new Dataized(child.take("as-string")).asString(),
-            Matchers.equalTo("<?xml version=\"1.0\" encoding=\"UTF-8\"?><b><c>here</c></b>")
-        );
-    }
-
-    @Test
-    void returnsTextInsideNode() {
-        MatcherAssert.assertThat(
-            "Text does not match with expected",
-            new Dataized(this.document("<foo>here</foo>").take(EOdocTest.TEXT_NAME)).asString(),
-            Matchers.equalTo("here")
-        );
-    }
-
-    @Test
-    void returnsTextInsideChildNode() {
-        final Phi child = this.document("<abc><c>x</c></abc>").take(
-            EOdocTest.ELEM_NAME
-        );
-        child.put("ename", new Data.ToPhi("c"));
-        MatcherAssert.assertThat(
-            "Text does not match with expected",
-            new Dataized(child.take(EOdocTest.TEXT_NAME)).asString(),
-            Matchers.equalTo("x")
         );
     }
 

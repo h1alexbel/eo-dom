@@ -45,6 +45,9 @@ import org.w3c.dom.NodeList;
 /**
  * Get DOM elements by tag name.
  * @since 0.0.0
+ * @todo #8:45min Return proper error, if element not found with tag name.
+ *  We should return proper error, if element is not found. Currently, the
+ *  default EO error message will be thrown. Don't forget to add unit test.
  * @checkstyle TypeNameCheck (5 lines)
  */
 @SuppressWarnings("PMD.AvoidDollarSigns")
