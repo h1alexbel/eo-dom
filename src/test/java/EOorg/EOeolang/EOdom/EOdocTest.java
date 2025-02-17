@@ -83,6 +83,33 @@ final class EOdocTest {
         );
     }
 
+    @Test
+    void findsElementWithIdentifierWithSuppliedDtd() throws Exception {
+        final String xml = String.join(
+            "\n",
+            "<?xml version='1.0'?>",
+            "<!DOCTYPE foo [",
+            "<!ELEMENT foo (bar+)>",
+            "<!ELEMENT bar EMPTY>",
+            "<!ATTLIST bar id ID #REQUIRED>",
+            "]>",
+            "<foo>",
+            "<bar id='bar123'/>",
+            "<bar id='bar456'/>",
+            "</foo>"
+        );
+//        final Element element = XmlNode.Default.fromString(xml);
+//        new XmlNode.Default(element).doc().getElementById("bar123");
+        final Phi doc = this.parsedDocument(xml);
+        final Phi bid = doc.take("get-element-by-id");
+        bid.put("identifier", new Data.ToPhi("bar123"));
+        MatcherAssert.assertThat(
+            "Found element does not match with expected",
+            new Dataized(bid.take("as-string")).asString(),
+            Matchers.equalTo("boom")
+        );
+    }
+
     private Phi parsedDocument(final String data) {
         final Phi parse = Phi.Φ.take("org.eolang.dom.dom-parser").copy()
             .take("parse-from-string");
