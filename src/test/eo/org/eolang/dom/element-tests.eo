@@ -43,3 +43,11 @@
       "<a>boom</a>"
     .text-content
     "boom"
+
+# This unit test is supposed to check the functionality of the corresponding object.
+[] > retrieves-empty-text
+  eq. > @
+    element
+      "<program/>"
+    .text-content
+    ""
