@@ -35,3 +35,11 @@
       "<foo f=\"ttt\"/>"
     .get-attribute "f"
     "ttt"
+
+# This unit test is supposed to check the functionality of the corresponding object.
+[] > retrieves-text-content
+  eq. > @
+    element
+      "<a>boom</a>"
+    .text-content
+    "boom"

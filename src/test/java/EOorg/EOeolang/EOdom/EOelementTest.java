@@ -75,6 +75,24 @@ final class EOelementTest {
         );
     }
 
+    @Test
+    void retrievesTextContent() {
+        MatcherAssert.assertThat(
+            "Text content does not match with expected",
+            new Dataized(this.parsed("<a>some</a>").take("text-content")).asString(),
+            Matchers.equalTo("some")
+        );
+    }
+
+    @Test
+    void retrievesTextContentFromChildInCompositeElement() {
+        MatcherAssert.assertThat(
+            "Text content does not match with expected",
+            new Dataized(this.parsed("<a><child>we are here!</child></a>").take("text-content")).asString(),
+            Matchers.equalTo("we are here!")
+        );
+    }
+
     private Phi parsed(final String xml) {
         final Phi element = Phi.Φ.take("org.eolang.dom.element").copy();
         element.put("xml", new Data.ToPhi(xml));

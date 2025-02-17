@@ -27,9 +27,11 @@
 +rt node eo2js-runtime:0.0.0
 +version 0.0.0
 
-# Object that represent element in a DOM Document.
+# Object that represent element inside DOM Document.
 [xml] > element
   # Attribute.
   [attr] > get-attribute /org.eolang.dom.element
+  # Text content inside element.
+  [] > text-content /org.eolang.dom.element
   # Node as-string.
   [] > as-string /org.eolang.dom.element
