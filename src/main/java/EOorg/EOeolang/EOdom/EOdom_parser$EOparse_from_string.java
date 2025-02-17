@@ -25,7 +25,7 @@
  * @checkstyle PackageNameCheck (4 lines)
  * @checkstyle TrailingCommentCheck (3 lines)
  */
-package EOorg.EOeolang.EOdom;
+package EOorg.EOeolang.EOdom; // NOPMD
 
 import org.eolang.AtVoid;
 import org.eolang.Atom;
@@ -39,13 +39,16 @@ import org.eolang.XmirObject;
 /**
  * Parse source string into DOM document.
  * @since 0.0.0
+ * @checkstyle TypeNameCheck (5 lines)
  */
+@SuppressWarnings("PMD.AvoidDollarSigns")
 @XmirObject(oname = "dom-parser.parse-from-string")
 public final class EOdom_parser$EOparse_from_string extends PhDefault implements Atom {
 
     /**
      * Ctor.
      */
+    @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public EOdom_parser$EOparse_from_string() {
         this.add("data", new AtVoid("data"));
     }

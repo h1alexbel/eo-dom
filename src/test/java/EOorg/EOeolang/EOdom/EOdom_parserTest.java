@@ -25,7 +25,7 @@
  * @checkstyle PackageNameCheck (4 lines)
  * @checkstyle TrailingCommentCheck (3 lines)
  */
-package EOorg.EOeolang.EOdom;
+package EOorg.EOeolang.EOdom; // NOPMD
 
 import EOorg.EOeolang.EOerror;
 import org.eolang.Data;
@@ -40,6 +40,7 @@ import org.llorllale.cactoos.matchers.Throws;
  * Tests for {@link EOdom_parser}.
  *
  * @since 0.0.0
+ * @checkstyle TypeNameCheck (3 lines)
  */
 final class EOdom_parserTest {
 
