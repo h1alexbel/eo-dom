@@ -45,7 +45,7 @@ import org.eolang.XmirObject;
 public final class EOelement$EOtext_content extends PhDefault implements Atom {
 
     @Override
-    public Phi lambda() throws Exception {
+    public Phi lambda() throws XmlParseException {
         return new Data.ToPhi(
             new XmlNode.Default(new Dataized(this.take(Attr.RHO).take("xml")).asString())
                 .text().getBytes()
