@@ -28,7 +28,6 @@
 package EOorg.EOeolang.EOdom; // NOPMD
 
 import java.io.StringWriter;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -41,7 +40,6 @@ import org.eolang.Dataized;
 import org.eolang.PhDefault;
 import org.eolang.Phi;
 import org.eolang.XmirObject;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
@@ -68,10 +66,9 @@ public final class EOdoc$EOxml$EOget_elements_by_tag_name extends PhDefault impl
         ).getElementsByTagName(new Dataized(this.take("name")).asString());
         final StringBuilder serialized = new StringBuilder();
         for (int pos = 0; pos < nodes.getLength(); pos += 1) {
-            final Node node = nodes.item(pos);
             final StringWriter writer = new StringWriter();
-            final Transformer transformer = TransformerFactory.newInstance().newTransformer();
-            transformer.transform(new DOMSource(node), new StreamResult(writer));
+            TransformerFactory.newInstance().newTransformer()
+                .transform(new DOMSource(nodes.item(pos)), new StreamResult(writer));
             serialized.append(writer).append('\n');
         }
         final Phi collection = Phi.Φ.take("org.eolang.dom.html-collection");
