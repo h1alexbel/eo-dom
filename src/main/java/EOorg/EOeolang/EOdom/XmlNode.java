@@ -144,6 +144,10 @@ public interface XmlNode {
             this.base = element;
         }
 
+        public NodeList getElementsByTagName(final String name) {
+            return this.base.getElementsByTagName(name);
+        }
+
         @Override
         public XmlNode elem(final String name) {
             final XmlNode result;

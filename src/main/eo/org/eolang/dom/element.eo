@@ -27,16 +27,7 @@
 +rt node eo2js-runtime:0.0.0
 +version 0.0.0
 
-# The doc object allows you to create XML tree-based documents. Serves as
-# an entry-point into the XML-based document's content.
-[data] > doc
-  # XML.
-  [] > @ /org.eolang.dom.doc.xml
-
-  # Serialized data.
-  [serialized] > xml
-    [name] > get-elements-by-tag-name /org.eolang.dom.doc.xml
-    [] > as-string /org.eolang.string
-    [ename] > elem /org.eolang.dom.doc.xml
-    [aname] > attr /org.eolang.dom.doc.xml
-    [] > text /org.eolang.string
+# Object that represent element in a DOM Document.
+[xml] > element
+  # Node as-string.
+  [] > as-string /org.eolang.dom.element

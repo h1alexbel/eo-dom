@@ -205,6 +205,31 @@ final class EOdocTest {
         );
     }
 
+    @Test
+    void retrievesElementsByTagName() {
+        final Phi doc = this.parsedDocument(
+            "<books><book title=\"Object Thinking\"/><book title=\"Elegant Objects Vol 1.\"/></books>"
+        );
+        final Phi retrieval = doc.take("get-elements-by-tag-name");
+        retrieval.put("name", new Data.ToPhi("book"));
+        final Phi at = retrieval.take("at");
+        at.put("pos", new Data.ToPhi(0));
+        MatcherAssert.assertThat(
+            "Retrieved element does not match with expected",
+            new Dataized(at.take("as-string")).asString(),
+            Matchers.equalTo(
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><book title=\"Object Thinking\"/>"
+            )
+        );
+    }
+
+    private Phi parsedDocument(final String data) {
+        final Phi parse = Phi.Φ.take("org.eolang.dom.dom-parser").copy()
+            .take("parse-from-string");
+        parse.put("data", new Data.ToPhi(data));
+        return parse;
+    }
+
     private Phi document(final String xml) {
         final Phi doc = Phi.Φ.take("org.eolang.dom.doc").copy();
         doc.put("data", new Data.ToPhi(xml));
