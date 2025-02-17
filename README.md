@@ -23,7 +23,8 @@ traversing XML documents using [DOM] and [XPath].
 Here is how it works:
 
 ```eo
-+package org.eolang.dom
++alias org.eolang.dom.doc
++alias org.eolang.dom.dom-parser
 
 [] > finds-element-at-index
   dom-parser.parse-from-string > doc
