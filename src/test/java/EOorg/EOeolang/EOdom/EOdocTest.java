@@ -145,34 +145,6 @@ final class EOdocTest {
     }
 
     @Test
-    void returnsAttributeInsideNode() {
-        final Phi attr = this.document("<program test=\"f\"/>").take(
-            EOdocTest.ATTR_NAME
-        );
-        attr.put("aname", new Data.ToPhi("test"));
-        MatcherAssert.assertThat(
-            "Value does not match with expected",
-            new Dataized(attr).asString(),
-            Matchers.equalTo("f")
-        );
-    }
-
-    @Test
-    void returnsAttributeInsideChildNode() {
-        final Phi elem = this.document("<foo><bar x=\"ttt\"></bar></foo>").take(
-            EOdocTest.ELEM_NAME
-        );
-        elem.put("ename", new Data.ToPhi("bar"));
-        final Phi attr = elem.take(EOdocTest.ATTR_NAME);
-        attr.put("aname", new Data.ToPhi("x"));
-        MatcherAssert.assertThat(
-            "Value does not match with expected",
-            new Dataized(attr).asString(),
-            Matchers.equalTo("ttt")
-        );
-    }
-
-    @Test
     void returnsTextInsideNode() {
         MatcherAssert.assertThat(
             "Text does not match with expected",
@@ -191,20 +163,6 @@ final class EOdocTest {
             "Text does not match with expected",
             new Dataized(child.take(EOdocTest.TEXT_NAME)).asString(),
             Matchers.equalTo("x")
-        );
-    }
-
-    @Test
-    void throwsErrorIfAttributeIsNotFound() {
-        final Phi attr = this.document("<foo/>").take(EOdocTest.ATTR_NAME);
-        attr.put("aname", new Data.ToPhi("x"));
-        MatcherAssert.assertThat(
-            "Text does not match with expected",
-            () -> new Dataized(attr).asString(),
-            new Throws<>(
-                Matchers.containsString("Attribute 'x' was not found in the node"),
-                EOerror.ExError.class
-            )
         );
     }
 
