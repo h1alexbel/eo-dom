@@ -74,3 +74,12 @@
   eq. > @
     elements.length
     2
+
+# This unit test is supposed to check the functionality of the corresponding object.
+[] > retrieves-elements-in-wildcard-namespace
+  dom-parser.parse-from-string > doc
+    "<root xmlns:x=\"https://foo.com/ns\" xmlns:y=\"https://y.com/ns\"><x:f>first</x:f><x:f>second</x:f><y:f>third</y:f></root>"
+  doc.get-elements-by-tag-name-ns "*" "f" > elements
+  eq. > @
+    elements.length
+    3

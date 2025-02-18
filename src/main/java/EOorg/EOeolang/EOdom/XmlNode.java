@@ -44,6 +44,10 @@ import org.xml.sax.SAXException;
  * XML Document Node.
  *
  * @since 0.0.0
+ * @todo #50:60min Refactor XmlNode interface and it's implementations.
+ *  Originally it was designed to present the behaviour of node in DOM document.
+ *  Now, we should refactor and decompose this interface to present basic DOM element
+ *  with an entry point to W3C API.
  */
 public interface XmlNode {
 

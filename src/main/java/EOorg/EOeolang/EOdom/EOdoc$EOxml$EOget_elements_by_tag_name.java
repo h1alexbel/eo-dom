@@ -35,7 +35,6 @@ import org.eolang.Dataized;
 import org.eolang.PhDefault;
 import org.eolang.Phi;
 import org.eolang.XmirObject;
-import org.w3c.dom.NodeList;
 
 /**
  * Get DOM elements by tag name.
@@ -59,19 +58,10 @@ public final class EOdoc$EOxml$EOget_elements_by_tag_name extends PhDefault impl
 
     @Override
     public Phi lambda() throws XmlParseException, TransformerException {
-        final NodeList nodes = new XmlNode.Default(
-            new Dataized(this.take(Attr.RHO).take("serialized")).asString()
-        ).getElementsByTagName(new Dataized(this.take("name")).asString());
-        return new NodesCollection(nodes).value();
-//        final StringBuilder serialized = new StringBuilder();
-//        for (int pos = 0; pos < nodes.getLength(); pos += 1) {
-//            final StringWriter writer = new StringWriter();
-//            TransformerFactory.newInstance().newTransformer()
-//                .transform(new DOMSource(nodes.item(pos)), new StreamResult(writer));
-//            serialized.append(writer).append('\n');
-//        }
-//        final Phi collection = Phi.Φ.take("org.eolang.dom.html-collection");
-//        collection.put("nodes", new Data.ToPhi(serialized.toString().getBytes()));
-//        return collection;
+        return new NodesCollection(
+            new XmlNode.Default(
+                new Dataized(this.take(Attr.RHO).take("serialized")).asString()
+            ).getElementsByTagName(new Dataized(this.take("name")).asString())
+        ).value();
     }
 }

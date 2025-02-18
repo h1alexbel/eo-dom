@@ -42,7 +42,7 @@ import org.llorllale.cactoos.matchers.Throws;
  *
  * @since 0.0.0
  */
-@SuppressWarnings("PMD.TooManyMethods")
+@SuppressWarnings({"PMD.TooManyMethods", "PMD.AvoidDuplicateLiterals"})
 final class EOdocTest {
 
     @Test
