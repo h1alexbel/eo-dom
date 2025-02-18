@@ -212,10 +212,7 @@ public interface XmlNode {
         @SuppressWarnings("PMD.AvoidCatchingGenericException")
         private static Element fromString(final String xml) throws XmlParseException {
             try {
-                final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-                dbf.setValidating(true);
-                dbf.setNamespaceAware(true);
-                return dbf.newDocumentBuilder()
+                return DocumentBuilderFactory.newInstance().newDocumentBuilder()
                     .parse(new ByteArrayInputStream(xml.getBytes()))
                     .getDocumentElement();
             } catch (final ParserConfigurationException exception) {
