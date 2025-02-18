@@ -27,6 +27,7 @@
  */
 package EOorg.EOeolang.EOdom; // NOPMD
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -35,8 +36,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.cactoos.io.InputOf;
-import org.cactoos.io.UncheckedInput;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -177,7 +176,7 @@ public interface XmlNode {
 
         @Override
         public String text() {
-            return this.base.getTextContent();
+            return this.base.getTextContent().trim();
         }
 
         @Override
@@ -202,9 +201,8 @@ public interface XmlNode {
         @SuppressWarnings("PMD.AvoidCatchingGenericException")
         private static Element fromString(final String xml) throws XmlParseException {
             try {
-                return DocumentBuilderFactory.newInstance()
-                    .newDocumentBuilder()
-                    .parse(new UncheckedInput(new InputOf(xml)).stream())
+                return DocumentBuilderFactory.newInstance().newDocumentBuilder()
+                    .parse(new ByteArrayInputStream(xml.getBytes()))
                     .getDocumentElement();
             } catch (final ParserConfigurationException exception) {
                 throw new IllegalStateException(

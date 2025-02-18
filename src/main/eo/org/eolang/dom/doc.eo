@@ -35,4 +35,8 @@
   # Serialized data.
   [serialized] > xml
     [name] > get-elements-by-tag-name /org.eolang.dom.doc.xml
+    # Returns an element whose id property matches the specified string.
+    # Since element IDs are required to be unique if specified, they're a
+    # useful way to get access to a specific element quickly.
+    [identifier] > get-element-by-id /org.eolang.dom.doc.xml
     [] > as-string /org.eolang.string

@@ -55,3 +55,13 @@
   eq. > @
     title
     "Object Thinking"
+
+# This unit test is supposed to check the functionality of the corresponding object.
+[] > finds-element-by-id
+  dom-parser.parse-from-string > doc
+    "<cities><c id='Moscow'/><c id='San Francisco'/><c id='Shanghai'/></cities>"
+  eq. > @
+    doc.get-element-by-id
+      "Moscow"
+    .get-attribute "id"
+    "Moscow"
