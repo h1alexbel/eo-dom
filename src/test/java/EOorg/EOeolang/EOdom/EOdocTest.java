@@ -105,10 +105,11 @@ final class EOdocTest {
 
     /**
      * Finds element with identifier, supplied in DTD.
-     * @todo #48:60min Enable this test after `getElementById()` will take an account ID specified in DTD.
-     *  Currenlty, we use `org.jsoup` library that checks `id` attribute in HTML documents by default.
-     *  Let's make it possible to configure identifiers from their definitions, supplied in DTD schema.
-     *  Check <a href="https://stackoverflow.com/questions/3423430/java-xml-dom-how-are-id-attributes-special">this</a>
+     * @todo #48:60min Enable this test after `getElementById()` will take an account ID
+     *  specified in DTD. Currenlty, we use `org.jsoup` library that checks `id` attribute
+     *  in HTML documents by default. Let's make it possible to configure identifiers from
+     *  their definitions, supplied in DTD schema. Check
+     *  <a href="https://stackoverflow.com/questions/3423430/java-xml-dom-how-are-id-attributes-special">this</a>
      *  for more information about document identifiers.
      */
     @Disabled

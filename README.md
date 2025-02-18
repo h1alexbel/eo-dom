@@ -28,7 +28,7 @@ Here is how it works:
 
 [] > finds-element-at-index
   dom-parser.parse-from-string > doc
-    "<books><book title=\"Object Thinking\"/><book title=\"Elegant Objects Vol 1.\"/></books>"
+    "<books><book title='Object Thinking'/><book title='Elegant Objects Vol 1.'/></books>"
   doc.get-elements-by-tag-name "book" > books
   books.at 0 > first
   first.get-attribute "title" > title
