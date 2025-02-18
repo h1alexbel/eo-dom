@@ -61,9 +61,7 @@ public final class EOdom_parser$EOparse_from_string extends PhDefault implements
             doc.put(
                 "data",
                 new Data.ToPhi(
-                    new XmlNode.Default(
-                        new Dataized(data).asString()
-                    ).asString().getBytes()
+                    new XmlNode.Default(new Dataized(data).asString()).asString().getBytes()
                 )
             );
         } catch (final XmlParseException exception) {

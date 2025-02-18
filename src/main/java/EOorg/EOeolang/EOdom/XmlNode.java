@@ -36,7 +36,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -146,10 +145,6 @@ public interface XmlNode {
 
         public NodeList getElementsByTagName(final String name) {
             return this.base.getElementsByTagName(name);
-        }
-
-        public Document doc() {
-            return this.base.getOwnerDocument();
         }
 
         @Override
