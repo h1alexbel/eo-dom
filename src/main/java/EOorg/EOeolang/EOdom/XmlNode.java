@@ -187,7 +187,7 @@ public interface XmlNode {
 
         @Override
         public String text() {
-            return this.base.getTextContent();
+            return this.base.getTextContent().trim();
         }
 
         @Override

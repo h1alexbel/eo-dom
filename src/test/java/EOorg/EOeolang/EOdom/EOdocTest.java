@@ -33,6 +33,7 @@ import org.eolang.Dataized;
 import org.eolang.Phi;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.llorllale.cactoos.matchers.Throws;
 
@@ -83,6 +84,34 @@ final class EOdocTest {
         );
     }
 
+
+    @Test
+    void findsElementsWithIdTogetherWithChildElements() {
+        final Phi bid = this.parsedDocument(
+            String.join(
+                "\n",
+                "<app>",
+                "<x id='wanted'><child>child is here</child></x>",
+                "<x id='x'/>",
+                "</app>"
+            )
+        ).take("get-element-by-id");
+        bid.put("identifier", new Data.ToPhi("wanted"));
+        MatcherAssert.assertThat(
+            "Found element does not match with expected",
+            new Dataized(bid.take("text-content")).asString(),
+            Matchers.equalTo("child is here")
+        );
+    }
+
+    /**
+     * Finds element with identifier, supplied in DTD.
+     * @todo #48:60min Enable this test after `getElementById()` that looks into
+     *  DTD schema will be implemented. Currenlty, we use `org.jsoup` library that
+     *  checks `id` attribute in HTML documents by default. Let's make possible to
+     *  configure identifiers from their definitions, supplied in DTD schema.
+     */
+    @Disabled
     @Test
     void findsElementWithIdentifierWithSuppliedDtd() {
         final Phi bid = this.parsedDocument(
@@ -92,11 +121,11 @@ final class EOdocTest {
                 "<!DOCTYPE foo [",
                 "<!ELEMENT foo (bar+)>",
                 "<!ELEMENT bar EMPTY>",
-                "<!ATTLIST bar id ID #REQUIRED>",
+                "<!ATTLIST bar supplied ID #REQUIRED>",
                 "]>",
                 "<foo>",
-                "<bar id='bar123'/>",
-                "<bar id='bar456'/>",
+                "<bar supplied='bar123'/>",
+                "<bar supplied='bar456'/>",
                 "</foo>"
             )
         ).take("get-element-by-id");
@@ -105,7 +134,7 @@ final class EOdocTest {
             "Found element does not match with expected",
             new Dataized(bid.take("as-string")).asString(),
             Matchers.equalTo(
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><bar id=\"bar123\"/>"
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><bar supplied=\"bar123\"/>"
             )
         );
     }

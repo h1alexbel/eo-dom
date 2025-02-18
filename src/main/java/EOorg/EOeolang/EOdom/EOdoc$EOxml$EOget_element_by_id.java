@@ -8,6 +8,7 @@ import org.eolang.Dataized;
 import org.eolang.PhDefault;
 import org.eolang.Phi;
 import org.eolang.XmirObject;
+import org.jsoup.Jsoup;
 
 /**
  * Retrieval of the element with specified `id` property.
@@ -31,10 +32,9 @@ public final class EOdoc$EOxml$EOget_element_by_id extends PhDefault implements 
             "xml",
             new Data.ToPhi(
                 new XmlNode.Default(
-                    new XmlNode.Default(
-                        new Dataized(this.take(Attr.RHO).take("serialized")).asString()
-                    ).doc()
+                    Jsoup.parse(new Dataized(this.take(Attr.RHO).take("serialized")).asString())
                         .getElementById(new Dataized(this.take("identifier")).asString())
+                        .toString()
                 ).asString().getBytes()
             )
         );
