@@ -56,17 +56,17 @@ public final class EOdom_parser$EOparse_from_string extends PhDefault implements
     @Override
     public Phi lambda() {
         final Phi data = this.take("data");
-        // raw with DTD
-        System.out.println(new Dataized(data).asString());
         final Phi doc = Phi.Φ.take("org.eolang.dom.doc").copy();
         try {
             doc.put(
                 "data",
                 new Data.ToPhi(
-                    new Dataized(data).asString().getBytes()
+                    new XmlNode.Default(
+                        new Dataized(data).asString()
+                    ).asString().getBytes()
                 )
             );
-        } catch (final Exception exception) {
+        } catch (final XmlParseException exception) {
             throw new ExFailure(
                 String.format(
                     "XML document syntax is invalid: '%s'", new Dataized(data).asString()

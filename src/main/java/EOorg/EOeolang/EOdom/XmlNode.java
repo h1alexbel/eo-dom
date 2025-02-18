@@ -27,16 +27,17 @@
  */
 package EOorg.EOeolang.EOdom; // NOPMD
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.regex.Pattern;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.cactoos.io.InputOf;
-import org.cactoos.io.UncheckedInput;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -124,6 +125,11 @@ public interface XmlNode {
     final class Default implements XmlNode {
 
         /**
+         * DTD Doctype pattern.
+         */
+        private static final Pattern DTD = Pattern.compile("(?s)<!DOCTYPE[^>]*?>");
+
+        /**
          * Base element.
          */
         private final Element base;
@@ -146,6 +152,10 @@ public interface XmlNode {
 
         public NodeList getElementsByTagName(final String name) {
             return this.base.getElementsByTagName(name);
+        }
+
+        public Document doc() {
+            return this.base.getOwnerDocument();
         }
 
         @Override
@@ -202,9 +212,11 @@ public interface XmlNode {
         @SuppressWarnings("PMD.AvoidCatchingGenericException")
         private static Element fromString(final String xml) throws XmlParseException {
             try {
-                return DocumentBuilderFactory.newInstance()
-                    .newDocumentBuilder()
-                    .parse(new UncheckedInput(new InputOf(xml)).stream())
+                final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                dbf.setValidating(true);
+                dbf.setNamespaceAware(true);
+                return dbf.newDocumentBuilder()
+                    .parse(new ByteArrayInputStream(xml.getBytes()))
                     .getDocumentElement();
             } catch (final ParserConfigurationException exception) {
                 throw new IllegalStateException(

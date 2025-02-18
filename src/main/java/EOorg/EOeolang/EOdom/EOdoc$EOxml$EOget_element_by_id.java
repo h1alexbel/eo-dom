@@ -26,17 +26,18 @@ public final class EOdoc$EOxml$EOget_element_by_id extends PhDefault implements 
 
     @Override
     public Phi lambda() throws XmlParseException {
-        final XmlNode.Default serialized = new XmlNode.Default(
-            new Dataized(this.take(Attr.RHO).take("serialized")).asString()
-        );
-        System.out.println(serialized.asString());
-        final String found = new XmlNode.Default(
-            serialized
-                .doc()
-                .getElementById(new Dataized(this.take("identifier")).asString())
-        ).asString();
         final Phi element = Phi.Φ.take("org.eolang.dom.element");
-        element.put("xml", new Data.ToPhi(found.getBytes()));
+        element.put(
+            "xml",
+            new Data.ToPhi(
+                new XmlNode.Default(
+                    new XmlNode.Default(
+                        new Dataized(this.take(Attr.RHO).take("serialized")).asString()
+                    ).doc()
+                        .getElementById(new Dataized(this.take("identifier")).asString())
+                ).asString().getBytes()
+            )
+        );
         return element;
     }
 }
