@@ -65,3 +65,12 @@
       "Moscow"
     .get-attribute "id"
     "Moscow"
+
+# This unit test is supposed to check the functionality of the corresponding object.
+[] > retrieves-elements-in-namespace
+  dom-parser.parse-from-string > doc
+    "<root xmlns:x=\"https://foo.com/ns\"><x:foo>first</x:foo><x:foo>second</x:foo><x:bar>it is bar</x:bar></root>"
+  doc.get-elements-by-tag-name-ns "https://foo.com/ns" "foo" > elements
+  eq. > @
+    elements.length
+    2

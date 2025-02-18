@@ -27,15 +27,10 @@
  */
 package EOorg.EOeolang.EOdom; // NOPMD
 
-import java.io.StringWriter;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import org.eolang.AtVoid;
 import org.eolang.Atom;
 import org.eolang.Attr;
-import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.PhDefault;
 import org.eolang.Phi;
@@ -67,15 +62,16 @@ public final class EOdoc$EOxml$EOget_elements_by_tag_name extends PhDefault impl
         final NodeList nodes = new XmlNode.Default(
             new Dataized(this.take(Attr.RHO).take("serialized")).asString()
         ).getElementsByTagName(new Dataized(this.take("name")).asString());
-        final StringBuilder serialized = new StringBuilder();
-        for (int pos = 0; pos < nodes.getLength(); pos += 1) {
-            final StringWriter writer = new StringWriter();
-            TransformerFactory.newInstance().newTransformer()
-                .transform(new DOMSource(nodes.item(pos)), new StreamResult(writer));
-            serialized.append(writer).append('\n');
-        }
-        final Phi collection = Phi.Φ.take("org.eolang.dom.html-collection");
-        collection.put("nodes", new Data.ToPhi(serialized.toString().getBytes()));
-        return collection;
+        return new NodesCollection(nodes).value();
+//        final StringBuilder serialized = new StringBuilder();
+//        for (int pos = 0; pos < nodes.getLength(); pos += 1) {
+//            final StringWriter writer = new StringWriter();
+//            TransformerFactory.newInstance().newTransformer()
+//                .transform(new DOMSource(nodes.item(pos)), new StreamResult(writer));
+//            serialized.append(writer).append('\n');
+//        }
+//        final Phi collection = Phi.Φ.take("org.eolang.dom.html-collection");
+//        collection.put("nodes", new Data.ToPhi(serialized.toString().getBytes()));
+//        return collection;
     }
 }

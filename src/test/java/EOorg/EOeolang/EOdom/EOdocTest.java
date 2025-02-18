@@ -85,6 +85,97 @@ final class EOdocTest {
     }
 
     @Test
+    void retrievesElementsByTagNameInNs() {
+        final Phi doc = this.parsedDocument(
+            String.join(
+                "\n",
+                "<app xmlns:e=\"https://example.com/e\" xmlns:t=\"https://example.com/t\">",
+                "<e:foo>Boom e</e:foo>",
+                "<t:foo>Boom t</t:foo>",
+                "</app>"
+            )
+        );
+        final Phi retrieval = doc.take("get-elements-by-tag-name-ns");
+        retrieval.put("ns", new Data.ToPhi("https://example.com/e"));
+        retrieval.put("name", new Data.ToPhi("foo"));
+        final Phi locate = retrieval.take("at");
+        locate.put("pos", new Data.ToPhi(0));
+        MatcherAssert.assertThat(
+            "Text content does not match with expected",
+            new Dataized(locate.take("text-content")).asString(),
+            Matchers.equalTo("Boom e")
+        );
+    }
+
+    @Test
+    void retrievesElementsWithWildcardNs() {
+        final Phi doc = this.parsedDocument(
+            String.join(
+                "\n",
+                "<main xmlns:foo=\"https://foo.com\" xmlns:bar=\"https://bar.com\">",
+                "<foo:o>foo o</foo:o>",
+                "<bar:o>bar o</bar:o>",
+                "<x>just x</x>",
+                "</main>"
+            )
+        );
+        final Phi retrieval = doc.take("get-elements-by-tag-name-ns");
+        retrieval.put("ns", new Data.ToPhi("*"));
+        retrieval.put("name", new Data.ToPhi("o"));
+        MatcherAssert.assertThat(
+            "Nodes count does not match with expected",
+            new Dataized(retrieval.take("length")).asNumber().intValue(),
+            Matchers.equalTo(2)
+        );
+    }
+
+    @Test
+    void retrievesAllElementsInGivenNamespace() {
+        final Phi doc = this.parsedDocument(
+            String.join(
+                "\n",
+                "<main xmlns:one=\"https://one.com\" xmlns:two=\"https://two.com\">",
+                "<one:foo>x</one:foo>",
+                "<one:bar>y</one:bar>",
+                "<one:xyz>z</one:xyz>",
+                "</main>"
+            )
+        );
+        final Phi retrieval = doc.take("get-elements-by-tag-name-ns");
+        retrieval.put("ns", new Data.ToPhi("https://one.com"));
+        retrieval.put("name", new Data.ToPhi("*"));
+        MatcherAssert.assertThat(
+            "Nodes count does not match with expected",
+            new Dataized(retrieval.take("length")).asNumber().intValue(),
+            Matchers.equalTo(3)
+        );
+    }
+
+    @Test
+    void retrievesWildcardElementsInWildcardNs() {
+        final Phi doc = this.parsedDocument(
+            String.join(
+                "\n",
+                "<main xmlns:one=\"https://one.com\" xmlns:two=\"https://two.com\">",
+                "<one:foo>x</one:foo>",
+                "<one:bar>y</one:bar>",
+                "<one:xyz>z</one:xyz>",
+                "<two:t>z</two:t>",
+                "<two:f>z</two:f>",
+                "</main>"
+            )
+        );
+        final Phi retrieval = doc.take("get-elements-by-tag-name-ns");
+        retrieval.put("ns", new Data.ToPhi("*"));
+        retrieval.put("name", new Data.ToPhi("*"));
+        MatcherAssert.assertThat(
+            "Nodes count does not match with expected",
+            new Dataized(retrieval.take("length")).asNumber().intValue(),
+            Matchers.equalTo(12)
+        );
+    }
+
+    @Test
     void findsElementsWithIdTogetherWithChildElements() {
         final Phi bid = this.parsedDocument(
             String.join(

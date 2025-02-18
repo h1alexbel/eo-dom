@@ -147,6 +147,10 @@ public interface XmlNode {
             return this.base.getElementsByTagName(name);
         }
 
+        public NodeList getElementsByTagNameNs(final String namespace, final String local) {
+            return this.base.getOwnerDocument().getElementsByTagNameNS(namespace, local);
+        }
+
         @Override
         public XmlNode elem(final String name) {
             final XmlNode result;
@@ -201,7 +205,9 @@ public interface XmlNode {
         @SuppressWarnings("PMD.AvoidCatchingGenericException")
         private static Element fromString(final String xml) throws XmlParseException {
             try {
-                return DocumentBuilderFactory.newInstance().newDocumentBuilder()
+                final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                dbf.setNamespaceAware(true);
+                return dbf.newDocumentBuilder()
                     .parse(new ByteArrayInputStream(xml.getBytes()))
                     .getDocumentElement();
             } catch (final ParserConfigurationException exception) {
