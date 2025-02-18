@@ -30,7 +30,6 @@ package EOorg.EOeolang.EOdom; // NOPMD
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.regex.Pattern;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -123,11 +122,6 @@ public interface XmlNode {
      * @since 0.0.0
      */
     final class Default implements XmlNode {
-
-        /**
-         * DTD Doctype pattern.
-         */
-        private static final Pattern DTD = Pattern.compile("(?s)<!DOCTYPE[^>]*?>");
 
         /**
          * Base element.

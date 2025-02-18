@@ -84,7 +84,6 @@ final class EOdocTest {
         );
     }
 
-
     @Test
     void findsElementsWithIdTogetherWithChildElements() {
         final Phi bid = this.parsedDocument(
