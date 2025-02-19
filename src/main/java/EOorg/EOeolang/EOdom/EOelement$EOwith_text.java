@@ -38,18 +38,18 @@ import org.eolang.XmirObject;
 import org.w3c.dom.Element;
 
 /**
- * Element with attribute.
+ * Element with text content.
+ *
  * @since 0.0.0
  */
-@XmirObject(oname = "element.with-attribute")
-public final class EOelement$EOwith_attribute extends PhDefault implements Atom {
+@XmirObject(oname = "element.with-text")
+public final class EOelement$EOwith_text extends PhDefault implements Atom {
 
     /**
      * Ctor.
      */
-    public EOelement$EOwith_attribute() {
-        this.add("attr", new AtVoid("attr"));
-        this.add("value", new AtVoid("value"));
+    public EOelement$EOwith_text() {
+        this.add("content", new AtVoid("content"));
     }
 
     @Override
@@ -57,9 +57,7 @@ public final class EOelement$EOwith_attribute extends PhDefault implements Atom 
         final Element self = new XmlNode.Default(
             new Dataized(this.take(Attr.RHO).take("xml")).asString()
         ).self();
-        self.setAttribute(
-            new Dataized(this.take("attr")).asString(), new Dataized(this.take("value")).asString()
-        );
+        self.setTextContent(new Dataized(this.take("content")).asString());
         final Phi fresh = Phi.Φ.take("org.eolang.dom.element").copy();
         fresh.put("xml", new Data.ToPhi(new XmlNode.Default(self).asString().getBytes()));
         return fresh;

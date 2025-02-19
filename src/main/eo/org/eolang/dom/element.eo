@@ -34,5 +34,7 @@
   [] > text-content /org.eolang.dom.element
   # Element with attribute.
   [attr value] > with-attribute /org.eolang.dom.element
+  # Element with text content.
+  [content] > with-text /org.eolang.dom.element
   # Node as-string.
   [] > as-string /org.eolang.dom.element

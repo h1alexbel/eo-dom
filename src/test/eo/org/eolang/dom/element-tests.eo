@@ -46,6 +46,25 @@
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?><foo f=\"123\"/>"
 
 # This unit test is supposed to check the functionality of the corresponding object.
+[] > sets-text-content
+  eq. > @
+    element
+      "<foo/>"
+    .with-text "text is here"
+    .as-string
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?><foo>text is here</foo>"
+
+# This unit test is supposed to check the functionality of the corresponding object.
+[] > builds-element
+  eq. > @
+    element
+      "<book/>"
+    .with-attribute "title" "Object Thinking"
+    .with-text "The greatest book about OOP"
+    .as-string
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?><book title=\"Object Thinking\">The greatest book about OOP</book>"
+
+# This unit test is supposed to check the functionality of the corresponding object.
 [] > retrieves-text-content
   eq. > @
     element

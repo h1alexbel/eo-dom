@@ -68,6 +68,20 @@ final class EOelementTest {
     }
 
     @Test
+    void setsAttributeToCompositeElement() {
+        final Phi with = this.parsed("<foo><test><a/></test></foo>").take("with-attribute");
+        with.put("attr", new Data.ToPhi("set"));
+        with.put("value", new Data.ToPhi("v"));
+        MatcherAssert.assertThat(
+            "Attribute value does not match with expected",
+            new Dataized(with.take("as-string")).asString(),
+            Matchers.equalTo(
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><foo set=\"v\"><test><a/></test></foo>"
+            )
+        );
+    }
+
+    @Test
     void retrievesAttribute() {
         final Phi attribute = this.parsed("<foo bar=\"f\"/>").take("get-attribute");
         attribute.put("attr", new Data.ToPhi("bar"));
@@ -88,6 +102,18 @@ final class EOelementTest {
             "Attribute value does not match with expected",
             new Dataized(attribute).asString(),
             Matchers.equalTo("top")
+        );
+    }
+
+    @Test
+    void setsTextContent() {
+        final String content = "bar";
+        final Phi with = this.parsed("<foo/>").take("with-text");
+        with.put("content", new Data.ToPhi(content));
+        MatcherAssert.assertThat(
+            "Attribute value does not match with expected",
+            new Dataized(with.take("text-content")).asString(),
+            Matchers.equalTo(content)
         );
     }
 
