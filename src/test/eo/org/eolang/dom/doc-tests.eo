@@ -39,6 +39,19 @@
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?><bar/>"
 
 # This unit test is supposed to check the functionality of the corresponding object.
+[] > appends-element
+  dom-parser.parse-from-string > doc
+    "<foo/>"
+  eq. > @
+    doc.append-child
+      doc.create-element
+        "bar"
+      .with-attribute "f" "x"
+      .with-text "boom"
+    .as-string
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?><foo><bar f=\"x\">boom</bar></foo>"
+
+# This unit test is supposed to check the functionality of the corresponding object.
 [] > retrieves-element-at-index
   dom-parser.parse-from-string > doc
     "<books><book title='Object Thinking'/><book title='Elegant Objects Vol 1.'/></books>"

@@ -28,7 +28,6 @@
 package EOorg.EOeolang.EOdom; // NOPMD
 
 import EOorg.EOeolang.EOerror;
-import org.eolang.Attr;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.Phi;
@@ -84,7 +83,6 @@ final class EOdocTest {
         );
     }
 
-    @Disabled
     @Test
     void appendsElementToExistingDocument() {
         final Phi root = this.parsedDocument("<foo/>");
@@ -92,10 +90,13 @@ final class EOdocTest {
         create.put("lname", new Data.ToPhi("bar"));
         final Phi append = root.take("append-child");
         append.put("child", create);
-        new Dataized(append).asString();
-//        final Phi append = doc.take(Attr.PHI).take("append-child");
-//        append.put("child", create);
-//        new Dataized(append).asString();
+        MatcherAssert.assertThat(
+            "Resulted document does not match with expected",
+            new Dataized(append.take("as-string")).asString(),
+            Matchers.equalTo(
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><foo><bar/></foo>"
+            )
+        );
     }
 
     @Test
