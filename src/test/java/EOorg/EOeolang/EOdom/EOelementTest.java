@@ -52,6 +52,22 @@ final class EOelementTest {
     }
 
     @Test
+    void setsAttribute() {
+        final Phi with = this.parsed("<foo/>").take("with-attribute");
+        final String set = "f";
+        final String value = "test";
+        with.put("attr", new Data.ToPhi(set));
+        with.put("value", new Data.ToPhi(value));
+        final Phi attr = with.take("get-attribute");
+        attr.put("attr", new Data.ToPhi(set));
+        MatcherAssert.assertThat(
+            "Attribute value does not match with expected",
+            new Dataized(attr).asString(),
+            Matchers.equalTo(value)
+        );
+    }
+
+    @Test
     void retrievesAttribute() {
         final Phi attribute = this.parsed("<foo bar=\"f\"/>").take("get-attribute");
         attribute.put("attr", new Data.ToPhi("bar"));

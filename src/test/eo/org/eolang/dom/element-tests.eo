@@ -37,6 +37,15 @@
     "ttt"
 
 # This unit test is supposed to check the functionality of the corresponding object.
+[] > sets-attribute
+  eq. > @
+    element
+      "<foo/>"
+    .with-attribute "f" "123"
+    .as-string
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?><foo f=\"123\"/>"
+
+# This unit test is supposed to check the functionality of the corresponding object.
 [] > retrieves-text-content
   eq. > @
     element

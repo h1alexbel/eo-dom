@@ -32,5 +32,7 @@
   [attr] > get-attribute /org.eolang.dom.element
   # Text content inside element.
   [] > text-content /org.eolang.dom.element
+  # Element with attribute.
+  [attr value] > with-attribute /org.eolang.dom.element
   # Node as-string.
   [] > as-string /org.eolang.dom.element
