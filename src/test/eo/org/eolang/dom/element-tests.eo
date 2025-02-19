@@ -67,9 +67,9 @@
 
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > creates-element-with-attribute-and-content
-  doc.create-element "book" > book
   eq. > @
-    book
+    doc.create-element
+      "book"
     .with-attribute "title" "Code Complete"
     .with-attribute "author" "Steve McConnell"
     .with-text "A Practical Handbook of Software Construction"
