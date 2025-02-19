@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 +alias org.eolang.dom.element
++alias org.eolang.dom.doc
 +architect yegor256@gmail.com
 +home https://github.com/h1alexbel/eo-dom
 +tests
@@ -63,6 +64,17 @@
     .with-text "The greatest book about OOP"
     .as-string
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?><book title=\"Object Thinking\">The greatest book about OOP</book>"
+
+# This unit test is supposed to check the functionality of the corresponding object.
+[] > creates-element-with-attribute-and-content
+  doc.create-element "book" > book
+  eq. > @
+    book
+    .with-attribute "title" "Code Complete"
+    .with-attribute "author" "Steve McConnell"
+    .with-text "A Practical Handbook of Software Construction"
+    .as-string
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?><book author=\"Steve McConnell\" title=\"Code Complete\">A Practical Handbook of Software Construction</book>"
 
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > retrieves-text-content

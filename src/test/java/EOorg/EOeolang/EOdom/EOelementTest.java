@@ -68,6 +68,29 @@ final class EOelementTest {
     }
 
     @Test
+    void createsElementWithAttributeAndText() {
+        final Phi title = this.parsed("<book/>").take("with-attribute");
+        title.put("attr", new Data.ToPhi("title"));
+        title.put("value", new Data.ToPhi("Code Complete"));
+        final Phi author = title.take("with-attribute");
+        author.put("attr", new Data.ToPhi("author"));
+        author.put("value", new Data.ToPhi("Steve McConnell"));
+        final Phi text = author.take("with-text");
+        text.put("content", new Data.ToPhi("A Practical Handbook of Software Construction"));
+        MatcherAssert.assertThat(
+            "Output element does not match with expected",
+            new Dataized(text.take("as-string")).asString().replaceAll("><", ">\n<"),
+            Matchers.equalTo(
+                String.join(
+                    "\n",
+                    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+                    "<book author=\"Steve McConnell\" title=\"Code Complete\">A Practical Handbook of Software Construction</book>"
+                )
+            )
+        );
+    }
+
+    @Test
     void setsAttributeToCompositeElement() {
         final Phi with = this.parsed("<foo><test><a/></test></foo>").take("with-attribute");
         with.put("attr", new Data.ToPhi("set"));
