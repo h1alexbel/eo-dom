@@ -1,4 +1,31 @@
-package EOorg.EOeolang.EOdom;
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2016-2025 Objectionary.com
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+/*
+ * @checkstyle PackageNameCheck (4 lines)
+ * @checkstyle TrailingCommentCheck (3 lines)
+ */
+package EOorg.EOeolang.EOdom; // NOPMD
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -14,7 +41,6 @@ import org.eolang.PhDefault;
 import org.eolang.Phi;
 import org.eolang.XmirObject;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -22,19 +48,22 @@ import org.xml.sax.SAXException;
  * Append child to the document.
  *
  * @since 0.0.0
+ * @checkstyle TypeNameCheck (5 lines)
  */
+@SuppressWarnings("PMD.AvoidDollarSigns")
 @XmirObject(oname = "doc.xml.append-child")
 public final class EOdoc$EOxml$EOappend_child extends PhDefault implements Atom {
 
     /**
      * Ctor.
      */
+    @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public EOdoc$EOxml$EOappend_child() {
         this.add("child", new AtVoid("child"));
     }
 
     @Override
-    public Phi lambda() throws XmlParseException, ParserConfigurationException, IOException, SAXException {
+    public Phi lambda() throws ParserConfigurationException, IOException, SAXException {
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         final DocumentBuilder builder = factory.newDocumentBuilder();
         final Document base = builder.parse(
@@ -42,13 +71,18 @@ public final class EOdoc$EOxml$EOappend_child extends PhDefault implements Atom 
                 new StringReader(new Dataized(this.take(Attr.RHO).take("serialized")).asString())
             )
         );
-        final Document child = builder.parse(
-            new InputSource(
-                new StringReader(new Dataized(this.take("child").take("as-string")).asString())
+        base.getDocumentElement().appendChild(
+            base.importNode(
+                builder.parse(
+                    new InputSource(
+                        new StringReader(
+                            new Dataized(this.take("child").take("as-string")).asString()
+                        )
+                    )
+                ).getDocumentElement(),
+                true
             )
         );
-        final Node imported = base.importNode(child.getDocumentElement(), true);
-        base.getDocumentElement().appendChild(imported);
         final Phi fresh = Phi.Φ.take("org.eolang.dom.doc").copy().take(Attr.PHI);
         fresh.put(
             "data",

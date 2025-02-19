@@ -49,6 +49,7 @@ public final class EOdoc$EOφ extends PhDefault implements Atom {
     /**
      * Ctor.
      */
+    @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public EOdoc$EOφ() {
         this.add("data", new AtVoid("data"));
     }

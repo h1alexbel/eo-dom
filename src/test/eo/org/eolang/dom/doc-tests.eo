@@ -39,6 +39,10 @@
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?><bar/>"
 
 # This unit test is supposed to check the functionality of the corresponding object.
+# @todo #51:45min Make possible to append child node to the empty doc.
+#  It should be possible to append newly created element inside empty document.
+#  In this case, inserted element will be the root element of document. Don't forget
+#  to add EO and Java tests.
 [] > appends-element
   dom-parser.parse-from-string > doc
     "<foo/>"

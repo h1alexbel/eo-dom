@@ -41,13 +41,16 @@ import org.w3c.dom.Element;
  * Element with text content.
  *
  * @since 0.0.0
+ * @checkstyle TypeNameCheck (5 lines)
  */
+@SuppressWarnings("PMD.AvoidDollarSigns")
 @XmirObject(oname = "element.with-text")
 public final class EOelement$EOwith_text extends PhDefault implements Atom {
 
     /**
      * Ctor.
      */
+    @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public EOelement$EOwith_text() {
         this.add("content", new AtVoid("content"));
     }

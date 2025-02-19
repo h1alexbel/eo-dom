@@ -39,6 +39,7 @@ import org.junit.jupiter.api.Test;
  *
  * @since 0.0.0
  */
+@SuppressWarnings("PMD.TooManyMethods")
 final class EOelementTest {
 
     @Test
@@ -52,6 +53,7 @@ final class EOelementTest {
     }
 
     @Test
+    @SuppressWarnings("PMD.AvoidDuplicateLiterals")
     void setsAttribute() {
         final Phi with = this.parsed("<foo/>").take("with-attribute");
         final String set = "f";
@@ -96,7 +98,7 @@ final class EOelementTest {
         with.put("attr", new Data.ToPhi("set"));
         with.put("value", new Data.ToPhi("v"));
         MatcherAssert.assertThat(
-            "Attribute value does not match with expected",
+            "Result XML does not match with expected",
             new Dataized(with.take("as-string")).asString(),
             Matchers.equalTo(
                 "<?xml version=\"1.0\" encoding=\"UTF-8\"?><foo set=\"v\"><test><a/></test></foo>"
