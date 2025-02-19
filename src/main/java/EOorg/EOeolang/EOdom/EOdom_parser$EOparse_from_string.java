@@ -29,6 +29,7 @@ package EOorg.EOeolang.EOdom; // NOPMD
 
 import org.eolang.AtVoid;
 import org.eolang.Atom;
+import org.eolang.Attr;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.ExFailure;
@@ -56,9 +57,9 @@ public final class EOdom_parser$EOparse_from_string extends PhDefault implements
     @Override
     public Phi lambda() {
         final Phi data = this.take("data");
-        final Phi doc = Phi.Φ.take("org.eolang.dom.doc").copy();
+        final Phi xml = Phi.Φ.take("org.eolang.dom.doc").copy().take(Attr.PHI);
         try {
-            doc.put(
+            xml.put(
                 "data",
                 new Data.ToPhi(
                     new XmlNode.Default(new Dataized(data).asString()).asString().getBytes()
@@ -72,6 +73,6 @@ public final class EOdom_parser$EOparse_from_string extends PhDefault implements
                 exception
             );
         }
-        return doc;
+        return xml;
     }
 }

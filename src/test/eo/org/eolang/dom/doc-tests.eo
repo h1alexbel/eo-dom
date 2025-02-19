@@ -30,10 +30,12 @@
 +unlint broken-ref
 
 # This unit test is supposed to check the functionality of the corresponding object.
-[] > creates-simple-document
+[] > creates-element
   eq. > @
-    (doc "<program/>").as-string
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?><program/>"
+    doc.create-element
+      "foo"
+    .as-string
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?><foo/>"
 
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > retrieves-element-at-index

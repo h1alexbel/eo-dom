@@ -27,6 +27,7 @@
  */
 package EOorg.EOeolang.EOdom; // NOPMD
 
+import org.eolang.AtVoid;
 import org.eolang.Atom;
 import org.eolang.Attr;
 import org.eolang.Data;
@@ -45,6 +46,13 @@ import org.eolang.XmirObject;
 @XmirObject(oname = "doc.xml")
 public final class EOdoc$EOφ extends PhDefault implements Atom {
 
+    /**
+     * Ctor.
+     */
+    public EOdoc$EOφ() {
+        this.add("data", new AtVoid("data"));
+    }
+
     @Override
     public Phi lambda() {
         final Phi xml = this.take(Attr.RHO).take("xml");
@@ -53,7 +61,7 @@ public final class EOdoc$EOφ extends PhDefault implements Atom {
                 "serialized",
                 new Data.ToPhi(
                     new XmlNode.Default(
-                        new Dataized(this.take(Attr.RHO).take("data")).asString()
+                        new Dataized(this.take("data")).asString()
                     ).asString().getBytes()
                 )
             );

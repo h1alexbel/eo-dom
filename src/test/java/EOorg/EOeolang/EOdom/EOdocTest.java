@@ -35,6 +35,8 @@ import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.llorllale.cactoos.matchers.Throws;
 
 /**
@@ -46,11 +48,38 @@ import org.llorllale.cactoos.matchers.Throws;
 final class EOdocTest {
 
     @Test
-    void createsDocument() {
+    void createsAnElement() {
+        final Phi doc = Phi.Φ.take("org.eolang.dom.doc");
+        final Phi create = doc.take("create-element");
+        create.put("lname", new Data.ToPhi("x"));
         MatcherAssert.assertThat(
-            "Document was not created, but it should",
-            new Dataized(this.document("<program/>").take("serialized")).asString(),
-            Matchers.equalTo("<?xml version=\"1.0\" encoding=\"UTF-8\"?><program/>")
+            "Element XML does not match with expected",
+            new Dataized(create.take("as-string")).asString(),
+            Matchers.equalTo("<?xml version=\"1.0\" encoding=\"UTF-8\"?><x/>")
+        );
+    }
+
+    @ParameterizedTest
+    @ValueSource(
+        strings = {
+            "?", ">", "<", "$", "!", "@", "&", "*", "(", ")", "#", "%", "^", "+", "~", "'", "[",
+            "]"
+        }
+    )
+    void throwsOnInvalidCharacterInCreateElement(final String lname) {
+        final Phi doc = Phi.Φ.take("org.eolang.dom.doc");
+        final Phi create = doc.take("create-element");
+        create.put("lname", new Data.ToPhi(lname));
+        MatcherAssert.assertThat(
+            String.format(
+                "Exception is not thrown, though element name: '%s' is invalid",
+                lname
+            ),
+            () -> new Dataized(create.take("as-string")).asString(),
+            new Throws<>(
+                Matchers.containsString("An invalid or illegal XML character is specified"),
+                EOerror.ExError.class
+            )
         );
     }
 
@@ -58,7 +87,7 @@ final class EOdocTest {
     void throwsErrorIfInvalidXmlPassed() {
         MatcherAssert.assertThat(
             "Error was not thrown, though XML is invalid",
-            () -> new Dataized(this.document("broken").take("serialized")).asString(),
+            () -> new Dataized(this.parsedDocument("broken").take("serialized")).asString(),
             new Throws<>(
                 Matchers.containsString("XML document syntax is invalid"),
                 EOerror.ExError.class
@@ -196,12 +225,13 @@ final class EOdocTest {
 
     /**
      * Finds element with identifier, supplied in DTD.
+     *
      * @todo #48:60min Enable this test after `getElementById()` will take an account ID
-     *  specified in DTD. Currenlty, we use `org.jsoup` library that checks `id` attribute
-     *  in HTML documents by default. Let's make it possible to configure identifiers from
-     *  their definitions, supplied in DTD schema. Check
-     *  <a href="https://stackoverflow.com/questions/3423430/java-xml-dom-how-are-id-attributes-special">this</a>
-     *  for more information about document identifiers.
+     * specified in DTD. Currenlty, we use `org.jsoup` library that checks `id` attribute
+     * in HTML documents by default. Let's make it possible to configure identifiers from
+     * their definitions, supplied in DTD schema. Check
+     * <a href="https://stackoverflow.com/questions/3423430/java-xml-dom-how-are-id-attributes-special">this</a>
+     * for more information about document identifiers.
      */
     @Disabled
     @Test
@@ -236,11 +266,5 @@ final class EOdocTest {
             .take("parse-from-string");
         parse.put("data", new Data.ToPhi(data));
         return parse;
-    }
-
-    private Phi document(final String xml) {
-        final Phi doc = Phi.Φ.take("org.eolang.dom.doc").copy();
-        doc.put("data", new Data.ToPhi(xml));
-        return doc;
     }
 }
