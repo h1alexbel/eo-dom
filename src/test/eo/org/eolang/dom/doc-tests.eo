@@ -32,10 +32,11 @@
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > creates-element
   eq. > @
-    doc.create-element
-      "foo"
+    dom-parser.parse-from-string
+      "<foo/>"
+    .create-element "bar"
     .as-string
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?><foo/>"
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?><bar/>"
 
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > retrieves-element-at-index

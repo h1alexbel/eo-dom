@@ -31,8 +31,6 @@
 [] > doc
   # XML.
   [data] > @ /org.eolang.dom.doc.xml
-  # Creates the DOM element specified by `lname`.
-  [lname] > create-element /org.eolang.dom.doc.xml
 
   # Serialized XML.
   [serialized] > xml
@@ -45,3 +43,7 @@
     # useful way to get access to a specific element quickly.
     [identifier] > get-element-by-id /org.eolang.dom.doc.xml
     [] > as-string /org.eolang.string
+    # Creates the DOM element specified by `lname`.
+    [lname] > create-element /org.eolang.dom.doc.xml
+    # Appends child to DOM document.
+    [child] > append-child /org.eolang.dom.doc

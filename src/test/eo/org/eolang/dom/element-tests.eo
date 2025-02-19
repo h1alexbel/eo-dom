@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 +alias org.eolang.dom.element
-+alias org.eolang.dom.doc
++alias org.eolang.dom.dom-parser
 +architect yegor256@gmail.com
 +home https://github.com/h1alexbel/eo-dom
 +tests
@@ -68,8 +68,9 @@
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > creates-element-with-attribute-and-content
   eq. > @
-    doc.create-element
-      "book"
+    dom-parser.parse-from-string
+      "<books/>"
+    .create-element "book"
     .with-attribute "title" "Code Complete"
     .with-attribute "author" "Steve McConnell"
     .with-text "A Practical Handbook of Software Construction"

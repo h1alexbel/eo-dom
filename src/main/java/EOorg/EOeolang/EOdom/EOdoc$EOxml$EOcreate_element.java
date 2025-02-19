@@ -14,13 +14,13 @@ import org.eolang.XmirObject;
  *
  * @since 0.0.0
  */
-@XmirObject(oname = "doc.create-element")
-public final class EOdoc$EOcreate_element extends PhDefault implements Atom {
+@XmirObject(oname = "doc.xml.create-element")
+public final class EOdoc$EOxml$EOcreate_element extends PhDefault implements Atom {
 
     /**
      * Ctor.
      */
-    public EOdoc$EOcreate_element() {
+    public EOdoc$EOxml$EOcreate_element() {
         this.add("lname", new AtVoid("lname"));
     }
 

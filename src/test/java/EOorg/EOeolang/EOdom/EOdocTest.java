@@ -28,6 +28,7 @@
 package EOorg.EOeolang.EOdom; // NOPMD
 
 import EOorg.EOeolang.EOerror;
+import org.eolang.Attr;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.Phi;
@@ -49,13 +50,13 @@ final class EOdocTest {
 
     @Test
     void createsAnElement() {
-        final Phi doc = Phi.Φ.take("org.eolang.dom.doc");
+        final Phi doc = this.parsedDocument("<x/>");
         final Phi create = doc.take("create-element");
-        create.put("lname", new Data.ToPhi("x"));
+        create.put("lname", new Data.ToPhi("y"));
         MatcherAssert.assertThat(
             "Element XML does not match with expected",
             new Dataized(create.take("as-string")).asString(),
-            Matchers.equalTo("<?xml version=\"1.0\" encoding=\"UTF-8\"?><x/>")
+            Matchers.equalTo("<?xml version=\"1.0\" encoding=\"UTF-8\"?><y/>")
         );
     }
 
@@ -67,7 +68,7 @@ final class EOdocTest {
         }
     )
     void throwsOnInvalidCharacterInCreateElement(final String lname) {
-        final Phi doc = Phi.Φ.take("org.eolang.dom.doc");
+        final Phi doc = this.parsedDocument("<f/>");
         final Phi create = doc.take("create-element");
         create.put("lname", new Data.ToPhi(lname));
         MatcherAssert.assertThat(
@@ -81,6 +82,20 @@ final class EOdocTest {
                 EOerror.ExError.class
             )
         );
+    }
+
+    @Disabled
+    @Test
+    void appendsElementToExistingDocument() {
+        final Phi root = this.parsedDocument("<foo/>");
+        final Phi create = root.take("create-element");
+        create.put("lname", new Data.ToPhi("bar"));
+        final Phi append = root.take("append-child");
+        append.put("child", create);
+        new Dataized(append).asString();
+//        final Phi append = doc.take(Attr.PHI).take("append-child");
+//        append.put("child", create);
+//        new Dataized(append).asString();
     }
 
     @Test
