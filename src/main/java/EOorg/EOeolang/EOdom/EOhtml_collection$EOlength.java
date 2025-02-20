@@ -48,11 +48,14 @@ public final class EOhtml_collection$EOlength extends PhDefault implements Atom 
 
     @Override
     public Phi lambda() throws Exception {
-        return new Data.ToPhi(
-            new ListOf<>(
-                new Dataized(this.take(Attr.RHO).take("nodes"))
-                    .asString().split("\n")
-            ).size()
-        );
+        final int result;
+        final String xml = new Dataized(this.take(Attr.RHO).take("nodes"))
+            .asString();
+        if (xml.isEmpty()) {
+            result = 0;
+        } else {
+            result = new ListOf<>(xml.split("\n")).size();
+        }
+        return new Data.ToPhi(result);
     }
 }

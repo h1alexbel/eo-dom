@@ -102,3 +102,12 @@
     .at 0
     .get-attribute "author"
     "David West"
+
+# This unit test is supposed to check the functionality of the corresponding object.
+[] > retrieves-empty-childs
+  eq. > @
+    element
+      "<books/>"
+    .child-nodes
+    .length
+    0

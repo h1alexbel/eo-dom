@@ -223,6 +223,19 @@ final class EOelementTest {
         );
     }
 
+    @Test
+    void retrievesZeroElementsInChildFreeNode() {
+        MatcherAssert.assertThat(
+            "Size should be zero, since there is no nodes inside",
+            new Dataized(
+                this.parsed("<defects/>")
+                    .take("child-nodes")
+                    .take("length")
+            ).asNumber().intValue(),
+            Matchers.equalTo(0)
+        );
+    }
+
     private Phi parsed(final String xml) {
         final Phi element = Phi.Φ.take("org.eolang.dom.element").copy();
         element.put("xml", new Data.ToPhi(xml));
