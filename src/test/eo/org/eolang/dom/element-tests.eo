@@ -92,3 +92,13 @@
       "<program/>"
     .text-content
     ""
+
+# This unit test is supposed to check the functionality of the corresponding object.
+[] > retrieves-child-elements
+  eq. > @
+    element
+      "<books><book author='David West'>Object Thinking</book></books>"
+    .child-nodes
+    .at 0
+    .get-attribute "author"
+    "David West"

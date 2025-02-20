@@ -171,6 +171,58 @@ final class EOelementTest {
         );
     }
 
+    @Test
+    void retrievesChildNodes() {
+        MatcherAssert.assertThat(
+            "Child nodes count does not match with expected",
+            new Dataized(
+                this.parsed("<top><a title='app'/><f>foo</f></top>")
+                    .take("child-nodes")
+                    .take("length")
+            ).asNumber().intValue(),
+            Matchers.equalTo(2)
+        );
+    }
+
+    @Test
+    void retrievesSecondChildNode() {
+        final Phi locate = this.parsed(
+            "<top><foo title='f'>bar</foo><main title='app'>x</main></top>"
+            )
+            .take("child-nodes")
+            .take("at");
+        locate.put("pos", new Data.ToPhi(1));
+        final Phi attr = locate.take("get-attribute");
+        attr.put("attr", new Data.ToPhi("title"));
+        MatcherAssert.assertThat(
+            "Attribute value does not match with expected",
+            new Dataized(attr).asString(),
+            Matchers.equalTo("app")
+        );
+        MatcherAssert.assertThat(
+            "Text inside the node does not match with expected",
+            new Dataized(locate.take("text-content")).asString(),
+            Matchers.equalTo("x")
+        );
+    }
+
+    @Test
+    void retrievesComplexChildNode() {
+        final Phi locate = this.parsed(
+            "<top><child><next n='2'><here title='we are at the bottom'/></next></child></top>"
+            )
+            .take("child-nodes")
+            .take("at");
+        locate.put("pos", new Data.ToPhi(0));
+        MatcherAssert.assertThat(
+            "Resulted child node does not match with expected",
+            new Dataized(locate.take("as-string")).asString(),
+            Matchers.equalTo(
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><child><next n=\"2\"><here title=\"we are at the bottom\"/></next></child>"
+            )
+        );
+    }
+
     private Phi parsed(final String xml) {
         final Phi element = Phi.Φ.take("org.eolang.dom.element").copy();
         element.put("xml", new Data.ToPhi(xml));

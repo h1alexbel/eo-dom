@@ -36,5 +36,8 @@
   [attr value] > with-attribute /org.eolang.dom.element
   # Element with text content.
   [content] > with-text /org.eolang.dom.element
+  # Returns a live list of child nodes of the given element where the first child
+  # node is assigned index 0. Child nodes include elements, text and comments.
+  [] > child-nodes /org.eolang.dom.element
   # Node as-string.
   [] > as-string /org.eolang.dom.element
