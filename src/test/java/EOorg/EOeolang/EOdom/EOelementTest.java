@@ -131,6 +131,7 @@ final class EOelementTest {
     }
 
     @Test
+    @SuppressWarnings("PMD.AvoidDuplicateLiterals")
     void setsTextContent() {
         final String content = "bar";
         final Phi with = this.parsed("<foo/>").take("with-text");

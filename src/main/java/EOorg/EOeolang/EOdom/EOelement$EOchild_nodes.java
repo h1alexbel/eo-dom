@@ -38,7 +38,9 @@ import org.eolang.XmirObject;
  * Child nodes of the current element.
  *
  * @since 0.0.0
+ * @checkstyle TypeNameCheck (5 lines)
  */
+@SuppressWarnings("PMD.AvoidDollarSigns")
 @XmirObject(oname = "element.child-nodes")
 public final class EOelement$EOchild_nodes extends PhDefault implements Atom {
 
