@@ -111,3 +111,12 @@
     .child-nodes
     .length
     0
+
+# This unit test is supposed to check the functionality of the corresponding object.
+[] > retrieves-first-child
+  eq. > @
+    element
+      "<films><f>Le Fabuleux destin d'Amélie Poulain</f><f>La haine</f></films>"
+    .first-child
+    .text-content
+    "Le Fabuleux destin d'Amélie Poulain"

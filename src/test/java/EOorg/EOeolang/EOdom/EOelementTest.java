@@ -188,7 +188,7 @@ final class EOelementTest {
     @Test
     void retrievesSecondChildNode() {
         final Phi locate = this.parsed(
-            "<top><foo title='f'>bar</foo><main title='app'>x</main></top>"
+                "<top><foo title='f'>bar</foo><main title='app'>x</main></top>"
             )
             .take("child-nodes")
             .take("at");
@@ -210,7 +210,7 @@ final class EOelementTest {
     @Test
     void retrievesComplexChildNode() {
         final Phi locate = this.parsed(
-            "<top><child><next n='2'><here title='we are at the bottom'/></next></child></top>"
+                "<top><child><next n='2'><here title='we are at the bottom'/></next></child></top>"
             )
             .take("child-nodes")
             .take("at");
@@ -234,6 +234,34 @@ final class EOelementTest {
                     .take("length")
             ).asNumber().intValue(),
             Matchers.equalTo(0)
+        );
+    }
+
+    @Test
+    void retrievesFirstChild() {
+        MatcherAssert.assertThat(
+            "First child does not match with expected",
+            new Dataized(
+                this.parsed(
+                    "<top><f>first child is here</f><f>here is the second one</f></top>"
+                ).take("first-child").take("text-content")
+            ).asString(),
+            Matchers.equalTo(
+                "first child is here"
+            )
+        );
+    }
+
+    @Test
+    void returnsXmlHeadIfThereIsNoChildren() {
+        MatcherAssert.assertThat(
+            "Output does not match with expected",
+            new Dataized(
+                this.parsed("<empty/>").take("first-child").take("as-string")
+            ).asString(),
+            Matchers.equalTo(
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+            )
         );
     }
 
