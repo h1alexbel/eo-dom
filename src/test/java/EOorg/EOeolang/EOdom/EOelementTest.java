@@ -43,6 +43,7 @@ import org.junit.jupiter.api.Test;
 final class EOelementTest {
 
     @Test
+    @SuppressWarnings("PMD.AvoidDuplicateLiterals")
     void printsElement() {
         final String xml = "<abc><c>x</c></abc>";
         MatcherAssert.assertThat(
@@ -188,7 +189,7 @@ final class EOelementTest {
     @Test
     void retrievesSecondChildNode() {
         final Phi locate = this.parsed(
-                "<top><foo title='f'>bar</foo><main title='app'>x</main></top>"
+            "<top><foo title='f'>bar</foo><main title='app'>x</main></top>"
             )
             .take("child-nodes")
             .take("at");
@@ -210,7 +211,7 @@ final class EOelementTest {
     @Test
     void retrievesComplexChildNode() {
         final Phi locate = this.parsed(
-                "<top><child><next n='2'><here title='we are at the bottom'/></next></child></top>"
+            "<top><child><next n='2'><here title='we are at the bottom'/></next></child></top>"
             )
             .take("child-nodes")
             .take("at");
