@@ -33,6 +33,8 @@ import org.eolang.Phi;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * Tests for {@link EOelement}.
@@ -253,16 +255,35 @@ final class EOelementTest {
         );
     }
 
-    @Test
-    void returnsXmlHeadIfThereIsNoChildren() {
+    @ParameterizedTest
+    @ValueSource(
+        strings = {
+            "first-child",
+            "last-child"
+        }
+    )
+    void returnsXmlHeadIfThereIsNoChildren(final String method) {
         MatcherAssert.assertThat(
             "Output does not match with expected",
             new Dataized(
-                this.parsed("<empty/>").take("first-child").take("as-string")
+                this.parsed("<empty/>").take(method).take("as-string")
             ).asString(),
             Matchers.equalTo(
                 "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
             )
+        );
+    }
+
+    @Test
+    void retrievesLastChild() {
+        MatcherAssert.assertThat(
+            "Text node of last child does not match with expected",
+            new Dataized(
+                this.parsed(
+                    "<b><f>first child is here</f><f>here is the last one</f><f>and the last one</f></b>"
+                ).take("last-child").take("text-content")
+            ).asString(),
+            Matchers.equalTo("and the last one")
         );
     }
 

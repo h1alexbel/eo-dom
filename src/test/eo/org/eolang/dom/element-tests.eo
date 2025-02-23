@@ -120,3 +120,21 @@
     .first-child
     .text-content
     "Le Fabuleux destin d'Amélie Poulain"
+
+# This unit test is supposed to check the functionality of the corresponding object.
+[] > retrieves-last-child
+  eq. > @
+    element
+      "<films><f>Le Fabuleux destin d'Amélie Poulain</f><f>La haine</f></films>"
+    .last-child
+    .text-content
+    "La haine"
+
+# This unit test is supposed to check the functionality of the corresponding object.
+[] > retrieves-first-element-as-last-child-in-single-child-element
+  eq. > @
+    element
+      "<foo><bar title='23'/></foo>"
+    .last-child
+    .get-attribute "title"
+    "23"

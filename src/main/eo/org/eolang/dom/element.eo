@@ -41,5 +41,7 @@
   [] > child-nodes /org.eolang.dom.element
   # Returns the node's first child in the element tree.
   [] > first-child /org.eolang.dom.element
+  # Returns the node's last child in the element tree.
+  [] > last-child /org.eolang.dom.element
   # Node as-string.
   [] > as-string /org.eolang.dom.element
