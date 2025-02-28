@@ -21,8 +21,7 @@ path = [
     ".pdd",
     ".xcop",
     "README.md",
-    "renovate.json",
-    "src/test/resources/META-INF/MANIFEST.MF",
+    "renovate.json"
 ]
 precedence = "override"
 SPDX-FileCopyrightText = "Copyright (c) 2025 Yegor Bugayenko"
