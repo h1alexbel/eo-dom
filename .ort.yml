@@ -1,0 +1,15 @@
+# SPDX-FileCopyrightText: Copyright (c) 2016-2025 Objectionary.com
+# SPDX-License-Identifier: MIT
+---
+excludes:
+  paths:
+    - comment: It's a test
+      pattern: "src/it/**"
+      reason: BUILD_TOOL_OF
+  scopes:
+    - pattern: "provided"
+      reason: "TEST_DEPENDENCY_OF"
+      comment: "Packages provided"
+    - pattern: "test"
+      reason: "TEST_DEPENDENCY_OF"
+      comment: "Packages for testing only"
