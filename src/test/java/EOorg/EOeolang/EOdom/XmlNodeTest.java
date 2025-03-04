@@ -12,6 +12,9 @@ import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.llorllale.cactoos.matchers.Throws;
+import org.xembly.Directives;
+import org.xembly.ImpossibleModificationException;
+import org.xembly.Xembler;
 
 /**
  * Tests for {@link XmlNode}.
@@ -22,13 +25,18 @@ import org.llorllale.cactoos.matchers.Throws;
 final class XmlNodeTest {
 
     @Test
-    void parsesDocumentFromString() throws XmlParseException {
+    void parsesDocumentFromString() throws XmlParseException, ImpossibleModificationException {
         MatcherAssert.assertThat(
             "Parsed document doesn't match with expected",
-            new XmlNode.Default("<program><test foo=\"f\">bar</test></program>")
-                .elem("program").elem("test").asString(),
+            new XmlNode.Default("<program><a foo=\"f\">bar</a></program>")
+                .elem("program").elem("a").asString(),
             Matchers.equalTo(
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test foo=\"f\">bar</test>"
+                new Xembler(
+                    new Directives()
+                        .add("a")
+                        .attr("foo", "f")
+                        .set("bar")
+                ).xml()
             )
         );
     }
@@ -43,13 +51,15 @@ final class XmlNodeTest {
     }
 
     @Test
-    void parsesNodeFromNextElement() throws XmlParseException {
+    void parsesNodeFromNextElement() throws XmlParseException, ImpossibleModificationException {
         MatcherAssert.assertThat(
             "Parsed document doesn't match with expected",
             new XmlNode.Default("<program><test foo=\"f\">bar</test></program>")
                 .elem("test").asString(),
             Matchers.equalTo(
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test foo=\"f\">bar</test>"
+                new Xembler(
+                    new Directives().add("test").attr("foo", "f").set("bar")
+                ).xml()
             )
         );
     }

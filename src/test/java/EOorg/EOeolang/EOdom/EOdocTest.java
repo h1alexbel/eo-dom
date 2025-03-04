@@ -19,6 +19,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.llorllale.cactoos.matchers.Throws;
+import org.xembly.Directives;
+import org.xembly.ImpossibleModificationException;
+import org.xembly.Xembler;
 
 /**
  * Tests for {@link EOdoc}.
@@ -36,7 +39,7 @@ final class EOdocTest {
         MatcherAssert.assertThat(
             "Element XML does not match with expected",
             new Dataized(create.take("as-string")).asString(),
-            Matchers.equalTo("<?xml version=\"1.0\" encoding=\"UTF-8\"?><y/>")
+            Matchers.equalTo("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<y/>\n")
         );
     }
 
@@ -65,7 +68,7 @@ final class EOdocTest {
     }
 
     @Test
-    void appendsElementToExistingDocument() {
+    void appendsElementToExistingDocument() throws ImpossibleModificationException {
         final Phi root = this.parsedDocument("<foo/>");
         final Phi create = root.take("create-element");
         create.put("lname", new Data.ToPhi("bar"));
@@ -75,7 +78,30 @@ final class EOdocTest {
             "Resulted document does not match with expected",
             new Dataized(append.take("as-string")).asString(),
             Matchers.equalTo(
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><foo><bar/></foo>"
+                new Xembler(new Directives().add("foo").add("bar")).xml()
+            )
+        );
+    }
+
+    @Test
+    void appendsElementWithAttributeAndTextContent() throws ImpossibleModificationException {
+        final Phi root = this.parsedDocument("<fizz/>");
+        final Phi create = root.take("create-element");
+        create.put("lname", new Data.ToPhi("buzz"));
+        final Phi wattr = create.take("with-attribute");
+        wattr.put("attr", new Data.ToPhi("f"));
+        wattr.put("value", new Data.ToPhi("val"));
+        final Phi wtext = wattr.take("with-text");
+        wtext.put("content", new Data.ToPhi("boom!"));
+        final Phi append = root.take("append-child");
+        append.put("child", wtext);
+        MatcherAssert.assertThat(
+            "Resulted document does not match with expected",
+            new Dataized(append.take("as-string")).asString(),
+            Matchers.equalTo(
+                new Xembler(
+                    new Directives().add("fizz").add("buzz").attr("f", "val").set("boom!")
+                ).xml()
             )
         );
     }
