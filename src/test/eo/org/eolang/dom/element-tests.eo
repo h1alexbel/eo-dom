@@ -24,7 +24,10 @@
       "<foo/>"
     .with-attribute "f" "123"
     .as-string
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?><foo f=\"123\"/>"
+    """
+    <?xml version=\"1.0\" encoding=\"UTF-8\"?>
+    <foo f=\"123\"/>\n
+    """
 
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > sets-text-content
@@ -33,7 +36,10 @@
       "<foo/>"
     .with-text "text is here"
     .as-string
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?><foo>text is here</foo>"
+    """
+    <?xml version=\"1.0\" encoding=\"UTF-8\"?>
+    <foo>text is here</foo>\n
+    """
 
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > builds-element
@@ -43,7 +49,10 @@
     .with-attribute "title" "Object Thinking"
     .with-text "The greatest book about OOP"
     .as-string
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?><book title=\"Object Thinking\">The greatest book about OOP</book>"
+    """
+    <?xml version=\"1.0\" encoding=\"UTF-8\"?>
+    <book title=\"Object Thinking\">The greatest book about OOP</book>\n
+    """
 
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > creates-element-with-attribute-and-content
@@ -55,7 +64,10 @@
     .with-attribute "author" "Steve McConnell"
     .with-text "A Practical Handbook of Software Construction"
     .as-string
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?><book author=\"Steve McConnell\" title=\"Code Complete\">A Practical Handbook of Software Construction</book>"
+    """
+    <?xml version=\"1.0\" encoding=\"UTF-8\"?>
+    <book author=\"Steve McConnell\" title=\"Code Complete\">A Practical Handbook of Software Construction</book>\n
+    """
 
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > retrieves-text-content

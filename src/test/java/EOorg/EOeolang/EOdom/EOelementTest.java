@@ -16,6 +16,9 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.xembly.Directives;
+import org.xembly.ImpossibleModificationException;
+import org.xembly.Xembler;
 
 /**
  * Tests for {@link EOelement}.
@@ -54,7 +57,7 @@ final class EOelementTest {
     }
 
     @Test
-    void createsElementWithAttributeAndText() {
+    void createsElementWithAttributeAndText() throws ImpossibleModificationException {
         final Phi title = this.parsed("<book/>").take("with-attribute");
         title.put("attr", new Data.ToPhi("title"));
         title.put("value", new Data.ToPhi("Code Complete"));
@@ -67,17 +70,19 @@ final class EOelementTest {
             "Output element does not match with expected",
             new Dataized(text.take("as-string")).asString().replaceAll("><", ">\n<"),
             Matchers.equalTo(
-                String.join(
-                    "\n",
-                    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
-                    "<book author=\"Steve McConnell\" title=\"Code Complete\">A Practical Handbook of Software Construction</book>"
-                )
+                new Xembler(
+                    new Directives()
+                        .add("book")
+                        .attr("author", "Steve McConnell")
+                        .attr("title", "Code Complete")
+                        .set("A Practical Handbook of Software Construction")
+                ).xml()
             )
         );
     }
 
     @Test
-    void setsAttributeToCompositeElement() {
+    void setsAttributeToCompositeElement() throws ImpossibleModificationException {
         final Phi with = this.parsed("<foo><test><a/></test></foo>").take("with-attribute");
         with.put("attr", new Data.ToPhi("set"));
         with.put("value", new Data.ToPhi("v"));
@@ -85,7 +90,13 @@ final class EOelementTest {
             "Result XML does not match with expected",
             new Dataized(with.take("as-string")).asString(),
             Matchers.equalTo(
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><foo set=\"v\"><test><a/></test></foo>"
+                new Xembler(
+                    new Directives()
+                        .add("foo")
+                        .attr("set", "v")
+                        .add("test")
+                        .add("a")
+                ).xml()
             )
         );
     }
@@ -243,14 +254,14 @@ final class EOelementTest {
             "last-child"
         }
     )
-    void returnsXmlHeadIfThereIsNoChildren(final String method) {
+    void returnsXmlHeadIfThereIsNoChildren(final String method) throws ImpossibleModificationException {
         MatcherAssert.assertThat(
             "Output does not match with expected",
             new Dataized(
                 this.parsed("<empty/>").take(method).take("as-string")
             ).asString(),
             Matchers.equalTo(
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+                new Xembler(new Directives()).xml()
             )
         );
     }

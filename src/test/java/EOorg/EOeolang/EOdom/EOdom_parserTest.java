@@ -16,6 +16,9 @@ import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.llorllale.cactoos.matchers.Throws;
+import org.xembly.Directives;
+import org.xembly.ImpossibleModificationException;
+import org.xembly.Xembler;
 
 /**
  * Tests for {@link EOdom_parser}.
@@ -26,14 +29,16 @@ import org.llorllale.cactoos.matchers.Throws;
 final class EOdom_parserTest {
 
     @Test
-    void parsersStringIntoDocument() {
+    void parsersStringIntoDocument() throws ImpossibleModificationException {
         final Phi parse = this.parser("<books><book title=\"Object Thinking\"/></books>");
         final Phi doc = parse.take("as-string");
         MatcherAssert.assertThat(
             "Parsed document doesn't match with expected",
             new Dataized(doc).asString(),
             Matchers.equalTo(
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><books><book title=\"Object Thinking\"/></books>"
+                new Xembler(
+                    new Directives().add("books").add("book").attr("title", "Object Thinking")
+                ).xml()
             )
         );
     }

@@ -16,7 +16,10 @@
       "<foo/>"
     .create-element "bar"
     .as-string
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?><bar/>"
+    """
+    <?xml version=\"1.0\" encoding=\"UTF-8\"?>
+    <bar/>\n
+    """
 
 # This unit test is supposed to check the functionality of the corresponding object.
 # @todo #51:45min Make possible to append child node to the empty doc.
@@ -33,7 +36,12 @@
       .with-attribute "f" "x"
       .with-text "boom"
     .as-string
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?><foo><bar f=\"x\">boom</bar></foo>"
+    """
+    <?xml version=\"1.0\" encoding=\"UTF-8\"?>
+    <foo>
+       <bar f=\"x\">boom</bar>
+    </foo>\n
+    """
 
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > retrieves-element-at-index
