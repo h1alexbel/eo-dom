@@ -28,12 +28,12 @@ final class XmlNodeTest {
     void parsesDocumentFromString() throws XmlParseException, ImpossibleModificationException {
         MatcherAssert.assertThat(
             "Parsed document doesn't match with expected",
-            new XmlNode.Default("<program><test foo=\"f\">bar</test></program>")
-                .elem("program").elem("test").asString(),
+            new XmlNode.Default("<program><a foo=\"f\">bar</a></program>")
+                .elem("program").elem("a").asString(),
             Matchers.equalTo(
                 new Xembler(
                     new Directives()
-                        .add("test")
+                        .add("a")
                         .attr("foo", "f")
                         .set("bar")
                 ).xml()

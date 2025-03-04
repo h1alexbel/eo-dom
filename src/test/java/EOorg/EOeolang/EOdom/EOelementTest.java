@@ -254,7 +254,8 @@ final class EOelementTest {
             "last-child"
         }
     )
-    void returnsXmlHeadIfThereIsNoChildren(final String method) throws ImpossibleModificationException {
+    void returnsXmlHeadIfThereIsNoChildren(final String method)
+        throws ImpossibleModificationException {
         MatcherAssert.assertThat(
             "Output does not match with expected",
             new Dataized(
