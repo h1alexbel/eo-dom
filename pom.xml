@@ -135,13 +135,7 @@
               <goal>register</goal>
               <goal>deps</goal>
               <goal>assemble</goal>
-              <!--
-                @todo #7:35min Enable lint goal during compile, test-compile executions.
-                 Currently, we disabled it, because lints are unstable. Let's enable lint goal after
-                 lints will fully sync with EO 0.51.1 version. Don't forget to inlcude lint goal in
-                 test-compile execution too.
-              -->
-              <!-- <goal>lint</goal> -->
+              <goal>lint</goal>
               <goal>transpile</goal>
               <goal>xmir-to-phi</goal>
               <goal>phi-to-xmir</goal>
@@ -153,6 +147,13 @@
               <keepBinaries>
                 <glob>EOorg/EOeolang/EOdom/**</glob>
               </keepBinaries>
+              <!--
+                @todo #16:30min Fix all lint warnings and set failOnWarning to `true`.
+                  Currently we have warnings for both: tests, and main. Let's resolve
+                  them all and then set failOnWarning to `true`. Don't forget to make the
+                  same in `test-compile` execution.
+              -->
+              <failOnWarning>false</failOnWarning>
             </configuration>
           </execution>
           <execution>
@@ -162,6 +163,7 @@
               <goal>register</goal>
               <goal>deps</goal>
               <goal>assemble</goal>
+              <goal>lint</goal>
               <goal>xmir-to-phi</goal>
               <goal>phi-to-xmir</goal>
               <goal>transpile</goal>
