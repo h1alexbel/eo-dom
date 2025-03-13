@@ -122,7 +122,7 @@
       <plugin>
         <groupId>org.eolang</groupId>
         <artifactId>eo-maven-plugin</artifactId>
-        <version>0.52.0</version>
+        <version>0.53.0</version>
         <configuration>
           <foreign>${project.build.directory}/eo-foreign.csv</foreign>
           <foreignFormat>csv</foreignFormat>
@@ -133,9 +133,7 @@
             <id>compile</id>
             <goals>
               <goal>register</goal>
-              <goal>deps</goal>
-              <goal>assemble</goal>
-              <goal>lint</goal>
+              <goal>compile</goal>
               <goal>transpile</goal>
               <goal>xmir-to-phi</goal>
               <goal>phi-to-xmir</goal>
@@ -154,6 +152,7 @@
                   same in `test-compile` execution.
               -->
               <failOnWarning>false</failOnWarning>
+              <skipLinting>true</skipLinting>
             </configuration>
           </execution>
           <execution>
@@ -161,9 +160,7 @@
             <phase>generate-test-sources</phase>
             <goals>
               <goal>register</goal>
-              <goal>deps</goal>
-              <goal>assemble</goal>
-              <goal>lint</goal>
+              <goal>compile</goal>
               <goal>xmir-to-phi</goal>
               <goal>phi-to-xmir</goal>
               <goal>transpile</goal>
@@ -178,10 +175,11 @@
               <unphiOutputDir>${project.build.directory}/eo-test/unphi</unphiOutputDir>
               <addSourcesRoot>false</addSourcesRoot>
               <addTestSourcesRoot>true</addTestSourcesRoot>
-              <failOnWarning>false</failOnWarning>
               <generatedDir>${project.build.directory}/generated-test-sources</generatedDir>
               <withRuntimeDependency>true</withRuntimeDependency>
               <placeBinariesThatHaveSources>true</placeBinariesThatHaveSources>
+              <failOnWarning>false</failOnWarning>
+              <skipLinting>true</skipLinting>
             </configuration>
           </execution>
         </executions>

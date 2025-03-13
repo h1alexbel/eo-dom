@@ -10,20 +10,20 @@
 # an entry-point into the XML-based document's content.
 [] > doc
   # XML.
-  [data] > @ /org.eolang.dom.doc.xml
+  [data] > @ ?
 
   # Serialized XML.
   [serialized] > xml
-    [name] > get-elements-by-tag-name /org.eolang.dom.doc.xml
+    [name] > get-elements-by-tag-name ?
     # Retrieves a list of elements with the given tag name belonging to the given namespace.
     # The complete document is searched, including the root node.
-    [ns name] > get-elements-by-tag-name-ns /org.eolang.dom.doc.xml
+    [ns name] > get-elements-by-tag-name-ns ?
     # Returns an element whose id property matches the specified string.
     # Since element IDs are required to be unique if specified, they're a
     # useful way to get access to a specific element quickly.
-    [identifier] > get-element-by-id /org.eolang.dom.doc.xml
-    [] > as-string /org.eolang.string
+    [identifier] > get-element-by-id ?
+    [] > as-string ?
     # Creates the DOM element specified by `lname`.
-    [lname] > create-element /org.eolang.dom.doc.xml
+    [lname] > create-element ?
     # Appends child to DOM document.
-    [child] > append-child /org.eolang.dom.doc
+    [child] > append-child ?

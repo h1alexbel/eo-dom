@@ -10,4 +10,4 @@
 # code from a string into a DOM Document.
 [] > dom-parser
   # Parse string into a DOM document.
-  [data] > parse-from-string /org.eolang.dom.doc
+  [data] > parse-from-string ?

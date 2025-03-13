@@ -10,6 +10,6 @@
 # and offers methods and properties for selecting from the list.
 [nodes] > html-collection
   # At.
-  [pos] > at /org.eolang.dom.html-collection
+  [pos] > at ?
   # Lenght of the current collection.
-  [] > length /org.eolang.dom.html-collection
+  [] > length ?
