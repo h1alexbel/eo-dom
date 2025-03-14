@@ -13,7 +13,6 @@ import org.eolang.Dataized;
 import org.eolang.Phi;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -281,16 +280,6 @@ final class EOelementTest {
         );
     }
 
-    /**
-     * Retrieves children recursively.
-     * @param direction Direction
-     * @throws ImpossibleModificationException if something went wrong.
-     * @todo #62:60min Enable this test when recursive retrieval of first children will work.
-     *  Currently, it does not work due to next found element denoted as
-     *  {@link com.sun.org.apache.xerces.internal.dom.DeferredTextImpl} instead of
-     *  {@link org.w3c.dom.Element}. We should resolve that, and enable this test.
-     */
-    @Disabled
     @ParameterizedTest
     @ValueSource(strings = {"first-child", "last-child"})
     void retrievesChildrenRecursively(final String direction)
