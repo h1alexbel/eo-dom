@@ -152,7 +152,6 @@
                   same in `test-compile` execution.
               -->
               <failOnWarning>false</failOnWarning>
-              <skipLinting>true</skipLinting>
             </configuration>
           </execution>
           <execution>
@@ -179,7 +178,6 @@
               <withRuntimeDependency>true</withRuntimeDependency>
               <placeBinariesThatHaveSources>true</placeBinariesThatHaveSources>
               <failOnWarning>false</failOnWarning>
-              <skipLinting>true</skipLinting>
             </configuration>
           </execution>
         </executions>

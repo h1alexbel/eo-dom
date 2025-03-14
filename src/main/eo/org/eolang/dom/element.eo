@@ -6,6 +6,7 @@
 +rt jvm org.eolang:eo-runtime:0.0.0
 +version 0.0.0
 +also string
++unlint rt-without-atoms
 
 # Object that represent element inside DOM Document.
 [xml] > element

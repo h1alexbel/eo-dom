@@ -6,6 +6,7 @@
 +rt jvm org.eolang:eo-runtime:0.0.0
 +version 0.0.0
 +also string
++unlint rt-without-atoms
 
 # The doc object allows you to create XML tree-based documents. Serves as
 # an entry-point into the XML-based document's content.

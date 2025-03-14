@@ -6,6 +6,7 @@
 +rt jvm org.eolang:eo-runtime:0.0.0
 +version 0.0.0
 +also string
++unlint rt-without-atoms
 
 # The DOM Parser object, that provides the ability to parse XML or HTML source
 # code from a string into a DOM Document.
