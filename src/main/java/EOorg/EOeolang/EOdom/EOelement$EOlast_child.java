@@ -15,7 +15,6 @@ import org.eolang.Dataized;
 import org.eolang.PhDefault;
 import org.eolang.Phi;
 import org.eolang.XmirObject;
-import org.w3c.dom.Element;
 
 /**
  * Find the last child of the given element in the tree.
@@ -33,10 +32,9 @@ public final class EOelement$EOlast_child extends PhDefault implements Atom {
             "xml",
             new Data.ToPhi(
                 new XmlNode.Default(
-                    (Element)
-                        new XmlNode.Default(
-                            new Dataized(this.take(Attr.RHO).take("xml")).asString()
-                        ).self().getLastChild()
+                    new XmlNode.Default(
+                        new Dataized(this.take(Attr.RHO).take("xml")).asString()
+                    ).getLastChild()
                 ).asString().getBytes()
             )
         );
