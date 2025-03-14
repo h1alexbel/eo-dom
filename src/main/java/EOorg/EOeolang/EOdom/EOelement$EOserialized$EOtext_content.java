@@ -10,26 +10,26 @@ package EOorg.EOeolang.EOdom; // NOPMD
 
 import org.eolang.Atom;
 import org.eolang.Attr;
+import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.PhDefault;
 import org.eolang.Phi;
 import org.eolang.XmirObject;
 
 /**
- * Child nodes of the current element.
- *
+ * Text content retrieval from DOM element.
  * @since 0.0.0
  * @checkstyle TypeNameCheck (5 lines)
  */
 @SuppressWarnings("PMD.AvoidDollarSigns")
-@XmirObject(oname = "element.child-nodes")
-public final class EOelement$EOchild_nodes extends PhDefault implements Atom {
+@XmirObject(oname = "element.text-content")
+public final class EOelement$EOserialized$EOtext_content extends PhDefault implements Atom {
 
     @Override
-    public Phi lambda() throws Exception {
-        return new NodesCollection(
+    public Phi lambda() throws XmlParseException {
+        return new Data.ToPhi(
             new XmlNode.Default(new Dataized(this.take(Attr.RHO).take("xml")).asString())
-                .self().getChildNodes()
-        ).value();
+                .text().getBytes()
+        );
     }
 }

@@ -35,14 +35,6 @@ import org.xml.sax.SAXException;
 public interface XmlNode {
 
     /**
-     * Element inside the node.
-     *
-     * @param name Name
-     * @return XML element inside the node
-     */
-    XmlNode elem(String name);
-
-    /**
      * Attr.
      * @param aname Attribute name
      * @return Attribute value of the node
@@ -68,16 +60,6 @@ public interface XmlNode {
      * @since 0.0.0
      */
     final class Empty implements XmlNode {
-
-        @Override
-        public XmlNode elem(final String name) {
-            throw new IllegalStateException(
-                String.format(
-                    "Cannot read '%s' element inside, since node itself is empty!",
-                    name
-                )
-            );
-        }
 
         @Override
         public String attr(final String aname) {
@@ -143,22 +125,6 @@ public interface XmlNode {
         }
 
         @Override
-        public XmlNode elem(final String name) {
-            final XmlNode result;
-            if (this.base.getNodeName().equals(name)) {
-                result = this;
-            } else {
-                final NodeList nodes = this.base.getElementsByTagName(name);
-                if (nodes.getLength() > 0) {
-                    result = new XmlNode.Default((Element) nodes.item(0));
-                } else {
-                    result = new XmlNode.Empty();
-                }
-            }
-            return result;
-        }
-
-        @Override
         public String attr(final String aname) {
             final String found = this.base.getAttribute(aname);
             if (found.isBlank()) {
@@ -179,7 +145,7 @@ public interface XmlNode {
             final StringWriter writer = new StringWriter();
             try {
                 final Transformer transformer = TransformerFactory.newInstance().newTransformer();
-                transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+//                transformer.setOutputProperty(OutputKeys.INDENT, "yes");
                 transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
                 transformer.transform(
                     new DOMSource(this.base), new StreamResult(writer)

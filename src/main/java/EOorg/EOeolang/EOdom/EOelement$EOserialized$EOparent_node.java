@@ -10,23 +10,21 @@ package EOorg.EOeolang.EOdom; // NOPMD
 
 import org.eolang.Atom;
 import org.eolang.Attr;
-import org.eolang.Data;
-import org.eolang.Dataized;
 import org.eolang.PhDefault;
 import org.eolang.Phi;
 import org.eolang.XmirObject;
 
 /**
- * DOM element as string.
+ * Parent node.
  * @since 0.0.0
- * @checkstyle TypeNameCheck (5 lines)
  */
-@SuppressWarnings("PMD.AvoidDollarSigns")
-@XmirObject(oname = "element.as-string")
-public final class EOelement$EOas_string extends PhDefault implements Atom {
+@XmirObject(oname = "element.parent-node")
+public final class EOelement$EOserialized$EOparent_node extends PhDefault implements Atom {
 
     @Override
-    public Phi lambda() {
-        return new Data.ToPhi(new Dataized(this.take(Attr.RHO).take("xml")).asString());
+    public Phi lambda() throws Exception {
+        final Phi element = Phi.Φ.take("org.eolang.dom.element").take("serialized").copy();
+//        return this.take(Attr.RHO).take("parent");
+        return element;
     }
 }

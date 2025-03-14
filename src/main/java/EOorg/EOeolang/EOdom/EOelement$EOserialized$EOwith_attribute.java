@@ -25,13 +25,13 @@ import org.w3c.dom.Element;
  */
 @SuppressWarnings("PMD.AvoidDollarSigns")
 @XmirObject(oname = "element.with-attribute")
-public final class EOelement$EOwith_attribute extends PhDefault implements Atom {
+public final class EOelement$EOserialized$EOwith_attribute extends PhDefault implements Atom {
 
     /**
      * Ctor.
      */
     @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
-    public EOelement$EOwith_attribute() {
+    public EOelement$EOserialized$EOwith_attribute() {
         this.add("attr", new AtVoid("attr"));
         this.add("value", new AtVoid("value"));
     }

@@ -26,13 +26,13 @@ import org.w3c.dom.Element;
  */
 @SuppressWarnings("PMD.AvoidDollarSigns")
 @XmirObject(oname = "element.with-text")
-public final class EOelement$EOwith_text extends PhDefault implements Atom {
+public final class EOelement$EOserialized$EOwith_text extends PhDefault implements Atom {
 
     /**
      * Ctor.
      */
     @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
-    public EOelement$EOwith_text() {
+    public EOelement$EOserialized$EOwith_text() {
         this.add("content", new AtVoid("content"));
     }
 

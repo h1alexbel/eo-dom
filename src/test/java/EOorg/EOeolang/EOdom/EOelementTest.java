@@ -8,6 +8,7 @@
  */
 package EOorg.EOeolang.EOdom; // NOPMD
 
+import org.eolang.Attr;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.Phi;
@@ -247,6 +248,11 @@ final class EOelementTest {
         );
     }
 
+    @Test
+    void retrievesFirstChildrenInNestedWay() {
+
+    }
+
     @ParameterizedTest
     @ValueSource(
         strings = {
@@ -280,9 +286,26 @@ final class EOelementTest {
         );
     }
 
+    @Test
+    void retrievesParentNodeInNestedDocumentBack() {
+        final String res = new Dataized(
+            this.parsed("<a><b><c><f>here</f></c></b></a>")
+                .take("first-child") // b, parent: a
+                .take("first-child") // c, parent: b
+                .take("first-child") // f, parent: c
+                //            .take("parent-node") // -> c
+                //            .take("parent-node") // -> b
+                //            .take("parent-node") // -> a
+                .take("as-string")
+        ).asString();
+        System.out.println(res);
+        // map: <element, parent>
+    }
+
     private Phi parsed(final String xml) {
-        final Phi element = Phi.Φ.take("org.eolang.dom.element").copy();
+        final Phi element = Phi.Φ.take("org.eolang.dom.element").copy().take(Attr.PHI);
         element.put("xml", new Data.ToPhi(xml));
+        element.put("parent", new Data.ToPhi(xml));
         return element;
     }
 }

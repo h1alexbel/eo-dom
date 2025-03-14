@@ -24,7 +24,7 @@ import org.w3c.dom.Element;
  */
 @SuppressWarnings("PMD.AvoidDollarSigns")
 @XmirObject(oname = "element.last-child")
-public final class EOelement$EOlast_child extends PhDefault implements Atom {
+public final class EOelement$EOserialized$EOlast_child extends PhDefault implements Atom {
 
     @Override
     public Phi lambda() throws Exception {

@@ -17,19 +17,16 @@ import org.eolang.Phi;
 import org.eolang.XmirObject;
 
 /**
- * Text content retrieval from DOM element.
+ * DOM element as string.
  * @since 0.0.0
  * @checkstyle TypeNameCheck (5 lines)
  */
 @SuppressWarnings("PMD.AvoidDollarSigns")
-@XmirObject(oname = "element.text-content")
-public final class EOelement$EOtext_content extends PhDefault implements Atom {
+@XmirObject(oname = "element.as-string")
+public final class EOelement$EOserialized$EOas_string extends PhDefault implements Atom {
 
     @Override
-    public Phi lambda() throws XmlParseException {
-        return new Data.ToPhi(
-            new XmlNode.Default(new Dataized(this.take(Attr.RHO).take("xml")).asString())
-                .text().getBytes()
-        );
+    public Phi lambda() {
+        return new Data.ToPhi(new Dataized(this.take(Attr.RHO).take("src")).asString());
     }
 }
