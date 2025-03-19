@@ -24,7 +24,7 @@ import org.eolang.XmirObject;
  */
 @SuppressWarnings("PMD.AvoidDollarSigns")
 @XmirObject(oname = "element.first-child")
-public final class EOelement$EOfirst_child extends PhDefault implements Atom {
+public final class EOelement$EOserialized$EOfirst_child extends PhDefault implements Atom {
 
     @Override
     public Phi lambda() throws Exception {
