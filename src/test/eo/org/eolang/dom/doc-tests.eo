@@ -92,3 +92,14 @@
   eq. > @
     elements.length
     3
+
+# This unit test is supposed to check the functionality of the corresponding object.
+[] > retrieves-parent-node
+  dom-parser.parse-from-string > doc
+    "<trip oneway=\"maybe\"><station id='MOW'>Moscow</station><station id='PVG'>Shanghai</station></trip>"
+  eq. > @
+    doc.get-element-by-id
+      "MOW"
+    .parent-node
+    .get-attribute "oneway"
+    "maybe"

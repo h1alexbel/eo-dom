@@ -284,6 +284,21 @@ final class EOdocTest {
         );
     }
 
+    @Test
+    void retrievesParentNode() {
+        final Phi get = this.parsedDocument(
+            "<trip oneway=\"maybe\"><station id='MOW'>Moscow</station><station id='PVG'>Shanghai</station></trip>"
+        ).take("get-element-by-id");
+        get.put("identifier", new Data.ToPhi("MOW"));
+        final Phi attr = get.take("parent-node").take("get-attribute");
+        attr.put("attr", new Data.ToPhi("oneway"));
+        MatcherAssert.assertThat(
+            "Attribute of parent node was not retrieved",
+            new Dataized(attr).asString(),
+            Matchers.equalTo("maybe")
+        );
+    }
+
     private Phi parsedDocument(final String data) {
         final Phi parse = Phi.Φ.take("org.eolang.dom.dom-parser").copy()
             .take("parse-from-string");

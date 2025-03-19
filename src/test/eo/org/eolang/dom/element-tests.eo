@@ -129,3 +129,14 @@
     .last-child
     .get-attribute "title"
     "23"
+
+# This unit test is supposed to check the functionality of the corresponding object.
+[] > iterates-up-and-down
+  eq. > @
+    element.serialized
+      "<shows><show test=\"true\"><t>xxf</t></show></shows>"
+    .first-child
+    .first-child
+    .parent-node
+    .get-attribute "test"
+    "true"

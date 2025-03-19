@@ -21,8 +21,8 @@ import org.jsoup.Jsoup;
 /**
  * Retrieval of the element with specified `id` property.
  *
- * @since 0.0.0
  * @checkstyle TypeNameCheck (5 lines)
+ * @since 0.0.0
  */
 @SuppressWarnings("PMD.AvoidDollarSigns")
 @XmirObject(oname = "doc.xml.get-element-by-id")
@@ -39,13 +39,18 @@ public final class EOdoc$EOxml$EOget_element_by_id extends PhDefault implements 
     @Override
     public Phi lambda() throws XmlParseException {
         final Phi element = Phi.Φ.take("org.eolang.dom.element").take(Attr.PHI).copy();
-        final byte[] data = new XmlNode.Default(
-            Jsoup.parse(new Dataized(this.take(Attr.RHO).take("serialized")).asString())
-                .getElementById(new Dataized(this.take("identifier")).asString())
-                .toString()
-        ).asString().getBytes();
-        element.put("xml", new Data.ToPhi(data));
-        element.put("parent", new Data.ToPhi(data));
+        final String source = new Dataized(this.take(Attr.RHO).take("serialized")).asString();
+        element.put(
+            "xml",
+            new Data.ToPhi(
+                new XmlNode.Default(
+                    Jsoup.parse(source)
+                        .getElementById(new Dataized(this.take("identifier")).asString())
+                        .toString()
+                ).asString().getBytes()
+            )
+        );
+        element.put("parent", new Data.ToPhi(source));
         return element;
     }
 }
