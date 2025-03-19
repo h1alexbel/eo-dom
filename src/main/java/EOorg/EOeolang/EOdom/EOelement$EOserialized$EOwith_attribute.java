@@ -39,13 +39,14 @@ public final class EOelement$EOserialized$EOwith_attribute extends PhDefault imp
     @Override
     public Phi lambda() throws Exception {
         final Element self = new XmlNode.Default(
-            new Dataized(this.take(Attr.RHO).take("xml")).asString()
+            new Dataized(this.take(Attr.RHO).take("src")).asString()
         ).self();
         self.setAttribute(
             new Dataized(this.take("attr")).asString(), new Dataized(this.take("value")).asString()
         );
-        final Phi fresh = Phi.Φ.take("org.eolang.dom.element").copy();
+        final Phi fresh = Phi.Φ.take("org.eolang.dom.element").take(Attr.PHI).copy();
         fresh.put("xml", new Data.ToPhi(new XmlNode.Default(self).asString().getBytes()));
+        fresh.put("parent", new Data.ToPhi(new XmlNode.Default(self).asString().getBytes()));
         return fresh;
     }
 }

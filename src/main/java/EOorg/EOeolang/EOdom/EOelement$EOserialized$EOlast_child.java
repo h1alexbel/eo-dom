@@ -18,8 +18,9 @@ import org.eolang.XmirObject;
 
 /**
  * Find the last child of the given element in the tree.
- * @since 0.0.0
+ *
  * @checkstyle TypeNameCheck (5 lines)
+ * @since 0.0.0
  */
 @SuppressWarnings("PMD.AvoidDollarSigns")
 @XmirObject(oname = "element.last-child")
@@ -27,17 +28,26 @@ public final class EOelement$EOserialized$EOlast_child extends PhDefault impleme
 
     @Override
     public Phi lambda() throws Exception {
-        final Phi elem = Phi.Φ.take("org.eolang.dom.element").copy();
+        final Phi elem = Phi.Φ.take("org.eolang.dom.element").take("serialized").copy();
+        final XmlNode.Default source = new XmlNode.Default(
+            new XmlNode.Default(
+                new Dataized(this.take(Attr.RHO).take("src")).asString()
+            ).getLastChild()
+        );
         elem.put(
-            "xml",
+            "src",
             new Data.ToPhi(
-                new XmlNode.Default(
-                    new XmlNode.Default(
-                        new Dataized(this.take(Attr.RHO).take("xml")).asString()
-                    ).getLastChild()
-                ).asString().getBytes()
+                source.asString().getBytes()
             )
         );
+        if (source.self() != null) {
+            elem.put(
+                "parent", new Data.ToPhi(
+                    new XmlNode.Default(source.getParentNode()).asString()
+                        .getBytes()
+                )
+            );
+        }
         return elem;
     }
 }

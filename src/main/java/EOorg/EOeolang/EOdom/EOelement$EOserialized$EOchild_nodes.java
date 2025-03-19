@@ -14,6 +14,8 @@ import org.eolang.Dataized;
 import org.eolang.PhDefault;
 import org.eolang.Phi;
 import org.eolang.XmirObject;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * Child nodes of the current element.
@@ -28,7 +30,7 @@ public final class EOelement$EOserialized$EOchild_nodes extends PhDefault implem
     @Override
     public Phi lambda() throws Exception {
         return new NodesCollection(
-            new XmlNode.Default(new Dataized(this.take(Attr.RHO).take("xml")).asString())
+            new XmlNode.Default(new Dataized(this.take(Attr.RHO).take("src")).asString())
                 .self().getChildNodes()
         ).value();
     }

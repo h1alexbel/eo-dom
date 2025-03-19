@@ -21,8 +21,9 @@ import org.eolang.XmirObject;
 
 /**
  * DOM element at index from node collection.
- * @since 0.0.0
+ *
  * @checkstyle TypeNameCheck (5 lines)
+ * @since 0.0.0
  */
 @SuppressWarnings("PMD.AvoidDollarSigns")
 @XmirObject(oname = "html-collection.at")
@@ -43,8 +44,9 @@ public final class EOhtml_collection$EOat extends PhDefault implements Atom {
             new Dataized(this.take(Attr.RHO).take("nodes"))
                 .asString().split("\n")
         );
-        final Phi element = Phi.Φ.take("org.eolang.dom.element");
+        final Phi element = Phi.Φ.take("org.eolang.dom.element").take(Attr.PHI).copy();
         element.put("xml", new Data.ToPhi(nodes.get(pos.intValue())));
+        element.put("parent", new Data.ToPhi(nodes.get(pos.intValue())));
         return element;
     }
 }

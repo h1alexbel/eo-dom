@@ -40,12 +40,14 @@ public final class EOelement$EOserialized$EOfirst_child extends PhDefault implem
                 source.asString().getBytes()
             )
         );
-        elem.put(
-            "parent", new Data.ToPhi(
-                new XmlNode.Default(source.getParentNode()).asString()
-                    .getBytes()
-            )
-        );
+        if (source.self() != null) {
+            elem.put(
+                "parent", new Data.ToPhi(
+                    new XmlNode.Default(source.getParentNode()).asString()
+                        .getBytes()
+                )
+            );
+        }
         return elem;
     }
 }

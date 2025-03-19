@@ -9,6 +9,8 @@
 package EOorg.EOeolang.EOdom; // NOPMD
 
 import java.io.StringWriter;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -16,6 +18,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.cactoos.Scalar;
 import org.eolang.Data;
 import org.eolang.Phi;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
@@ -42,9 +45,16 @@ public final class NodesCollection implements Scalar<Phi> {
         final StringBuilder serialized = new StringBuilder();
         for (int pos = 0; pos < this.nodes.getLength(); pos += 1) {
             final StringWriter writer = new StringWriter();
-            TransformerFactory.newInstance().newTransformer()
-                .transform(new DOMSource(this.nodes.item(pos)), new StreamResult(writer));
-            serialized.append(writer).append('\n');
+            final Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "no");
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+            transformer.transform(new DOMSource(this.nodes.item(pos)), new StreamResult(writer));
+            final Node item = this.nodes.item(pos);
+            if (item != null && (int) item.getNodeType() != (int) Node.TEXT_NODE) {
+                serialized.append(
+                    writer.toString().replaceAll(">\\s+<", "><").trim()
+                ).append('\n');
+            }
         }
         final Phi collection = Phi.Φ.take("org.eolang.dom.html-collection");
         collection.put("nodes", new Data.ToPhi(serialized.toString().getBytes()));

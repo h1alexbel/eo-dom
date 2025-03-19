@@ -38,7 +38,7 @@ public final class EOelement$EOserialized$EOget_attribute extends PhDefault impl
     @Override
     public Phi lambda() throws XmlParseException {
         return new Data.ToPhi(
-            new XmlNode.Default(new Dataized(this.take(Attr.RHO).take("xml")).asString())
+            new XmlNode.Default(new Dataized(this.take(Attr.RHO).take("src")).asString())
                 .attr(new Dataized(this.take("attr")).asString())
                 .getBytes()
         );

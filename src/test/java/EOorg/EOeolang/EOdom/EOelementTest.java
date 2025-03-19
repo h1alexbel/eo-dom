@@ -31,12 +31,14 @@ final class EOelementTest {
 
     @Test
     @SuppressWarnings("PMD.AvoidDuplicateLiterals")
-    void printsElement() {
+    void printsElement() throws ImpossibleModificationException {
         final String xml = "<abc><c>x</c></abc>";
         MatcherAssert.assertThat(
             "Element does not match with expected",
             new Dataized(this.parsed(xml).take("as-string")).asString(),
-            Matchers.equalTo(xml)
+            Matchers.equalTo(
+                new Xembler(new Directives().add("abc").add("c").set("x")).xml()
+            )
         );
     }
 
@@ -204,7 +206,7 @@ final class EOelementTest {
     }
 
     @Test
-    void retrievesComplexChildNode() {
+    void retrievesComplexChildNode() throws ImpossibleModificationException {
         final Phi locate = this.parsed(
             "<top><child><next n='2'><here title='we are at the bottom'/></next></child></top>"
             )
@@ -215,7 +217,14 @@ final class EOelementTest {
             "Resulted child node does not match with expected",
             new Dataized(locate.take("as-string")).asString(),
             Matchers.equalTo(
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><child><next n=\"2\"><here title=\"we are at the bottom\"/></next></child>"
+                new Xembler(
+                    new Directives()
+                        .add("child")
+                        .add("next")
+                        .attr("n", "2")
+                        .add("here")
+                        .attr("title", "we are at the bottom")
+                ).xml()
             )
         );
     }
