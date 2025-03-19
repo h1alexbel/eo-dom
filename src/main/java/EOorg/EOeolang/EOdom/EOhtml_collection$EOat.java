@@ -22,18 +22,18 @@ import org.eolang.XmirObject;
 /**
  * DOM element at index from node collection.
  *
- * @checkstyle TypeNameCheck (5 lines)
  * @since 0.0.0
  * @todo #64:45min Set correct parent attribute when of node collection.
  *  Currently, we are setting the same node as we found in collection by requested position.
  *  Instead, we should modify our html-collection to support parent node, and put into
  *  parent attribute parent node of the resulted collection. Don't forget to add this EO
  *  test into doc-tests.eo:
+ *
  *  <pre>
  *  {@code
  *  [] > retrieves-parent-node
  *   dom-parser.parse-from-string > doc
- *     "<trip oneway=\"maybe\"><station>MOW</station><station>PVG</station></trip>"
+ *     "xml here..."
  *   doc.get-elements-by-tag-name "station" > stations
  *   stations.at 0 > first
  *   first.parent-node > trip
@@ -41,7 +41,10 @@ import org.eolang.XmirObject;
  *   eq. > @
  *     result
  *     "maybe"
+ *  }
  *  </pre>
+ *
+ * @checkstyle TypeNameCheck (5 lines)
  */
 @SuppressWarnings("PMD.AvoidDollarSigns")
 @XmirObject(oname = "html-collection.at")

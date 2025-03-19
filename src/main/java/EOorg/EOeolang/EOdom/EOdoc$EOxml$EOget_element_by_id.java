@@ -21,8 +21,8 @@ import org.jsoup.Jsoup;
 /**
  * Retrieval of the element with specified `id` property.
  *
- * @checkstyle TypeNameCheck (5 lines)
  * @since 0.0.0
+ * @checkstyle TypeNameCheck (5 lines)
  */
 @SuppressWarnings("PMD.AvoidDollarSigns")
 @XmirObject(oname = "doc.xml.get-element-by-id")

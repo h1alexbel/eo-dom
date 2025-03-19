@@ -14,8 +14,6 @@ import org.eolang.Dataized;
 import org.eolang.PhDefault;
 import org.eolang.Phi;
 import org.eolang.XmirObject;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  * Child nodes of the current element.

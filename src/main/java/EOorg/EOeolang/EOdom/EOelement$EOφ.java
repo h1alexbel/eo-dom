@@ -1,4 +1,12 @@
-package EOorg.EOeolang.EOdom;
+/*
+ * SPDX-FileCopyrightText: Copyright (c) 2016-2025 Objectionary.com
+ * SPDX-License-Identifier: MIT
+ */
+/*
+ * @checkstyle PackageNameCheck (4 lines)
+ * @checkstyle TrailingCommentCheck (3 lines)
+ */
+package EOorg.EOeolang.EOdom; // NOPMD
 
 import org.eolang.AtVoid;
 import org.eolang.Atom;
@@ -10,16 +18,18 @@ import org.eolang.Phi;
 import org.eolang.XmirObject;
 
 /**
- * Element atom.
- *
+ * Serialized element.
  * @since 0.0.0
+ * @checkstyle TypeNameCheck (5 lines)
  */
+@SuppressWarnings("PMD.AvoidDollarSigns")
 @XmirObject(oname = "element.serialized")
 public final class EOelement$EOφ extends PhDefault implements Atom {
 
     /**
      * Ctor.
      */
+    @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public EOelement$EOφ() {
         this.add("xml", new AtVoid("xml"));
         this.add("parent", new AtVoid("parent"));
