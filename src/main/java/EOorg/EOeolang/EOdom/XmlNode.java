@@ -151,6 +151,14 @@ public interface XmlNode {
             return (Element) node;
         }
 
+        public Element getParentNode() {
+            Node node = this.self().getParentNode();
+            while (node != null && (int) node.getNodeType() == (int) Node.TEXT_NODE) {
+                node = node.getParentNode();
+            }
+            return (Element) node;
+        }
+
         public NodeList getElementsByTagName(final String name) {
             return this.base.getElementsByTagName(name);
         }

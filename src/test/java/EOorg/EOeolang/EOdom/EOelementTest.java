@@ -8,6 +8,7 @@
  */
 package EOorg.EOeolang.EOdom; // NOPMD
 
+import org.eolang.Attr;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.Phi;
@@ -299,9 +300,41 @@ final class EOelementTest {
         );
     }
 
+    @Test
+    void retrievesParentNode() throws ImpossibleModificationException {
+        MatcherAssert.assertThat(
+            "Retrieved parent node does not match with expected",
+            new Dataized(
+                this.parsed("<std><middle><child>test</child></middle></std>")
+                    .take("first-child").take("parent-node").take("as-string")
+            ).asString(),
+            Matchers.equalTo(
+                new Xembler(
+                    new Directives().add("std").add("middle").add("child").set("test")
+                ).xml()
+            )
+        );
+    }
+
+    @Test
+    void goesBackByRetrievingParentNode() throws ImpossibleModificationException {
+        MatcherAssert.assertThat(
+            "Retrieved parent node does not match with expected",
+            new Dataized(
+                this.parsed("<top><inner><bottom>here is the bottom</bottom></inner></top>")
+                    .take("first-child").take("first-child").take("parent-node").take("as-string")
+            ).asString(),
+            Matchers.equalTo(
+                new Xembler(new Directives().add("inner").add("bottom").set("here is the bottom"))
+                    .xml()
+            )
+        );
+    }
+
     private Phi parsed(final String xml) {
-        final Phi element = Phi.Φ.take("org.eolang.dom.element").copy();
+        final Phi element = Phi.Φ.take("org.eolang.dom.element").take(Attr.PHI).copy();
         element.put("xml", new Data.ToPhi(xml));
+        element.put("parent", new Data.ToPhi(xml));
         return element;
     }
 }

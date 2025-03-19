@@ -23,10 +23,10 @@ import org.eolang.XmirObject;
  */
 @SuppressWarnings("PMD.AvoidDollarSigns")
 @XmirObject(oname = "element.as-string")
-public final class EOelement$EOas_string extends PhDefault implements Atom {
+public final class EOelement$EOserialized$EOas_string extends PhDefault implements Atom {
 
     @Override
     public Phi lambda() {
-        return new Data.ToPhi(new Dataized(this.take(Attr.RHO).take("xml")).asString());
+        return new Data.ToPhi(new Dataized(this.take(Attr.RHO).take("src")).asString());
     }
 }

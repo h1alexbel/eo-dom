@@ -23,12 +23,12 @@ import org.eolang.XmirObject;
  */
 @SuppressWarnings("PMD.AvoidDollarSigns")
 @XmirObject(oname = "element.text-content")
-public final class EOelement$EOtext_content extends PhDefault implements Atom {
+public final class EOelement$EOserialized$EOtext_content extends PhDefault implements Atom {
 
     @Override
     public Phi lambda() throws XmlParseException {
         return new Data.ToPhi(
-            new XmlNode.Default(new Dataized(this.take(Attr.RHO).take("xml")).asString())
+            new XmlNode.Default(new Dataized(this.take(Attr.RHO).take("src")).asString())
                 .text().getBytes()
         );
     }

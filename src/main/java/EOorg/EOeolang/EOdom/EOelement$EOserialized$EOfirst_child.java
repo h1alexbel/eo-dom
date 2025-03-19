@@ -19,24 +19,31 @@ import org.eolang.XmirObject;
 /**
  * First child of the element in the tree.
  *
- * @since 0.0.0
  * @checkstyle TypeNameCheck (5 lines)
+ * @since 0.0.0
  */
 @SuppressWarnings("PMD.AvoidDollarSigns")
 @XmirObject(oname = "element.first-child")
-public final class EOelement$EOfirst_child extends PhDefault implements Atom {
+public final class EOelement$EOserialized$EOfirst_child extends PhDefault implements Atom {
 
     @Override
     public Phi lambda() throws Exception {
-        final Phi elem = Phi.Φ.take("org.eolang.dom.element").copy();
+        final Phi elem = Phi.Φ.take("org.eolang.dom.element").take("serialized").copy();
+        final XmlNode.Default source = new XmlNode.Default(
+            new XmlNode.Default(
+                new Dataized(this.take(Attr.RHO).take("src")).asString()
+            ).getFirstChild()
+        );
         elem.put(
-            "xml",
+            "src",
             new Data.ToPhi(
-                new XmlNode.Default(
-                    new XmlNode.Default(
-                        new Dataized(this.take(Attr.RHO).take("xml")).asString()
-                    ).getFirstChild()
-                ).asString().getBytes()
+                source.asString().getBytes()
+            )
+        );
+        elem.put(
+            "parent", new Data.ToPhi(
+                new XmlNode.Default(source.getParentNode()).asString()
+                    .getBytes()
             )
         );
         return elem;
