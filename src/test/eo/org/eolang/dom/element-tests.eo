@@ -11,7 +11,7 @@
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > retrieves-attribute-from-element
   eq. > @
-    element
+    element.serialized
       "<foo f=\"ttt\"/>"
     .get-attribute "f"
     "ttt"
@@ -19,7 +19,7 @@
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > sets-attribute
   eq. > @
-    element
+    element.serialized
       "<foo/>"
     .with-attribute "f" "123"
     .as-string
@@ -31,7 +31,7 @@
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > sets-text-content
   eq. > @
-    element
+    element.serialized
       "<foo/>"
     .with-text "text is here"
     .as-string
@@ -71,7 +71,7 @@
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > retrieves-text-content
   eq. > @
-    element
+    element.serialized
       "<a>boom</a>"
     .text-content
     "boom"
@@ -79,7 +79,7 @@
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > retrieves-empty-text
   eq. > @
-    element
+    element.serialized
       "<program/>"
     .text-content
     ""
@@ -87,7 +87,7 @@
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > retrieves-child-elements
   eq. > @
-    element
+    element.serialized
       "<books><book author='David West'>Object Thinking</book></books>"
     .child-nodes
     .at 0
@@ -97,7 +97,7 @@
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > retrieves-empty-childs
   eq. > @
-    element
+    element.serialized
       "<books/>"
     .child-nodes
     .length
@@ -106,7 +106,7 @@
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > retrieves-first-child
   eq. > @
-    element
+    element.serialized
       "<films><f>Le Fabuleux destin d'Amélie Poulain</f><f>La haine</f></films>"
     .first-child
     .text-content
@@ -115,7 +115,7 @@
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > retrieves-last-child
   eq. > @
-    element
+    element.serialized
       "<films><f>Le Fabuleux destin d'Amélie Poulain</f><f>La haine</f></films>"
     .last-child
     .text-content
@@ -124,7 +124,7 @@
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > retrieves-first-element-as-last-child-in-single-child-element
   eq. > @
-    element
+    element.serialized
       "<foo><bar title='23'/></foo>"
     .last-child
     .get-attribute "title"
