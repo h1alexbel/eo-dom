@@ -20,6 +20,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -116,6 +117,22 @@ public interface XmlNode {
             return this.base;
         }
 
+        public Element getFirstChild() {
+            Node node = this.self().getFirstChild();
+            while (node != null && (int) node.getNodeType() == (int) Node.TEXT_NODE) {
+                node = node.getNextSibling();
+            }
+            return (Element) node;
+        }
+
+        public Element getLastChild() {
+            Node node = this.self().getLastChild();
+            while (node != null && (int) node.getNodeType() == (int) Node.TEXT_NODE) {
+                node = node.getPreviousSibling();
+            }
+            return (Element) node;
+        }
+
         public NodeList getElementsByTagName(final String name) {
             return this.base.getElementsByTagName(name);
         }
@@ -167,9 +184,11 @@ public interface XmlNode {
             try {
                 final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
                 dbf.setNamespaceAware(true);
-                return dbf.newDocumentBuilder()
+                final Element doc = dbf.newDocumentBuilder()
                     .parse(new ByteArrayInputStream(xml.getBytes()))
                     .getDocumentElement();
+                doc.normalize();
+                return doc;
             } catch (final ParserConfigurationException exception) {
                 throw new IllegalStateException(
                     String.format(
