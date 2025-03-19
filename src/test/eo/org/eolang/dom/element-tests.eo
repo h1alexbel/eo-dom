@@ -43,7 +43,7 @@
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > builds-element
   eq. > @
-    element
+    element.serialized
       "<book/>"
     .with-attribute "title" "Object Thinking"
     .with-text "The greatest book about OOP"

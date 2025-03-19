@@ -49,7 +49,10 @@
   books.at 0 > first
   eq. > @
     first.as-string
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?><book title=\"Object Thinking\"/>"
+    """
+    <?xml version=\"1.0\" encoding=\"UTF-8\"?>
+    <book title=\"Object Thinking\"/>\n
+    """
 
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > retrieves-attribute-from-first-element

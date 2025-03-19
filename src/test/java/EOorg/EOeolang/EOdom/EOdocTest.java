@@ -119,7 +119,7 @@ final class EOdocTest {
     }
 
     @Test
-    void retrievesElementsByTagName() {
+    void retrievesElementsByTagName() throws ImpossibleModificationException {
         final Phi doc = this.parsedDocument(
             "<books><book title=\"Object Thinking\"/><book title=\"Elegant Objects Vol 1.\"/></books>"
         );
@@ -131,7 +131,7 @@ final class EOdocTest {
             "Retrieved element does not match with expected",
             new Dataized(locate.take("as-string")).asString(),
             Matchers.equalTo(
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><book title=\"Object Thinking\"/>"
+                new Xembler(new Directives().add("book").attr("title", "Object Thinking")).xml()
             )
         );
     }
@@ -223,7 +223,7 @@ final class EOdocTest {
         MatcherAssert.assertThat(
             "Nodes count does not match with expected",
             new Dataized(retrieval.take("length")).asNumber().intValue(),
-            Matchers.equalTo(12)
+            Matchers.equalTo(6)
         );
     }
 
