@@ -340,6 +340,35 @@ final class EOelementTest {
         );
     }
 
+    @Test
+    void retrievesNextSibling() {
+        final Phi attribute = this.parsed("<a><b x='ttt'/><b x='boom'/></a>")
+            .take("first-child")
+            .take("next-sibling")
+            .take("get-attribute");
+        attribute.put("attr", new Data.ToPhi("x"));
+        MatcherAssert.assertThat(
+            "Attribute value of retrieved node does not match with expected",
+            new Dataized(attribute).asString(),
+            Matchers.equalTo("boom")
+        );
+    }
+
+    @Test
+    void retrievesNextSiblingRecursively() {
+        final Phi attr = this.parsed("<t><x val='0'/><x val='1'/><x val='2'/></t>")
+            .take("first-child")
+            .take("next-sibling")
+            .take("next-sibling")
+            .take("get-attribute");
+        attr.put("attr", new Data.ToPhi("val"));
+        MatcherAssert.assertThat(
+            "Attribute value of the retrieved node does not match with expected",
+            new Dataized(attr).asString(),
+            Matchers.equalTo("2")
+        );
+    }
+
     private Phi parsed(final String xml) {
         final Phi element = Phi.Φ.take("org.eolang.dom.element").take(Attr.PHI).copy();
         element.put("xml", new Data.ToPhi(xml));

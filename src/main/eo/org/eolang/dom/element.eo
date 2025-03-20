@@ -14,7 +14,7 @@
   [xml parent] > @ ?
 
   # Serialized element.
-  [src parent] > serialized
+  [src parent nsib] > serialized
     # Attribute.
     [attr] > get-attribute ?
     # Text content inside element.
@@ -32,5 +32,7 @@
     [] > last-child ?
     # Parent node.
     [] > parent-node ?
+    # Next sibling.
+    [] > next-sibling ?
     # Node as-string.
     [] > as-string ?

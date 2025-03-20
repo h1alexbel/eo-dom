@@ -15,12 +15,13 @@ import org.eolang.Dataized;
 import org.eolang.PhDefault;
 import org.eolang.Phi;
 import org.eolang.XmirObject;
+import org.w3c.dom.Element;
 
 /**
  * First child of the element in the tree.
  *
- * @since 0.0.0
  * @checkstyle TypeNameCheck (5 lines)
+ * @since 0.0.0
  */
 @SuppressWarnings("PMD.AvoidDollarSigns")
 @XmirObject(oname = "element.first-child")
@@ -42,10 +43,15 @@ public final class EOelement$EOserialized$EOfirst_child extends PhDefault implem
         );
         if (source.self() != null) {
             elem.put(
-                "parent", new Data.ToPhi(
+                "parent",
+                new Data.ToPhi(
                     new XmlNode.Default(source.getParentNode()).asString()
                         .getBytes()
                 )
+            );
+            elem.put(
+                "nsib",
+                new Data.ToPhi(new XmlNode.Default(source.getNextSibling()).asString().getBytes())
             );
         }
         return elem;
