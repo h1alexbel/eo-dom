@@ -15,13 +15,12 @@ import org.eolang.Dataized;
 import org.eolang.PhDefault;
 import org.eolang.Phi;
 import org.eolang.XmirObject;
-import org.w3c.dom.Element;
 
 /**
  * First child of the element in the tree.
  *
- * @checkstyle TypeNameCheck (5 lines)
  * @since 0.0.0
+ * @checkstyle TypeNameCheck (5 lines)
  */
 @SuppressWarnings("PMD.AvoidDollarSigns")
 @XmirObject(oname = "element.first-child")

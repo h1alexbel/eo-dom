@@ -15,12 +15,13 @@ import org.eolang.Dataized;
 import org.eolang.PhDefault;
 import org.eolang.Phi;
 import org.eolang.XmirObject;
-import org.w3c.dom.Element;
 
 /**
  * Next sibling of the current node.
  * @since 0.0.0
+ * @checkstyle TypeNameCheck (5 lines)
  */
+@SuppressWarnings("PMD.AvoidDollarSigns")
 @XmirObject(oname = "element.next-sibling")
 public final class EOelement$EOserialized$EOnext_sibling extends PhDefault implements Atom {
 

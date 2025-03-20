@@ -242,6 +242,7 @@ final class EOelementTest {
         );
     }
 
+    @SuppressWarnings("PMD.AvoidDuplicateLiterals")
     @Test
     void retrievesFirstChild() {
         MatcherAssert.assertThat(
