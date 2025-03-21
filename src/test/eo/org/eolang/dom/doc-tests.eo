@@ -1,23 +1,23 @@
-+spdx SPDX-FileCopyrightText Copyright (c) 2016-2025 Objectionary.com
-+spdx SPDX-License-Identifier: MIT
 +alias org.eolang.dom.dom-parser
 +architect yegor256@gmail.com
 +home https://github.com/h1alexbel/eo-dom
-+tests
 +package org.eolang.dom
 +version 0.0.0
++spdx SPDX-FileCopyrightText Copyright (c) 2016-2025 Objectionary.com
++spdx SPDX-License-Identifier: MIT
++tests
++unlint unit-test-without-phi
 
 # This unit test is supposed to check the functionality of the corresponding object.
-[] > creates-element
-  eq. > @
-    dom-parser.parse-from-string
-      "<foo/>"
-    .create-element "bar"
-    .as-string
-    """
-    <?xml version=\"1.0\" encoding=\"UTF-8\"?>
-    <bar/>\n
-    """
+eq. > creates-element
+  dom-parser.parse-from-string
+    "<foo/>"
+  .create-element "bar"
+  .as-string
+  """
+  <?xml version=\"1.0\" encoding=\"UTF-8\"?>
+  <bar/>\n
+  """
 
 # This unit test is supposed to check the functionality of the corresponding object.
 # @todo #51:45min Make possible to append child node to the empty doc.

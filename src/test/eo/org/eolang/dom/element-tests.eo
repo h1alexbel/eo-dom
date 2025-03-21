@@ -1,153 +1,140 @@
-+spdx SPDX-FileCopyrightText Copyright (c) 2016-2025 Objectionary.com
-+spdx SPDX-License-Identifier: MIT
-+alias org.eolang.dom.element
 +alias org.eolang.dom.dom-parser
++alias org.eolang.dom.element
 +architect yegor256@gmail.com
 +home https://github.com/h1alexbel/eo-dom
-+tests
 +package org.eolang.dom
 +version 0.0.0
++spdx SPDX-FileCopyrightText Copyright (c) 2016-2025 Objectionary.com
++spdx SPDX-License-Identifier: MIT
++tests
++unlint unit-test-without-phi
 
 # This unit test is supposed to check the functionality of the corresponding object.
-[] > retrieves-attribute-from-element
-  eq. > @
-    element.serialized
-      "<foo f=\"ttt\"/>"
-    .get-attribute "f"
-    "ttt"
+eq. > retrieves-attribute-from-element
+  element.serialized
+    "<foo f=\"ttt\"/>"
+  .get-attribute "f"
+  "ttt"
 
 # This unit test is supposed to check the functionality of the corresponding object.
-[] > sets-attribute
-  eq. > @
-    element.serialized
-      "<foo/>"
-    .with-attribute "f" "123"
-    .as-string
-    """
-    <?xml version=\"1.0\" encoding=\"UTF-8\"?>
-    <foo f=\"123\"/>\n
-    """
+eq. > sets-attribute
+  element.serialized
+    "<foo/>"
+  .with-attribute "f" "123"
+  .as-string
+  """
+  <?xml version=\"1.0\" encoding=\"UTF-8\"?>
+  <foo f=\"123\"/>\n
+  """
 
 # This unit test is supposed to check the functionality of the corresponding object.
-[] > sets-text-content
-  eq. > @
-    element.serialized
-      "<foo/>"
-    .with-text "text is here"
-    .as-string
-    """
-    <?xml version=\"1.0\" encoding=\"UTF-8\"?>
-    <foo>text is here</foo>\n
-    """
+eq. > sets-text-content
+  element.serialized
+    "<foo/>"
+  .with-text "text is here"
+  .as-string
+  """
+  <?xml version=\"1.0\" encoding=\"UTF-8\"?>
+  <foo>text is here</foo>\n
+  """
 
 # This unit test is supposed to check the functionality of the corresponding object.
-[] > builds-element
-  eq. > @
-    element.serialized
-      "<book/>"
-    .with-attribute "title" "Object Thinking"
-    .with-text "The greatest book about OOP"
-    .as-string
-    """
-    <?xml version=\"1.0\" encoding=\"UTF-8\"?>
-    <book title=\"Object Thinking\">The greatest book about OOP</book>\n
-    """
+eq. > builds-element
+  element.serialized
+    "<book/>"
+  .with-attribute "title" "Object Thinking"
+  .with-text "The greatest book about OOP"
+  .as-string
+  """
+  <?xml version=\"1.0\" encoding=\"UTF-8\"?>
+  <book title=\"Object Thinking\">The greatest book about OOP</book>\n
+  """
 
 # This unit test is supposed to check the functionality of the corresponding object.
-[] > creates-element-with-attribute-and-content
-  eq. > @
-    dom-parser.parse-from-string
-      "<books/>"
-    .create-element "book"
-    .with-attribute "title" "Code Complete"
-    .with-attribute "author" "Steve McConnell"
-    .with-text "A Practical Handbook of Software Construction"
-    .as-string
-    """
-    <?xml version=\"1.0\" encoding=\"UTF-8\"?>
-    <book author=\"Steve McConnell\" title=\"Code Complete\">A Practical Handbook of Software Construction</book>\n
-    """
+eq. > creates-element-with-attribute-and-content
+  dom-parser.parse-from-string
+    "<books/>"
+  .create-element "book"
+  .with-attribute "title" "Code Complete"
+  .with-attribute "author" "Steve McConnell"
+  .with-text "A Practical Handbook of Software Construction"
+  .as-string
+  """
+  <?xml version=\"1.0\" encoding=\"UTF-8\"?>
+  <book author=\"Steve McConnell\" title=\"Code Complete\">A Practical Handbook of Software Construction</book>\n
+  """
 
 # This unit test is supposed to check the functionality of the corresponding object.
-[] > retrieves-text-content
-  eq. > @
-    element.serialized
-      "<a>boom</a>"
-    .text-content
-    "boom"
+eq. > retrieves-text-content
+  element.serialized
+    "<a>boom</a>"
+  .text-content
+  "boom"
 
 # This unit test is supposed to check the functionality of the corresponding object.
-[] > retrieves-empty-text
-  eq. > @
-    element.serialized
-      "<program/>"
-    .text-content
-    ""
+eq. > retrieves-empty-text
+  element.serialized
+    "<program/>"
+  .text-content
+  ""
 
 # This unit test is supposed to check the functionality of the corresponding object.
-[] > retrieves-child-elements
-  eq. > @
-    element.serialized
-      "<books><book author='David West'>Object Thinking</book></books>"
-    .child-nodes
-    .at 0
-    .get-attribute "author"
-    "David West"
+eq. > retrieves-child-elements
+  element.serialized
+    "<books><book author='David West'>Object Thinking</book></books>"
+  .child-nodes
+  .at 0
+  .get-attribute "author"
+  "David West"
 
 # This unit test is supposed to check the functionality of the corresponding object.
-[] > retrieves-empty-childs
-  eq. > @
-    element.serialized
-      "<books/>"
-    .child-nodes
-    .length
-    0
+eq. > retrieves-empty-childs
+  element.serialized
+    "<books/>"
+  .child-nodes
+  .length
+  0
 
 # This unit test is supposed to check the functionality of the corresponding object.
-[] > retrieves-first-child
-  eq. > @
-    element.serialized
-      "<films><f>Le Fabuleux destin d'Amélie Poulain</f><f>La haine</f></films>"
-    .first-child
-    .text-content
-    "Le Fabuleux destin d'Amélie Poulain"
+eq. > retrieves-first-child
+  element.serialized
+    "<films><f>Le Fabuleux destin d'Amélie Poulain</f><f>La haine</f></films>"
+  .first-child
+  .text-content
+  "Le Fabuleux destin d'Amélie Poulain"
 
 # This unit test is supposed to check the functionality of the corresponding object.
-[] > retrieves-last-child
-  eq. > @
-    element.serialized
-      "<films><f>Le Fabuleux destin d'Amélie Poulain</f><f>La haine</f></films>"
-    .last-child
-    .text-content
-    "La haine"
+eq. > retrieves-last-child
+  element.serialized
+    "<films><f>Le Fabuleux destin d'Amélie Poulain</f><f>La haine</f></films>"
+  .last-child
+  .text-content
+  "La haine"
 
 # This unit test is supposed to check the functionality of the corresponding object.
-[] > retrieves-first-element-as-last-child-in-single-child-element
-  eq. > @
-    element.serialized
-      "<foo><bar title='23'/></foo>"
-    .last-child
-    .get-attribute "title"
-    "23"
+eq. > retrieves-first-element-as-last-child-in-single-child-element
+  element.serialized
+    "<foo><bar title='23'/></foo>"
+  .last-child
+  .get-attribute "title"
+  "23"
 
 # This unit test is supposed to check the functionality of the corresponding object.
-[] > iterates-up-and-down
-  eq. > @
-    element.serialized
-      "<shows><show test=\"true\"><t>xxf</t></show></shows>"
-    .first-child
-    .first-child
-    .parent-node
-    .get-attribute "test"
-    "true"
+eq. > iterates-up-and-down
+  element.serialized
+    "<shows><show test=\"true\"><t>xxf</t></show></shows>"
+  .first-child
+  .first-child
+  .parent-node
+  .get-attribute "test"
+  "true"
 
 # This unit test is supposed to check the functionality of the corresponding object.
-[] > navigates-through-siblings
-  eq. > @
-    element.serialized
-      "<groceries><g name='Strawberry'/><g name='Banana'/><g name='Rib-eye'/></groceries>"
-    .first-child
-    .next-sibling
-    .next-sibling
-    .get-attribute "name"
-    "Rib-eye"
+eq. > navigates-through-siblings
+  element.serialized
+    "<groceries><g name='Strawberry'/><g name='Banana'/><g name='Rib-eye'/></groceries>"
+  .first-child
+  .next-sibling
+  .next-sibling
+  .get-attribute "name"
+  "Rib-eye"
