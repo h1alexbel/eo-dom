@@ -385,6 +385,22 @@ final class EOelementTest {
         );
     }
 
+    @Test
+    void goesBackAndForthWithSiblings() {
+        final Phi attr = this.parsed("<set><a name='A'/><b name='B'/><c name='C'/></set>")
+            .take("last-child")
+            .take("previous-sibling")
+            .take("previous-sibling")
+            .take("next-sibling")
+            .take("get-attribute");
+        attr.put("attr", new Data.ToPhi("name"));
+        MatcherAssert.assertThat(
+            "Attribute value of the retrieved node does not match with expected",
+            new Dataized(attr).asString(),
+            Matchers.equalTo("B")
+        );
+    }
+
     private Phi parsed(final String xml) {
         final Phi element = Phi.Φ.take("org.eolang.dom.element").take(Attr.PHI).copy();
         element.put("xml", new Data.ToPhi(xml));

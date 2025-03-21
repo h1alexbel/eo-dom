@@ -43,11 +43,13 @@ public final class EOelement$EOserialized$EOprevious_sibling extends PhDefault i
                 elem.put(
                     "psib",
                     new Data.ToPhi(
-                        new XmlNode.Default(sibled.getPreviousSibling())
-                            .asString().getBytes()
+                        new XmlNode.Default(sibled.getPreviousSibling()).asString().getBytes()
                     )
                 );
             }
+            elem.put(
+                "nsib", new Data.ToPhi(sibled.asString().getBytes())
+            );
         }
         return elem;
     }
