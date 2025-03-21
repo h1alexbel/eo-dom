@@ -17,7 +17,7 @@
   # @todo #62:60min Set nsib attribute everywhere where its possible to chain
   #  element navigation, and retrieve next-sibling from result. Don't forget to
   #  add EO and Atom tests.
-  [src parent nsib] > serialized
+  [src parent nsib psib] > serialized
     # Attribute.
     [attr] > get-attribute ?
     # Text content inside element.
@@ -37,5 +37,7 @@
     [] > parent-node ?
     # Next sibling.
     [] > next-sibling ?
+    # Previous sibling.
+    [] > previous-sibling ?
     # Node as-string.
     [] > as-string ?

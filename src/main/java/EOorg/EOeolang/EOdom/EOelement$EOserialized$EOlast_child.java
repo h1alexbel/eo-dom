@@ -47,6 +47,12 @@ public final class EOelement$EOserialized$EOlast_child extends PhDefault impleme
                         .getBytes()
                 )
             );
+            elem.put(
+                "psib",
+                new Data.ToPhi(
+                    new XmlNode.Default(source.getPreviousSibling()).asString().getBytes()
+                )
+            );
         }
         return elem;
     }
