@@ -48,6 +48,14 @@ public final class EOelement$EOserialized$EOnext_sibling extends PhDefault imple
                     )
                 );
             }
+            if (sibled.getPreviousSibling() != null) {
+                elem.put(
+                    "psib",
+                    new Data.ToPhi(
+                        new XmlNode.Default(sibled.getPreviousSibling()).asString().getBytes()
+                    )
+                );
+            }
         }
         return elem;
     }

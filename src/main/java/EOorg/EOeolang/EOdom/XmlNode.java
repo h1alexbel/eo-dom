@@ -33,6 +33,7 @@ import org.xml.sax.SAXException;
  *  Now, we should refactor and decompose this interface to present basic DOM element
  *  with an entry point to W3C API.
  */
+@SuppressWarnings("PMD.TooManyMethods")
 public interface XmlNode {
 
     /**

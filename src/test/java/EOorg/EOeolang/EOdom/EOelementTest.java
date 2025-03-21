@@ -341,6 +341,7 @@ final class EOelementTest {
         );
     }
 
+    @SuppressWarnings("PMD.AvoidDuplicateLiterals")
     @Test
     void retrievesNextSibling() {
         final Phi attribute = this.parsed("<a><b x='ttt'/><b x='boom'/></a>")
@@ -370,6 +371,7 @@ final class EOelementTest {
         );
     }
 
+    @SuppressWarnings("PMD.AvoidDuplicateLiterals")
     @Test
     void retrievesPreviousSiblings() {
         final Phi attr = this.parsed("<set><a name='A'/><b name='B'/><c name='C'/></set>")
@@ -386,18 +388,36 @@ final class EOelementTest {
     }
 
     @Test
-    void goesBackAndForthWithSiblings() {
+    void goesBackAndForthWithSiblingsFromLastChild() {
         final Phi attr = this.parsed("<set><a name='A'/><b name='B'/><c name='C'/></set>")
             .take("last-child")
             .take("previous-sibling")
             .take("previous-sibling")
             .take("next-sibling")
+            .take("previous-sibling")
             .take("get-attribute");
         attr.put("attr", new Data.ToPhi("name"));
         MatcherAssert.assertThat(
             "Attribute value of the retrieved node does not match with expected",
             new Dataized(attr).asString(),
-            Matchers.equalTo("B")
+            Matchers.equalTo("A")
+        );
+    }
+
+    @Test
+    void goesBackAndForthWithSiblingsFromFirstChild() {
+        final Phi attr = this.parsed("<films><f id='1'/><f id='2'/><f id='3'/></films>")
+            .take("first-child")
+            .take("next-sibling")
+            .take("next-sibling")
+            .take("previous-sibling")
+            .take("previous-sibling")
+            .take("get-attribute");
+        attr.put("attr", new Data.ToPhi("id"));
+        MatcherAssert.assertThat(
+            "Attribute value of the retrieved node does not match with expected",
+            new Dataized(attr).asString(),
+            Matchers.equalTo("1")
         );
     }
 

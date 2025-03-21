@@ -138,3 +138,27 @@ eq. > navigates-through-siblings
   .next-sibling
   .get-attribute "name"
   "Rib-eye"
+
+# This unit test is supposed to check the functionality of the corresponding object.
+eq. > goes-back-and-forth-from-last-child
+  element.serialized
+    "<groceries><g name='Cottage Cheese'/><g name='Soy Protein'/><g name='Avocado'/></groceries>"
+  .last-child
+  .previous-sibling
+  .previous-sibling
+  .next-sibling
+  .previous-sibling
+  .get-attribute "name"
+  "Cottage Cheese"
+
+# This unit test is supposed to check the functionality of the corresponding object.
+eq. > goes-back-and-forth-from-first-child
+  element.serialized
+    "<groceries><g name='Cottage Cheese'/><g name='Soy Protein'/><g name='Avocado'/></groceries>"
+  .first-child
+  .next-sibling
+  .next-sibling
+  .previous-sibling
+  .previous-sibling
+  .get-attribute "name"
+  "Cottage Cheese"
