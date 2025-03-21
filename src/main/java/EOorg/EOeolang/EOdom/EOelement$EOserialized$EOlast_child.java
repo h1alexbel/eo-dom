@@ -47,6 +47,10 @@ public final class EOelement$EOserialized$EOlast_child extends PhDefault impleme
                         .getBytes()
                 )
             );
+            elem.put(
+                "nsib",
+                new Data.ToPhi(new XmlNode.Default(source.getNextSibling()).asString().getBytes())
+            );
         }
         return elem;
     }

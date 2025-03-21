@@ -140,3 +140,14 @@
     .parent-node
     .get-attribute "test"
     "true"
+
+# This unit test is supposed to check the functionality of the corresponding object.
+[] > navigates-through-siblings
+  eq. > @
+    element.serialized
+      "<groceries><g name='Strawberry'/><g name='Banana'/><g name='Rib-eye'/></groceries>"
+    .first-child
+    .next-sibling
+    .next-sibling
+    .get-attribute "name"
+    "Rib-eye"
