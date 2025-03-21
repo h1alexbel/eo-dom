@@ -26,6 +26,7 @@ Here is how it works:
 +alias org.eolang.dom.doc
 +alias org.eolang.dom.dom-parser
 
+# Test that checks eo-dom functionality.
 [] > finds-element-at-index
   dom-parser.parse-from-string > doc
     "<books><book title='Object Thinking'/><book title='Elegant Objects Vol 1.'/></books>"
