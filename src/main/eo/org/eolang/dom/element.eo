@@ -14,6 +14,9 @@
   [xml parent] > @ ?
 
   # Serialized element.
+  # @todo #62:60min Set nsib attribute everywhere where its possible to chain
+  #  element navigation, and retrieve next-sibling from result. Don't forget to
+  #  add EO and Atom tests.
   [src parent nsib] > serialized
     # Attribute.
     [attr] > get-attribute ?
