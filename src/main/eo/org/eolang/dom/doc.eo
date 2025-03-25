@@ -30,4 +30,11 @@
     # Appends child to DOM document.
     [child] > append-child ?
     # Evaluate XPath expression.
+    # `xpath` - XPath expression.
+    # `return` - Return type, possible data types:
+    # `string` - Node result with `text()` node inside.
+    # `number` - Number result.
+    # `boolean` - Boolean result.
+    # `node` - Single node result as XML element.
+    # `nodeset` - Multiple node results as collection of XML elements.
     [xpath return] > evaluate ?
