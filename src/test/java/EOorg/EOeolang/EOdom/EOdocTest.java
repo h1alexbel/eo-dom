@@ -319,6 +319,22 @@ final class EOdocTest {
         );
     }
 
+    @Test
+    void evaluatesXpathAsNode() throws ImpossibleModificationException {
+        final Phi evaluate = this.parsedDocument(
+            "<blogs><blog id='1'>yegor256.com</blog><blog id='2'>l3r8y.ru</blog><blog id='3'>h1alexbel.xyz</blog></blogs>"
+        ).take("evaluate");
+        evaluate.put("xpath", new Data.ToPhi("//blog[@id='2']"));
+        evaluate.put("return", new Data.ToPhi("node"));
+        MatcherAssert.assertThat(
+            "Resulted node does not match with expected",
+            new Dataized(evaluate.take("as-string")).asString(),
+            Matchers.equalTo(
+                new Xembler(new Directives().add("blog").attr("id", "2").set("l3r8y.ru")).xml()
+            )
+        );
+    }
+
     private Phi parsedDocument(final String data) {
         final Phi parse = Phi.Φ.take("org.eolang.dom.dom-parser").copy()
             .take("parse-from-string");

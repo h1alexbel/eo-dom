@@ -30,4 +30,4 @@
     # Appends child to DOM document.
     [child] > append-child ?
     # Evaluate XPath expression.
-    [xpath] > evaluate ?
+    [xpath return] > evaluate ?
