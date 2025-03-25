@@ -350,6 +350,34 @@ final class EOdocTest {
         );
     }
 
+    @Test
+    void evaluatesXpathAsNumber() {
+        final Phi evaluate = this.parsedDocument(
+            "<books><book id='2' author='Justin Zobel'/><book id='1' author='David West'/></books>"
+        ).take("evaluate");
+        evaluate.put("xpath", new Data.ToPhi("//book[@author='David West']/@id"));
+        evaluate.put("return", new Data.ToPhi("number"));
+        MatcherAssert.assertThat(
+            "Retrieved number does not match with expected",
+            new Dataized(evaluate).asNumber().intValue(),
+            Matchers.equalTo(1)
+        );
+    }
+
+    @Test
+    void evaluatesXpathAsBoolean() {
+        final Phi evaluate = this.parsedDocument(
+            "<objects><o name='Q.org.eolang.f'/></objects>"
+        ).take("evaluate");
+        evaluate.put("xpath", new Data.ToPhi("//o[1][starts-with(@name, 'Q.org.eolang')]"));
+        evaluate.put("return", new Data.ToPhi("boolean"));
+        MatcherAssert.assertThat(
+            "Retrieved boolean value does not match with expected",
+            new Dataized(evaluate).asBool(),
+            Matchers.equalTo(true)
+        );
+    }
+
     private Phi parsedDocument(final String data) {
         final Phi parse = Phi.Φ.take("org.eolang.dom.dom-parser").copy()
             .take("parse-from-string");

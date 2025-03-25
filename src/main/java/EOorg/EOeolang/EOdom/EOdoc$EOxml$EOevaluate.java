@@ -51,7 +51,9 @@ public final class EOdoc$EOxml$EOevaluate extends PhDefault implements Atom {
         final String source = new Dataized(this.take(Attr.RHO).take("serialized")).asString();
         final XPath xpath = XPathFactory.newInstance().newXPath();
         final Map<String, QName> types = new HashMap<>(0);
+        types.put("NUMBER", XPathConstants.NUMBER);
         types.put("STRING", XPathConstants.STRING);
+        types.put("BOOLEAN", XPathConstants.BOOLEAN);
         types.put("NODE", XPathConstants.NODE);
         types.put("NODESET", XPathConstants.NODESET);
         final QName rtype = types.get(
@@ -82,7 +84,7 @@ public final class EOdoc$EOxml$EOevaluate extends PhDefault implements Atom {
                 xpath.evaluate(
                     new Dataized(this.take("xpath")).asString(),
                     doc,
-                    XPathConstants.STRING
+                    rtype
                 )
             );
         }
