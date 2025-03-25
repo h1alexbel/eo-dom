@@ -23,7 +23,9 @@ import org.eolang.Dataized;
 import org.eolang.PhDefault;
 import org.eolang.Phi;
 import org.eolang.XmirObject;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 /**
  * Evaluate XPath expression on given document.
@@ -52,35 +54,34 @@ public final class EOdoc$EOxml$EOevaluate extends PhDefault implements Atom {
         types.put("STRING", XPathConstants.STRING);
         types.put("NODE", XPathConstants.NODE);
         types.put("NODESET", XPathConstants.NODESET);
-        types.put("NUMBER", XPathConstants.NUMBER);
         final QName rtype = types.get(
             new Dataized(this.take("return")).asString().toUpperCase(Locale.ROOT)
         );
         final Phi result;
+        final Document doc = new XmlNode.Default(source).self().getOwnerDocument();
         if (XPathConstants.NODE.equals(rtype)) {
             result = Phi.Φ.take("org.eolang.dom.element").take("serialized").copy();
             final byte[] data = new XmlNode.Default(
                 (Element) xpath.evaluate(
                     new Dataized(this.take("xpath")).asString(),
-                    new XmlNode.Default(source).self().getOwnerDocument(),
+                    doc,
                     XPathConstants.NODE
                 )
             ).asString().getBytes();
             result.put("src", new Data.ToPhi(data));
             result.put("parent", new Data.ToPhi(data));
-//            System.out.println(
-//                xpath.evaluate(
-//                    new Dataized(this.take("xpath")).asString(),
-//                    new XmlNode.Default(source).self().getOwnerDocument(),
-//                    XPathConstants.NODE
-//                )
-//            );
-//            Phi.Φ.take("org.eolang.dom.element");
+        } else if(XPathConstants.NODESET.equals(rtype)) {
+            result = new NodesCollection(
+                (NodeList)
+                    xpath.evaluate(
+                        new Dataized(this.take("xpath")).asString(), doc, XPathConstants.NODESET
+                    )
+            ).value();
         } else {
             result = new Data.ToPhi(
                 xpath.evaluate(
                     new Dataized(this.take("xpath")).asString(),
-                    new XmlNode.Default(source).self().getOwnerDocument(),
+                    doc,
                     XPathConstants.STRING
                 )
             );

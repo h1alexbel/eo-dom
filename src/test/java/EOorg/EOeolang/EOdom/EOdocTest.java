@@ -305,6 +305,7 @@ final class EOdocTest {
             "<books><book id='1' title='EO vol.3'/><book id='2' title='How to Write a Better Thesis'/></books>"
         ).take("evaluate");
         evaluate.put("xpath", new Data.ToPhi("//book[@id='2']/@title"));
+        evaluate.put("return", new Data.ToPhi("string"));
         final String result = new Dataized(
             evaluate
         ).asString();
@@ -332,6 +333,20 @@ final class EOdocTest {
             Matchers.equalTo(
                 new Xembler(new Directives().add("blog").attr("id", "2").set("l3r8y.ru")).xml()
             )
+        );
+    }
+
+    @Test
+    void evaluatesXpathAsNodeSet() {
+        final Phi evaluate = this.parsedDocument(
+            "<objects><o base='f'/><o base='f'/><o base='a'/></objects>"
+        ).take("evaluate");
+        evaluate.put("xpath", new Data.ToPhi("//o[@base='f']"));
+        evaluate.put("return", new Data.ToPhi("nodeset"));
+        MatcherAssert.assertThat(
+            "Resulted node does not match with expected",
+            new Dataized(evaluate.take("length")).asNumber().intValue(),
+            Matchers.equalTo(2)
         );
     }
 
