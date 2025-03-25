@@ -299,6 +299,26 @@ final class EOdocTest {
         );
     }
 
+    @Test
+    void evaluatesXpath() {
+        final Phi evaluate = this.parsedDocument(
+            "<books><book id='1' title='EO vol.3'/><book id='2' title='How to Write a Better Thesis'/></books>"
+        ).take("evaluate");
+        evaluate.put("xpath", new Data.ToPhi("//book[@id='2']/@title"));
+        final String result = new Dataized(
+            evaluate
+        ).asString();
+        final String expected = "How to Write a Better Thesis";
+        MatcherAssert.assertThat(
+            String.format(
+                "Result of XPath evaluation: '%s' does not match with expected: '%s'",
+                result, expected
+            ),
+            result,
+            Matchers.equalTo(expected)
+        );
+    }
+
     private Phi parsedDocument(final String data) {
         final Phi parse = Phi.Φ.take("org.eolang.dom.dom-parser").copy()
             .take("parse-from-string");
