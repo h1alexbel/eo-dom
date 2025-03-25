@@ -30,8 +30,8 @@ import org.w3c.dom.NodeList;
 /**
  * Evaluate XPath expression on given document.
  *
- * @checkstyle TypeNameCheck (5 lines)
  * @since 0.0.0
+ * @checkstyle TypeNameCheck (5 lines)
  */
 @SuppressWarnings("PMD.AvoidDollarSigns")
 @XmirObject(oname = "doc.xml.evaluate")
@@ -48,7 +48,6 @@ public final class EOdoc$EOxml$EOevaluate extends PhDefault implements Atom {
 
     @Override
     public Phi lambda() throws Exception {
-        final String source = new Dataized(this.take(Attr.RHO).take("serialized")).asString();
         final XPath xpath = XPathFactory.newInstance().newXPath();
         final Map<String, QName> types = new HashMap<>(0);
         types.put("NUMBER", XPathConstants.NUMBER);
@@ -59,30 +58,26 @@ public final class EOdoc$EOxml$EOevaluate extends PhDefault implements Atom {
         final QName rtype = types.get(
             new Dataized(this.take("return")).asString().toUpperCase(Locale.ROOT)
         );
+        final Document doc = new XmlNode.Default(
+            new Dataized(this.take(Attr.RHO).take("serialized")).asString()
+        ).self().getOwnerDocument();
         final Phi result;
-        final Document doc = new XmlNode.Default(source).self().getOwnerDocument();
+        final String expression = new Dataized(this.take("xpath")).asString();
         if (XPathConstants.NODE.equals(rtype)) {
             result = Phi.Φ.take("org.eolang.dom.element").take("serialized").copy();
             final byte[] data = new XmlNode.Default(
-                (Element) xpath.evaluate(
-                    new Dataized(this.take("xpath")).asString(),
-                    doc,
-                    XPathConstants.NODE
-                )
+                (Element) xpath.evaluate(expression, doc, XPathConstants.NODE)
             ).asString().getBytes();
             result.put("src", new Data.ToPhi(data));
             result.put("parent", new Data.ToPhi(data));
-        } else if(XPathConstants.NODESET.equals(rtype)) {
+        } else if (XPathConstants.NODESET.equals(rtype)) {
             result = new NodesCollection(
-                (NodeList)
-                    xpath.evaluate(
-                        new Dataized(this.take("xpath")).asString(), doc, XPathConstants.NODESET
-                    )
+                (NodeList) xpath.evaluate(expression, doc, XPathConstants.NODESET)
             ).value();
         } else {
             result = new Data.ToPhi(
                 xpath.evaluate(
-                    new Dataized(this.take("xpath")).asString(),
+                    expression,
                     doc,
                     rtype
                 )
