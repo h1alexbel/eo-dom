@@ -9,143 +9,144 @@
 +unlint unit-test-without-phi
 
 # This unit test is supposed to check the functionality of the corresponding object.
-eq. > creates-element
-  dom-parser.parse-from-string
-    "<foo/>"
-  .create-element "bar"
-  .as-string
-  """
-  <?xml version=\"1.0\" encoding=\"UTF-8\"?>
-  <bar/>\n
-  """
-
-# This unit test is supposed to check the functionality of the corresponding object.
-# @todo #51:45min Make possible to append child node to the empty doc.
-#  It should be possible to append newly created element inside empty document.
-#  In this case, inserted element will be the root element of document. Don't forget
-#  to add EO and Java tests.
-[] > appends-element
-  dom-parser.parse-from-string > doc
-    "<foo/>"
-  eq. > @
-    doc.append-child
-      doc.create-element
-        "bar"
-      .with-attribute "f" "x"
-      .with-text "boom"
+[] > doc-tests
+  # This unit test is supposed to check the functionality of the corresponding object.
+  eq. > creates-element
+    dom-parser.parse-from-string
+      "<foo/>"
+    .create-element "bar"
     .as-string
     """
     <?xml version=\"1.0\" encoding=\"UTF-8\"?>
-    <foo>
-       <bar f=\"x\">boom</bar>
-    </foo>\n
+    <bar/>\n
     """
+  # This unit test is supposed to check the functionality of the corresponding object.
+  # @todo #51:45min Make possible to append child node to the empty doc.
+  #  It should be possible to append newly created element inside empty document.
+  #  In this case, inserted element will be the root element of document. Don't forget
+  #  to add EO and Java tests.
+  [] > appends-element
+    dom-parser.parse-from-string > doc
+      "<foo/>"
+    eq. > @
+      doc.append-child
+        doc.create-element
+          "bar"
+        .with-attribute "f" "x"
+        .with-text "boom"
+      .as-string
+      """
+      <?xml version=\"1.0\" encoding=\"UTF-8\"?>
+      <foo>
+         <bar f=\"x\">boom</bar>
+      </foo>\n
+      """
 
-# This unit test is supposed to check the functionality of the corresponding object.
-[] > retrieves-element-at-index
-  dom-parser.parse-from-string > doc
-    "<books><book title='Object Thinking'/><book title='Elegant Objects Vol 1.'/></books>"
-  doc.get-elements-by-tag-name "book" > books
-  books.at 0 > first
-  eq. > @
-    first.as-string
-    """
-    <?xml version=\"1.0\" encoding=\"UTF-8\"?>
-    <book title=\"Object Thinking\"/>\n
-    """
+  # This unit test is supposed to check the functionality of the corresponding object.
+  [] > retrieves-element-at-index
+    dom-parser.parse-from-string > doc
+      "<books><book title='Object Thinking'/><book title='Elegant Objects Vol 1.'/></books>"
+    doc.get-elements-by-tag-name "book" > books
+    books.at 0 > first
+    eq. > @
+      first.as-string
+      """
+      <?xml version=\"1.0\" encoding=\"UTF-8\"?>
+      <book title=\"Object Thinking\"/>\n
+      """
 
-# This unit test is supposed to check the functionality of the corresponding object.
-[] > retrieves-attribute-from-first-element
-  dom-parser.parse-from-string > doc
-    "<books><book title='Object Thinking'/><book title='Elegant Objects Vol 1.'/></books>"
-  doc.get-elements-by-tag-name "book" > books
-  books.at 0 > first
-  first.get-attribute "title" > title
-  eq. > @
-    title
-    "Object Thinking"
+  # This unit test is supposed to check the functionality of the corresponding object.
+  [] > retrieves-attribute-from-first-element
+    dom-parser.parse-from-string > doc
+      "<books><book title='Object Thinking'/><book title='Elegant Objects Vol 1.'/></books>"
+    doc.get-elements-by-tag-name "book" > books
+    books.at 0 > first
+    first.get-attribute "title" > title
+    eq. > @
+      title
+      "Object Thinking"
 
-# This unit test is supposed to check the functionality of the corresponding object.
-[] > finds-element-by-id
-  dom-parser.parse-from-string > doc
-    "<cities><c id='Moscow'/><c id='San Francisco'/><c id='Shanghai'/></cities>"
-  eq. > @
-    doc.get-element-by-id
+  # This unit test is supposed to check the functionality of the corresponding object.
+  [] > finds-element-by-id
+    dom-parser.parse-from-string > doc
+      "<cities><c id='Moscow'/><c id='San Francisco'/><c id='Shanghai'/></cities>"
+    eq. > @
+      doc.get-element-by-id
+        "Moscow"
+      .get-attribute "id"
       "Moscow"
-    .get-attribute "id"
-    "Moscow"
 
-# This unit test is supposed to check the functionality of the corresponding object.
-[] > retrieves-elements-in-namespace
-  dom-parser.parse-from-string > doc
-    "<root xmlns:x=\"https://foo.com/ns\"><x:foo>first</x:foo><x:foo>second</x:foo><x:bar>it is bar</x:bar></root>"
-  doc.get-elements-by-tag-name-ns "https://foo.com/ns" "foo" > elements
-  eq. > @
-    elements.length
-    2
+  # This unit test is supposed to check the functionality of the corresponding object.
+  [] > retrieves-elements-in-namespace
+    dom-parser.parse-from-string > doc
+      "<root xmlns:x=\"https://foo.com/ns\"><x:foo>first</x:foo><x:foo>second</x:foo><x:bar>it is bar</x:bar></root>"
+    doc.get-elements-by-tag-name-ns "https://foo.com/ns" "foo" > elements
+    eq. > @
+      elements.length
+      2
 
-# This unit test is supposed to check the functionality of the corresponding object.
-[] > retrieves-elements-in-wildcard-namespace
-  dom-parser.parse-from-string > doc
-    "<root xmlns:x=\"https://foo.com/ns\" xmlns:y=\"https://y.com/ns\"><x:f>first</x:f><x:f>second</x:f><y:f>third</y:f></root>"
-  doc.get-elements-by-tag-name-ns "*" "f" > elements
-  eq. > @
-    elements.length
-    3
+  # This unit test is supposed to check the functionality of the corresponding object.
+  [] > retrieves-elements-in-wildcard-namespace
+    dom-parser.parse-from-string > doc
+      "<root xmlns:x=\"https://foo.com/ns\" xmlns:y=\"https://y.com/ns\"><x:f>first</x:f><x:f>second</x:f><y:f>third</y:f></root>"
+    doc.get-elements-by-tag-name-ns "*" "f" > elements
+    eq. > @
+      elements.length
+      3
 
-# This unit test is supposed to check the functionality of the corresponding object.
-[] > retrieves-parent-node
-  dom-parser.parse-from-string > doc
-    "<trip oneway=\"maybe\"><station id='MOW'>Moscow</station><station id='PVG'>Shanghai</station></trip>"
-  eq. > @
-    doc.get-element-by-id
-      "MOW"
-    .parent-node
-    .get-attribute "oneway"
-    "maybe"
+  # This unit test is supposed to check the functionality of the corresponding object.
+  [] > retrieves-parent-node
+    dom-parser.parse-from-string > doc
+      "<trip oneway=\"maybe\"><station id='MOW'>Moscow</station><station id='PVG'>Shanghai</station></trip>"
+    eq. > @
+      doc.get-element-by-id
+        "MOW"
+      .parent-node
+      .get-attribute "oneway"
+      "maybe"
 
-# This unit test is supposed to check the functionality of the corresponding object.
-[] > evaluates-xpath-as-string
-  dom-parser.parse-from-string > doc
-    "<objects><o name='f' base='Q.org.eolang.string'/><o base='Q.org.eolang.f'/></objects>"
-  eq. > @
-    doc.evaluate "//o[1]/@name" "string"
-    "f"
+  # This unit test is supposed to check the functionality of the corresponding object.
+  [] > evaluates-xpath-as-string
+    dom-parser.parse-from-string > doc
+      "<objects><o name='f' base='Q.org.eolang.string'/><o base='Q.org.eolang.f'/></objects>"
+    eq. > @
+      doc.evaluate "//o[1]/@name" "string"
+      "f"
 
-# This unit test is supposed to check the functionality of the corresponding object.
-[] > evaluates-xpath-as-number
-  dom-parser.parse-from-string > doc
-    "<objects><o name='f' base='Q.org.eolang.string'/><o line='222' base='Q.org.eolang.f'/></objects>"
-  eq. > @
-    doc.evaluate "//o[2]/@line" "number"
-    222
+  # This unit test is supposed to check the functionality of the corresponding object.
+  [] > evaluates-xpath-as-number
+    dom-parser.parse-from-string > doc
+      "<objects><o name='f' base='Q.org.eolang.string'/><o line='222' base='Q.org.eolang.f'/></objects>"
+    eq. > @
+      doc.evaluate "//o[2]/@line" "number"
+      222
 
-# This unit test is supposed to check the functionality of the corresponding object.
-[] > evaluates-xpath-as-bool
-  dom-parser.parse-from-string > doc
-    "<objects><o name='f' base='Q.org.eolang.string'/><o base='Q.org.eolang.f'/></objects>"
-  eq. > @
-    doc.evaluate "//o[2][starts-with(@base, 'Q.org.eolang')]" "boolean"
-    true
+  # This unit test is supposed to check the functionality of the corresponding object.
+  [] > evaluates-xpath-as-bool
+    dom-parser.parse-from-string > doc
+      "<objects><o name='f' base='Q.org.eolang.string'/><o base='Q.org.eolang.f'/></objects>"
+    eq. > @
+      doc.evaluate "//o[2][starts-with(@base, 'Q.org.eolang')]" "boolean"
+      true
 
-# This unit test is supposed to check the functionality of the corresponding object.
-[] > evaluates-xpath-as-node
-  dom-parser.parse-from-string > doc
-    "<objects><o name='a' base='Q.org.eolang.f'/><o name='b' base='Q.org.eolang.f'/><o name='c' base='Q.org.eolang.string'/></objects>"
-  eq. > @
-    doc.evaluate
-      "//o[@name='c']"
-      "node"
-    .get-attribute "base"
-    "Q.org.eolang.string"
+  # This unit test is supposed to check the functionality of the corresponding object.
+  [] > evaluates-xpath-as-node
+    dom-parser.parse-from-string > doc
+      "<objects><o name='a' base='Q.org.eolang.f'/><o name='b' base='Q.org.eolang.f'/><o name='c' base='Q.org.eolang.string'/></objects>"
+    eq. > @
+      doc.evaluate
+        "//o[@name='c']"
+        "node"
+      .get-attribute "base"
+      "Q.org.eolang.string"
 
-# This unit test is supposed to check the functionality of the corresponding object.
-[] > evaluates-xpath-as-nodeset
-  dom-parser.parse-from-string > doc
-    "<objects><o name='a' base='Q.org.eolang.f'/><o name='b' base='Q.org.eolang.f'/><o name='c' base='Q.org.eolang.string'/></objects>"
-  eq. > @
-    doc.evaluate
-      "//o[@base='Q.org.eolang.f']"
-      "nodeset"
-    .length
-    2
+  # This unit test is supposed to check the functionality of the corresponding object.
+  [] > evaluates-xpath-as-nodeset
+    dom-parser.parse-from-string > doc
+      "<objects><o name='a' base='Q.org.eolang.f'/><o name='b' base='Q.org.eolang.f'/><o name='c' base='Q.org.eolang.string'/></objects>"
+    eq. > @
+      doc.evaluate
+        "//o[@base='Q.org.eolang.f']"
+        "nodeset"
+      .length
+      2
