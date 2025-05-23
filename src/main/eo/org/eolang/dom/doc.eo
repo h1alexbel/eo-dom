@@ -3,7 +3,7 @@
 +architect yegor256@gmail.com
 +home https://github.com/h1alexbel/eo-dom
 +package org.eolang.dom
-+rt jvm com.github.h1alexbel:eo-dom:0.0.0
++rt jvm io.github.h1alexbel:eo-dom:0.0.0
 +version 0.0.0
 +also string
 +unlint rt-without-atoms
