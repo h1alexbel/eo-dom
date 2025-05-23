@@ -4,9 +4,9 @@
 architect:
   - h1alexbel
 assets:
-  settings.xml: h1alexbel/home#settings.xml
-  pubring.gpg: h1alexbel/home#pubring.gpg
-  secring.gpg: h1alexbel/home#secring.gpg
+  settings.xml: h1alexbel/home#assets/sonatype/settings.xml
+  pubring.gpg: h1alexbel/home#assets/sonatype/pubring.gpg
+  secring.gpg: h1alexbel/home#assets/sonatype/secring.gpg
 install: |
   javac -version
   pdd --file=/dev/null
