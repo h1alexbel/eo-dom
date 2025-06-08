@@ -9,6 +9,9 @@
 +tests
 +unlint unit-test-without-phi
 
+# @todo #123:30min Move EO tests from `*-atom-tests` to their sources.
+#  Currently, we cannot do that because of failed distinction between generated sources and
+#  sources, placed into src/test/java by the programmer manually.
 # This unit test is supposed to check the functionality of the corresponding object.
 [] > element-atom-tests
   # This unit test is supposed to check the functionality of the corresponding object.
