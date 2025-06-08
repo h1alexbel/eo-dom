@@ -9,7 +9,6 @@
 package EOorg.EOeolang.EOdom; // NOPMD
 
 import org.eolang.Atom;
-import org.eolang.Attr;
 import org.eolang.Dataized;
 import org.eolang.PhDefault;
 import org.eolang.Phi;
@@ -28,7 +27,7 @@ public final class EOelement$EOserialized$EOchild_nodes extends PhDefault implem
     @Override
     public Phi lambda() throws Exception {
         return new NodesCollection(
-            new XmlNode.Default(new Dataized(this.take(Attr.RHO).take("src")).asString())
+            new XmlNode.Default(new Dataized(this.take(Phi.RHO).take("src")).asString())
                 .self().getChildNodes()
         ).value();
     }

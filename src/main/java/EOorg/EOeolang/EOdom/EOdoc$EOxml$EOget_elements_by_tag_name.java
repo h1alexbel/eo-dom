@@ -9,11 +9,10 @@
 package EOorg.EOeolang.EOdom; // NOPMD
 
 import javax.xml.transform.TransformerException;
-import org.eolang.AtVoid;
 import org.eolang.Atom;
-import org.eolang.Attr;
 import org.eolang.Dataized;
 import org.eolang.PhDefault;
+import org.eolang.PhVoid;
 import org.eolang.Phi;
 import org.eolang.XmirObject;
 
@@ -34,14 +33,14 @@ public final class EOdoc$EOxml$EOget_elements_by_tag_name extends PhDefault impl
      */
     @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public EOdoc$EOxml$EOget_elements_by_tag_name() {
-        this.add("name", new AtVoid("name"));
+        this.add("name", new PhVoid("name"));
     }
 
     @Override
     public Phi lambda() throws XmlParseException, TransformerException {
         return new NodesCollection(
             new XmlNode.Default(
-                new Dataized(this.take(Attr.RHO).take("serialized")).asString()
+                new Dataized(this.take(Phi.RHO).take("serialized")).asString()
             ).getElementsByTagName(new Dataized(this.take("name")).asString())
         ).value();
     }

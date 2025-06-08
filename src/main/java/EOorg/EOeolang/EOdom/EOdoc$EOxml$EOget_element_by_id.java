@@ -8,12 +8,11 @@
  */
 package EOorg.EOeolang.EOdom; // NOPMD
 
-import org.eolang.AtVoid;
 import org.eolang.Atom;
-import org.eolang.Attr;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.PhDefault;
+import org.eolang.PhVoid;
 import org.eolang.Phi;
 import org.eolang.XmirObject;
 import org.jsoup.Jsoup;
@@ -33,13 +32,13 @@ public final class EOdoc$EOxml$EOget_element_by_id extends PhDefault implements 
      */
     @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public EOdoc$EOxml$EOget_element_by_id() {
-        this.add("identifier", new AtVoid("identifier"));
+        this.add("identifier", new PhVoid("identifier"));
     }
 
     @Override
     public Phi lambda() throws XmlParseException {
-        final Phi element = Phi.Φ.take("org.eolang.dom.element").take(Attr.PHI).copy();
-        final String source = new Dataized(this.take(Attr.RHO).take("serialized")).asString();
+        final Phi element = Phi.Φ.take("org.eolang.dom.element").take(Phi.PHI).copy();
+        final String source = new Dataized(this.take(Phi.RHO).take("serialized")).asString();
         element.put(
             "xml",
             new Data.ToPhi(

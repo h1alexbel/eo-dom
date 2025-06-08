@@ -9,12 +9,11 @@
 package EOorg.EOeolang.EOdom; // NOPMD
 
 import javax.xml.parsers.DocumentBuilderFactory;
-import org.eolang.AtVoid;
 import org.eolang.Atom;
-import org.eolang.Attr;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.PhDefault;
+import org.eolang.PhVoid;
 import org.eolang.Phi;
 import org.eolang.XmirObject;
 
@@ -33,12 +32,12 @@ public final class EOdoc$EOxml$EOcreate_element extends PhDefault implements Ato
      */
     @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public EOdoc$EOxml$EOcreate_element() {
-        this.add("lname", new AtVoid("lname"));
+        this.add("lname", new PhVoid("lname"));
     }
 
     @Override
     public Phi lambda() throws Exception {
-        final Phi elem = Phi.Φ.take("org.eolang.dom.element").take(Attr.PHI).copy();
+        final Phi elem = Phi.Φ.take("org.eolang.dom.element").take(Phi.PHI).copy();
         final String node = new XmlNode.Default(
             DocumentBuilderFactory.newInstance()
                 .newDocumentBuilder()

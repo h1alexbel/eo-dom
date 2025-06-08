@@ -68,7 +68,7 @@
     <dependency>
       <groupId>org.eolang</groupId>
       <artifactId>eo-runtime</artifactId>
-      <version>0.56.2</version>
+      <version>0.56.4</version>
     </dependency>
     <dependency>
       <groupId>org.cactoos</groupId>
@@ -123,7 +123,7 @@
       <plugin>
         <groupId>org.eolang</groupId>
         <artifactId>eo-maven-plugin</artifactId>
-        <version>0.56.2</version>
+        <version>0.56.4</version>
         <configuration>
           <foreign>${project.build.directory}/eo-foreign.csv</foreign>
           <foreignFormat>csv</foreignFormat>
@@ -151,27 +151,15 @@
                   same in `test-compile` execution.
               -->
               <failOnWarning>false</failOnWarning>
-            </configuration>
-          </execution>
-          <execution>
-            <id>test-compile</id>
-            <phase>generate-test-sources</phase>
-            <goals>
-              <goal>register</goal>
-              <goal>compile</goal>
-              <goal>xmir-to-phi</goal>
-              <goal>transpile</goal>
-            </goals>
-            <configuration>
-              <scope>test</scope>
-              <sourcesDir>${project.basedir}/src/test/eo</sourcesDir>
-              <targetDir>${project.build.directory}/eo-test</targetDir>
-              <phiInputDir>${project.build.directory}/eo-test/1-parse</phiInputDir>
-              <phiOutputDir>${project.build.directory}/eo-test/phi</phiOutputDir>
-              <addSourcesRoot>false</addSourcesRoot>
-              <addTestSourcesRoot>true</addTestSourcesRoot>
-              <generatedDir>${project.build.directory}/generated-test-sources</generatedDir>
-              <failOnWarning>false</failOnWarning>
+              <skipProgramLints>
+                <!--
+                  @todo #123:35min Enable `inconsistent-args` lint.
+                   For now, when enabled, it fails MjLint execution. After this issue
+                   will be fixed: https://github.com/objectionary/lints/issues/624, we should
+                   enable the lint.
+                -->
+                <lint>inconsistent-args</lint>
+              </skipProgramLints>
             </configuration>
           </execution>
         </executions>

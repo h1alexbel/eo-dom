@@ -9,7 +9,6 @@
 package EOorg.EOeolang.EOdom; // NOPMD
 
 import org.eolang.Atom;
-import org.eolang.Attr;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.PhDefault;
@@ -27,9 +26,9 @@ public final class EOelement$EOserialized$EOparent_node extends PhDefault implem
 
     @Override
     public Phi lambda() throws Exception {
-        final Phi elem = Phi.Φ.take("org.eolang.dom.element").take(Attr.PHI).copy();
+        final Phi elem = Phi.Φ.take("org.eolang.dom.element").take(Phi.PHI).copy();
         final byte[] data = new XmlNode.Default(
-            new Dataized(this.take(Attr.RHO).take("parent")).asString()
+            new Dataized(this.take(Phi.RHO).take("parent")).asString()
         ).asString().getBytes();
         elem.put("xml", new Data.ToPhi(data));
         elem.put("parent", new Data.ToPhi(data));

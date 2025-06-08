@@ -13,12 +13,11 @@ import java.io.StringReader;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import org.eolang.AtVoid;
 import org.eolang.Atom;
-import org.eolang.Attr;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.PhDefault;
+import org.eolang.PhVoid;
 import org.eolang.Phi;
 import org.eolang.XmirObject;
 import org.w3c.dom.Document;
@@ -40,7 +39,7 @@ public final class EOdoc$EOxml$EOappend_child extends PhDefault implements Atom 
      */
     @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public EOdoc$EOxml$EOappend_child() {
-        this.add("child", new AtVoid("child"));
+        this.add("child", new PhVoid("child"));
     }
 
     @Override
@@ -49,7 +48,7 @@ public final class EOdoc$EOxml$EOappend_child extends PhDefault implements Atom 
         final DocumentBuilder builder = factory.newDocumentBuilder();
         final Document base = builder.parse(
             new InputSource(
-                new StringReader(new Dataized(this.take(Attr.RHO).take("serialized")).asString())
+                new StringReader(new Dataized(this.take(Phi.RHO).take("serialized")).asString())
             )
         );
         base.getDocumentElement().appendChild(
@@ -64,7 +63,7 @@ public final class EOdoc$EOxml$EOappend_child extends PhDefault implements Atom 
                 true
             )
         );
-        final Phi fresh = Phi.Φ.take("org.eolang.dom.doc").copy().take(Attr.PHI);
+        final Phi fresh = Phi.Φ.take("org.eolang.dom.doc").copy().take(Phi.PHI);
         fresh.put(
             "data",
             new Data.ToPhi(new XmlNode.Default(base.getDocumentElement()).asString().getBytes())

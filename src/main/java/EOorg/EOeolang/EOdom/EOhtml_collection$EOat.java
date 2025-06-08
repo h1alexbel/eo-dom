@@ -10,12 +10,11 @@ package EOorg.EOeolang.EOdom; // NOPMD
 
 import java.util.List;
 import org.cactoos.list.ListOf;
-import org.eolang.AtVoid;
 import org.eolang.Atom;
-import org.eolang.Attr;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.PhDefault;
+import org.eolang.PhVoid;
 import org.eolang.Phi;
 import org.eolang.XmirObject;
 
@@ -55,17 +54,17 @@ public final class EOhtml_collection$EOat extends PhDefault implements Atom {
      */
     @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public EOhtml_collection$EOat() {
-        this.add("pos", new AtVoid("pos"));
+        this.add("pos", new PhVoid("pos"));
     }
 
     @Override
     public Phi lambda() {
         final Double pos = new Dataized(this.take("pos")).asNumber();
         final List<String> nodes = new ListOf<>(
-            new Dataized(this.take(Attr.RHO).take("nodes"))
+            new Dataized(this.take(Phi.RHO).take("nodes"))
                 .asString().split("\n")
         );
-        final Phi element = Phi.Φ.take("org.eolang.dom.element").take(Attr.PHI).copy();
+        final Phi element = Phi.Φ.take("org.eolang.dom.element").take(Phi.PHI).copy();
         element.put("xml", new Data.ToPhi(nodes.get(pos.intValue())));
         element.put("parent", new Data.ToPhi(nodes.get(pos.intValue())));
         return element;

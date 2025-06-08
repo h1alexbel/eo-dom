@@ -9,7 +9,6 @@
 package EOorg.EOeolang.EOdom; // NOPMD
 
 import org.eolang.Atom;
-import org.eolang.Attr;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.PhDefault;
@@ -31,7 +30,7 @@ public final class EOelement$EOserialized$EOlast_child extends PhDefault impleme
         final Phi elem = Phi.Φ.take("org.eolang.dom.element").take("serialized").copy();
         final XmlNode.Default source = new XmlNode.Default(
             new XmlNode.Default(
-                new Dataized(this.take(Attr.RHO).take("src")).asString()
+                new Dataized(this.take(Phi.RHO).take("src")).asString()
             ).getLastChild()
         );
         elem.put(

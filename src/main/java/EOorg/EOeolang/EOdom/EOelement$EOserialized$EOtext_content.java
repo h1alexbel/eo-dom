@@ -9,7 +9,6 @@
 package EOorg.EOeolang.EOdom; // NOPMD
 
 import org.eolang.Atom;
-import org.eolang.Attr;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.PhDefault;
@@ -28,7 +27,7 @@ public final class EOelement$EOserialized$EOtext_content extends PhDefault imple
     @Override
     public Phi lambda() throws XmlParseException {
         return new Data.ToPhi(
-            new XmlNode.Default(new Dataized(this.take(Attr.RHO).take("src")).asString())
+            new XmlNode.Default(new Dataized(this.take(Phi.RHO).take("src")).asString())
                 .text().getBytes()
         );
     }

@@ -9,7 +9,6 @@
 package EOorg.EOeolang.EOdom; // NOPMD
 
 import org.eolang.Atom;
-import org.eolang.Attr;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.PhDefault;
@@ -28,7 +27,7 @@ public final class EOdoc$EOxml$EOas_string extends PhDefault implements Atom {
     @Override
     public Phi lambda() {
         return new Data.ToPhi(
-            new Dataized(this.take(Attr.RHO).take("serialized")).asString()
+            new Dataized(this.take(Phi.RHO).take("serialized")).asString()
         );
     }
 }

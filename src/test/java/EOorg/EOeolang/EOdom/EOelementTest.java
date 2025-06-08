@@ -8,7 +8,6 @@
  */
 package EOorg.EOeolang.EOdom; // NOPMD
 
-import org.eolang.Attr;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.Phi;
@@ -422,7 +421,7 @@ final class EOelementTest {
     }
 
     private Phi parsed(final String xml) {
-        final Phi element = Phi.Φ.take("org.eolang.dom.element").take(Attr.PHI).copy();
+        final Phi element = Phi.Φ.take("org.eolang.dom.element").take(Phi.PHI).copy();
         element.put("xml", new Data.ToPhi(xml));
         element.put("parent", new Data.ToPhi(xml));
         return element;

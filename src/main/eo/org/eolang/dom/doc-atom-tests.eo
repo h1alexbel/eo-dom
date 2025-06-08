@@ -9,9 +9,9 @@
 +unlint unit-test-without-phi
 
 # This unit test is supposed to check the functionality of the corresponding object.
-[] > doc-tests
+[] > doc-atom-tests
   # This unit test is supposed to check the functionality of the corresponding object.
-  eq. > creates-element
+  eq. +> creates-element
     dom-parser.parse-from-string
       "<foo/>"
     .create-element "bar"
@@ -25,7 +25,7 @@
   #  It should be possible to append newly created element inside empty document.
   #  In this case, inserted element will be the root element of document. Don't forget
   #  to add EO and Java tests.
-  [] > appends-element
+  [] +> appends-element
     dom-parser.parse-from-string > doc
       "<foo/>"
     eq. > @
@@ -43,7 +43,7 @@
       """
 
   # This unit test is supposed to check the functionality of the corresponding object.
-  [] > retrieves-element-at-index
+  [] +> retrieves-element-at-index
     dom-parser.parse-from-string > doc
       "<books><book title='Object Thinking'/><book title='Elegant Objects Vol 1.'/></books>"
     doc.get-elements-by-tag-name "book" > books
@@ -56,7 +56,7 @@
       """
 
   # This unit test is supposed to check the functionality of the corresponding object.
-  [] > retrieves-attribute-from-first-element
+  [] +> retrieves-attribute-from-first-element
     dom-parser.parse-from-string > doc
       "<books><book title='Object Thinking'/><book title='Elegant Objects Vol 1.'/></books>"
     doc.get-elements-by-tag-name "book" > books
@@ -67,7 +67,7 @@
       "Object Thinking"
 
   # This unit test is supposed to check the functionality of the corresponding object.
-  [] > finds-element-by-id
+  [] +> finds-element-by-id
     dom-parser.parse-from-string > doc
       "<cities><c id='Moscow'/><c id='San Francisco'/><c id='Shanghai'/></cities>"
     eq. > @
@@ -77,7 +77,7 @@
       "Moscow"
 
   # This unit test is supposed to check the functionality of the corresponding object.
-  [] > retrieves-elements-in-namespace
+  [] +> retrieves-elements-in-namespace
     dom-parser.parse-from-string > doc
       "<root xmlns:x=\"https://foo.com/ns\"><x:foo>first</x:foo><x:foo>second</x:foo><x:bar>it is bar</x:bar></root>"
     doc.get-elements-by-tag-name-ns "https://foo.com/ns" "foo" > elements
@@ -86,7 +86,7 @@
       2
 
   # This unit test is supposed to check the functionality of the corresponding object.
-  [] > retrieves-elements-in-wildcard-namespace
+  [] +> retrieves-elements-in-wildcard-namespace
     dom-parser.parse-from-string > doc
       "<root xmlns:x=\"https://foo.com/ns\" xmlns:y=\"https://y.com/ns\"><x:f>first</x:f><x:f>second</x:f><y:f>third</y:f></root>"
     doc.get-elements-by-tag-name-ns "*" "f" > elements
@@ -95,7 +95,7 @@
       3
 
   # This unit test is supposed to check the functionality of the corresponding object.
-  [] > retrieves-parent-node
+  [] +> retrieves-parent-node
     dom-parser.parse-from-string > doc
       "<trip oneway=\"maybe\"><station id='MOW'>Moscow</station><station id='PVG'>Shanghai</station></trip>"
     eq. > @
@@ -106,7 +106,7 @@
       "maybe"
 
   # This unit test is supposed to check the functionality of the corresponding object.
-  [] > evaluates-xpath-as-string
+  [] +> evaluates-xpath-as-string
     dom-parser.parse-from-string > doc
       "<objects><o name='f' base='Q.org.eolang.string'/><o base='Q.org.eolang.f'/></objects>"
     eq. > @
@@ -114,7 +114,7 @@
       "f"
 
   # This unit test is supposed to check the functionality of the corresponding object.
-  [] > evaluates-xpath-as-number
+  [] +> evaluates-xpath-as-number
     dom-parser.parse-from-string > doc
       "<objects><o name='f' base='Q.org.eolang.string'/><o line='222' base='Q.org.eolang.f'/></objects>"
     eq. > @
@@ -122,7 +122,7 @@
       222
 
   # This unit test is supposed to check the functionality of the corresponding object.
-  [] > evaluates-xpath-as-bool
+  [] +> evaluates-xpath-as-bool
     dom-parser.parse-from-string > doc
       "<objects><o name='f' base='Q.org.eolang.string'/><o base='Q.org.eolang.f'/></objects>"
     eq. > @
@@ -130,7 +130,7 @@
       true
 
   # This unit test is supposed to check the functionality of the corresponding object.
-  [] > evaluates-xpath-as-node
+  [] +> evaluates-xpath-as-node
     dom-parser.parse-from-string > doc
       "<objects><o name='a' base='Q.org.eolang.f'/><o name='b' base='Q.org.eolang.f'/><o name='c' base='Q.org.eolang.string'/></objects>"
     eq. > @
@@ -141,7 +141,7 @@
       "Q.org.eolang.string"
 
   # This unit test is supposed to check the functionality of the corresponding object.
-  [] > evaluates-xpath-as-nodeset
+  [] +> evaluates-xpath-as-nodeset
     dom-parser.parse-from-string > doc
       "<objects><o name='a' base='Q.org.eolang.f'/><o name='b' base='Q.org.eolang.f'/><o name='c' base='Q.org.eolang.string'/></objects>"
     eq. > @

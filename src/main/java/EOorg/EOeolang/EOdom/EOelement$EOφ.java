@@ -8,12 +8,11 @@
  */
 package EOorg.EOeolang.EOdom; // NOPMD
 
-import org.eolang.AtVoid;
 import org.eolang.Atom;
-import org.eolang.Attr;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.PhDefault;
+import org.eolang.PhVoid;
 import org.eolang.Phi;
 import org.eolang.XmirObject;
 
@@ -31,13 +30,13 @@ public final class EOelement$EOφ extends PhDefault implements Atom {
      */
     @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public EOelement$EOφ() {
-        this.add("xml", new AtVoid("xml"));
-        this.add("parent", new AtVoid("parent"));
+        this.add("xml", new PhVoid("xml"));
+        this.add("parent", new PhVoid("parent"));
     }
 
     @Override
     public Phi lambda() throws Exception {
-        final Phi serialized = this.take(Attr.RHO).take("serialized");
+        final Phi serialized = this.take(Phi.RHO).take("serialized");
         serialized.put(
             "src",
             new Data.ToPhi(

@@ -10,7 +10,6 @@ package EOorg.EOeolang.EOdom; // NOPMD
 
 import org.cactoos.list.ListOf;
 import org.eolang.Atom;
-import org.eolang.Attr;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.PhDefault;
@@ -30,7 +29,7 @@ public final class EOhtml_collection$EOlength extends PhDefault implements Atom 
     @Override
     public Phi lambda() throws Exception {
         final int result;
-        final String xml = new Dataized(this.take(Attr.RHO).take("nodes"))
+        final String xml = new Dataized(this.take(Phi.RHO).take("nodes"))
             .asString();
         if (xml.isEmpty()) {
             result = 0;

@@ -8,9 +8,9 @@
 +tests
 
 # This unit test is supposed to check the functionality of the corresponding object.
-[] > dom-parser-tests
+[] > dom-parser-atom-tests
   # This unit test is supposed to check the functionality of the corresponding object.
-  [] > parses-string-into-document
+  [] +> parses-string-into-document
     dom-parser.parse-from-string > doc
       "<books><book title=\"Object Thinking\"/></books>"
     eq. > @

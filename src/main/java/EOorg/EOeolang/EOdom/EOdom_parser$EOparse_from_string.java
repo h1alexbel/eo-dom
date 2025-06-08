@@ -8,13 +8,12 @@
  */
 package EOorg.EOeolang.EOdom; // NOPMD
 
-import org.eolang.AtVoid;
 import org.eolang.Atom;
-import org.eolang.Attr;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.ExFailure;
 import org.eolang.PhDefault;
+import org.eolang.PhVoid;
 import org.eolang.Phi;
 import org.eolang.XmirObject;
 
@@ -32,13 +31,13 @@ public final class EOdom_parser$EOparse_from_string extends PhDefault implements
      */
     @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public EOdom_parser$EOparse_from_string() {
-        this.add("data", new AtVoid("data"));
+        this.add("data", new PhVoid("data"));
     }
 
     @Override
     public Phi lambda() {
         final Phi data = this.take("data");
-        final Phi xml = Phi.Φ.take("org.eolang.dom.doc").copy().take(Attr.PHI);
+        final Phi xml = Phi.Φ.take("org.eolang.dom.doc").copy().take(Phi.PHI);
         try {
             xml.put(
                 "data",

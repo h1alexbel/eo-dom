@@ -15,12 +15,11 @@ import javax.xml.namespace.QName;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
-import org.eolang.AtVoid;
 import org.eolang.Atom;
-import org.eolang.Attr;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.PhDefault;
+import org.eolang.PhVoid;
 import org.eolang.Phi;
 import org.eolang.XmirObject;
 import org.w3c.dom.Document;
@@ -42,8 +41,8 @@ public final class EOdoc$EOxml$EOevaluate extends PhDefault implements Atom {
      */
     @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public EOdoc$EOxml$EOevaluate() {
-        this.add("xpath", new AtVoid("xpath"));
-        this.add("return", new AtVoid("return"));
+        this.add("xpath", new PhVoid("xpath"));
+        this.add("return", new PhVoid("return"));
     }
 
     @Override
@@ -59,7 +58,7 @@ public final class EOdoc$EOxml$EOevaluate extends PhDefault implements Atom {
             new Dataized(this.take("return")).asString().toUpperCase(Locale.ROOT)
         );
         final Document doc = new XmlNode.Default(
-            new Dataized(this.take(Attr.RHO).take("serialized")).asString()
+            new Dataized(this.take(Phi.RHO).take("serialized")).asString()
         ).self().getOwnerDocument();
         final Phi result;
         final String expression = new Dataized(this.take("xpath")).asString();

@@ -9,7 +9,6 @@
 package EOorg.EOeolang.EOdom; // NOPMD
 
 import org.eolang.Atom;
-import org.eolang.Attr;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.PhDefault;
@@ -29,10 +28,10 @@ public final class EOelement$EOserialized$EOnext_sibling extends PhDefault imple
     public Phi lambda() throws Exception {
         final Phi elem = Phi.Φ.take("org.eolang.dom.element").take("serialized").copy();
         final XmlNode.Default source = new XmlNode.Default(
-            new Dataized(this.take(Attr.RHO).take("nsib")).asString()
+            new Dataized(this.take(Phi.RHO).take("nsib")).asString()
         );
         final XmlNode.Default parent = new XmlNode.Default(
-            new Dataized(this.take(Attr.RHO).take("parent")).asString()
+            new Dataized(this.take(Phi.RHO).take("parent")).asString()
         );
         elem.put("src", new Data.ToPhi(source.asString().getBytes()));
         elem.put("parent", new Data.ToPhi(parent.asString().getBytes()));
