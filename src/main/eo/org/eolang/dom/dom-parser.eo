@@ -13,3 +13,15 @@
 [] > dom-parser
   # Parse string into a DOM document.
   [data] > parse-from-string ?
+  # This unit test is supposed to check the functionality of the corresponding object.
+  [] +> parses-string-into-document
+    dom-parser.parse-from-string > doc
+      "<books><book title=\"Object Thinking\"/></books>"
+    eq. > @
+      doc.as-string
+      """
+      <?xml version=\"1.0\" encoding=\"UTF-8\"?>
+      <books>
+         <book title=\"Object Thinking\"/>
+      </books>\n
+      """
