@@ -13,7 +13,7 @@ jobs:
   xcop:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - uses: g4s8/xcop-action@master
         with:
           license: LICENSE.txt
